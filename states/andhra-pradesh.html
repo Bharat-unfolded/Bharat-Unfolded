@@ -23,7 +23,7 @@ h1{text-align:center;font-size:clamp(23px,3vw,34px);line-height:1.25;margin:16px
 .photo-credit{display:inline-block;margin:0 0 12px;color:#667d70;font-size:11px;font-weight:700;text-decoration:underline;text-underline-offset:3px;opacity:.9}
 .photo-credit:hover{color:#0d6b4b}
 .place-image img{display:block;width:100%;height:100%;object-fit:cover}
-</style></head><body><main class="wrap"><div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED · INDIA</a></div><h1>40 Top Tourist Places &amp; Temples in Andhra Pradesh</h1><div class="accent"></div>
+</style><style>.single-place-view .place-card.search-focus-card{display:grid!important;visibility:visible!important;margin:18px 0}</style></head><body><main class="wrap"><div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED · INDIA</a></div><h1>40 Top Tourist Places &amp; Temples in Andhra Pradesh</h1><div class="accent"></div>
 <section class="hero"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Araku%20Valley.jpg" alt="Eastern Ghats landscape in Andhra Pradesh" fetchpriority="high"><div class="hero-copy"><div class="eyebrow">Bharat Unfolded · Southern India</div><h2>Discover Andhra Pradesh</h2><p>From Tirumala's sacred hills and the ancient Buddhist sites of Amaravati to the Eastern Ghats, Godavari river country and the Bay of Bengal coast.</p></div></section>
 <p class="intro">Andhra Pradesh brings together celebrated pilgrimage centres, historic forts, Buddhist heritage, long beaches, forest waterfalls and hill landscapes. Explore these 40 destinations by region, and use the photo-search links on each card to find more images. <strong>Visitor timings and fees below are indicative only</strong>; temple rituals, festivals, forest permissions, ferry services and local rules can change. Confirm with the official site or local authority before travelling.</p>
 <section class="toolbar" aria-label="Search and filter destinations"><input id="placeSearch" class="search" type="search" placeholder="Search a temple, beach, cave, waterfall or district…" autocomplete="off"><div class="count" id="resultCount">Showing 40 of 40 places</div><div class="filters"><button class="active" data-filter="all">All 40 places</button><button data-filter="temple">Temples</button><button data-filter="nature">Nature &amp; beaches</button><button data-filter="heritage">Forts &amp; heritage</button></div></section>
@@ -76,7 +76,21 @@ const normalize=s=>(s||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toL
 function update(){const q=normalize(input.value),words=q.split(' ').filter(w=>w.length>1);let shown=0;cards.forEach((card,i)=>{const number=i+1,haystack=normalize([card.innerText,card.dataset.search].join(' ')),okText=!words.length||words.every(w=>haystack.includes(w)),okType=filter==='all'||(types[filter]||[]).includes(number);card.hidden=!(okText&&okType);if(!card.hidden)shown++});count.textContent='Showing '+shown+' of 40 places';empty.style.display=shown?'none':'block'}
 input.addEventListener('input',update);buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;update()}));
 const requestedPlace=new URLSearchParams(location.search).get('place');
-if(requestedPlace){const target=normalize(requestedPlace);const match=cards.find(card=>normalize(card.querySelector('h2')?.innerText)===target||normalize(card.querySelector('h2')?.innerText).includes(target));if(match){input.value=requestedPlace;update();setTimeout(()=>match.scrollIntoView({behavior:'smooth',block:'start'}),120)}else{input.value=requestedPlace;update()}}
+if(requestedPlace){
+ const target=normalize(requestedPlace);
+ const match=cards.find(card=>normalize(card.querySelector('h2')?.innerText)===target);
+ if(match){
+  cards.forEach(card=>{card.hidden=card!==match});
+  [document.querySelector('.toolbar'),document.querySelector('.hero'),document.querySelector('.intro'),document.querySelector('h1'),document.querySelector('.accent'),document.querySelector('.top'),count,empty].filter(Boolean).forEach(el=>el.hidden=true);
+  match.hidden=false;
+  match.classList.add('search-focus-card');
+  document.body.classList.add('single-place-view');
+  setTimeout(()=>match.scrollIntoView({behavior:'instant',block:'start'}),60);
+ }else{
+  const partial=cards.find(card=>normalize(card.querySelector('h2')?.innerText).includes(target));
+  if(partial){cards.forEach(card=>{card.hidden=card!==partial});partial.hidden=false;partial.classList.add('search-focus-card');}
+ }
+}
 </script>
 <script>
 (function(){
