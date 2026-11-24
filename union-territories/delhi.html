@@ -35,6 +35,44 @@ h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-he
 .place-copy h2 a:hover{color:var(--green)}
 @media(min-width:721px){body{padding:30px 34px 82px}.top{margin-bottom:18px}.place-card{min-height:390px}.place-image img{min-height:390px}}\n@media(max-width:720px){body{padding:18px 14px 54px}body:before{inset:6px;border-radius:18px}body:after{left:12px;right:12px;top:18px;bottom:18px}}
 @media(prefers-reduced-motion:reduce){.place-card{opacity:1;transform:none;transition:none}}
+
+/* Mobile readability and layout fixes */
+@media (max-width:720px){
+  body{padding:12px 10px 36px!important;background-attachment:scroll!important}
+  body:before,body:after{display:none!important}
+  .wrap{width:100%;max-width:100%}
+  .top{margin:2px 0 14px}
+  .back{font-size:10px;padding:9px 14px}
+  h1{font-size:clamp(22px,6vw,28px);line-height:1.25;margin:0 5px 16px}
+  .hero{border-radius:18px}
+  .hero img{height:220px;min-height:0;object-fit:cover}
+  .copy{padding:18px 16px}
+  .copy p{font-size:15px;line-height:1.75}
+  .places{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:18px}
+  .place-card{display:flex;flex-direction:column;min-width:0;width:100%;border-radius:18px;transform:none}
+  .place-image{width:100%;min-height:0;height:auto}
+  .place-image img{display:block;width:100%;height:220px;min-height:0;object-fit:cover}
+  .credit{font-size:10px;line-height:1.45;padding:7px 10px}
+  .place-copy{padding:18px 16px}
+  .number{font-size:10px}
+  .place-copy h2{font-size:25px;line-height:1.2;margin:8px 0 12px}
+  .place-copy p{font-size:15px;line-height:1.78;margin:0 0 13px;overflow-wrap:anywhere}
+  .place-copy h3{font-size:17px;margin:18px 0 9px}
+  .place-copy ul{padding-left:19px}
+  .place-copy li{font-size:14px;line-height:1.7;margin-bottom:7px}
+  .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}
+  .facts span{min-width:0;padding:10px 11px;font-size:12px;overflow-wrap:anywhere}
+  .fee-table-wrap{overflow-x:auto}
+  .fee-table{min-width:280px}
+  .fee-table th,.fee-table td{padding:10px;font-size:12px}
+}
+@media(max-width:380px){
+  .hero img,.place-image img{height:190px}
+  .place-copy{padding:16px 14px}
+  .place-copy p{font-size:14px;line-height:1.72}
+  .facts{grid-template-columns:1fr}
+}
+
 </style></head><body><div class="scroll-progress" aria-hidden="true"></div><main class="wrap">
 <div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED</a></div><h1>33 Incredible Tourist Places to Visit in Delhi</h1>
 <article class="hero glass"><img src="https://delhitourism.travel/images/places-to-visit/headers/humayun-s-tomb-delhi-entry-fee-timings-holidays-reviews-header.jpg" alt="Humayun's Tomb in Delhi" fetchpriority="high"><div class="copy"><div class="accent"></div>
