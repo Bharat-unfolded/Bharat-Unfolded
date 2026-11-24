@@ -17,18 +17,18 @@ h1{margin:0 auto 20px;text-align:center;font-size:clamp(19px,2.5vw,27px);line-he
 .hero{overflow:hidden;border-radius:25px;margin-bottom:28px}.hero img{display:block;width:100%;height:clamp(220px,38vw,420px);object-fit:cover}
 .accent{width:54px;height:3px;border-radius:5px;background:linear-gradient(90deg,#f28c28 0 33%,#fff 33% 66%,#13804b 66%);margin:0 auto 18px}
 .place-card{overflow:hidden;display:grid;grid-template-columns:minmax(280px,.95fr) minmax(0,1.05fr);border-radius:24px;border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 48px rgba(32,52,42,.10),inset 0 1px 0 rgba(255,255,255,.8);margin:26px 0}
-.place-image{background:rgba(255,255,255,.12);overflow:hidden;align-self:start}.place-image img{display:block;width:100%;height:clamp(390px,42vw,560px);min-height:0;object-fit:cover;object-position:center}
+.place-image{background:rgba(255,255,255,.12);overflow:hidden;align-self:stretch;min-height:100%}.place-image img{display:block;width:100%;height:100%;min-height:520px;object-fit:cover;object-position:center}
 
-.place-copy{padding:clamp(22px,3vw,36px);color:#344b43;background:rgba(255,255,255,.16)}
+.place-copy{padding:clamp(24px,3.2vw,42px);color:#344b43;background:rgba(255,255,255,.16)}
 .number{color:var(--gold);font-size:10px;font-weight:850;letter-spacing:.16em}
 .place-copy h2{margin:10px 0 15px;font-size:clamp(24px,3vw,33px);line-height:1.16;color:var(--ink)}
-.place-copy p{font-size:14px;line-height:1.85;margin:0 0 13px}
+.place-copy p{font-size:15px;line-height:1.8;margin:0 0 13px}
 .place-copy h3{margin:22px 0 10px;color:var(--green);font-size:17px}
 .facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.facts span{flex:1 1 145px;padding:11px 13px;border:1px solid rgba(255,255,255,.68);border-radius:14px;background:rgba(255,255,255,.24);font-size:12px;line-height:1.5;backdrop-filter:blur(14px)}.facts b{display:block;margin-bottom:4px;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
 .fee-table-wrap{margin-top:14px;overflow:hidden;border:1px solid rgba(255,255,255,.76);border-radius:17px;background:rgba(255,255,255,.24);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .fee-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.55}.fee-table th,.fee-table td{padding:12px 15px;text-align:left;border-bottom:1px solid rgba(255,255,255,.58)}.fee-table th{width:55%;color:var(--ink);font-weight:750}.fee-table td{color:#344b43}.fee-table tr:last-child th,.fee-table tr:last-child td{border-bottom:0}
 footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12px}
-@media(max-width:720px){body{padding:16px 11px 45px}.place-card{grid-template-columns:1fr}.place-image img{height:260px;min-height:230px}.hero{border-radius:18px}.place-card{border-radius:19px}.place-copy{padding:21px 18px}}
+@media(max-width:720px){body{padding:16px 11px 45px}.place-card{grid-template-columns:1fr}.place-image{min-height:0}.place-image img{height:260px;min-height:230px}.hero{border-radius:18px}.place-card{border-radius:19px}.place-copy{padding:21px 18px}}
 
 .history-section{margin:0 0 36px}
 .history-hero{position:relative;min-height:300px;overflow:hidden;border-radius:24px;margin:0 0 22px;border:1px solid rgba(255,255,255,.8);box-shadow:0 18px 48px rgba(32,52,42,.12)}
@@ -38,12 +38,12 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
 .history-hero-copy .eyebrow{font-size:11px;font-weight:850;letter-spacing:.2em;text-transform:uppercase;color:#ffe1a6}
 .history-hero-copy h2{font-size:clamp(36px,6vw,60px);line-height:1;margin:10px 0 12px;color:white}
 .history-hero-copy p{max-width:760px;margin:0;font-size:15px;line-height:1.7;color:#fff}
-.history-article{max-width:1000px;margin:0 auto;padding:clamp(22px,4vw,44px);background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 14px 42px rgba(32,52,42,.07);color:#344b43}
-.history-lead{font-size:16px;line-height:1.9;margin:0 0 30px;color:#263f50;font-weight:500}
+.history-article{max-width:none;margin:0 auto;padding:clamp(22px,4vw,44px);background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 14px 42px rgba(32,52,42,.07);color:#344b43}
+.history-lead{max-width:1100px;font-size:16px;line-height:1.9;margin:0 0 30px;color:#263f50;font-weight:500}
 .history-chapter{padding:24px 0 26px;border-top:1px solid rgba(38,63,80,.14)}
 .history-kicker{font-size:10px;font-weight:850;letter-spacing:.18em;text-transform:uppercase;color:#b56a28;margin-bottom:7px}
 .history-chapter h3{font-size:clamp(21px,3vw,27px);line-height:1.25;color:#173650;margin:0 0 14px}
-.history-chapter p{font-size:14px;line-height:1.9;margin:0 0 12px;color:#40564f}
+.history-chapter p{max-width:1150px;font-size:14px;line-height:1.9;margin:0 0 12px;color:#40564f}
 .history-chapter p:last-child{margin-bottom:0}
 .history-chapter b{color:#203c50}
 @media(max-width:720px){.history-hero,.history-hero-copy{min-height:240px}.history-article{padding:20px 18px;border-radius:18px}.history-lead{font-size:15px;margin-bottom:22px}.history-chapter{padding:20px 0 22px}.history-chapter p{font-size:13px;line-height:1.85}}
@@ -58,63 +58,673 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
 
 
 <section class="history-section" id="bihar-history" aria-labelledby="history-title">
-<div class="history-hero">
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Ganga_River,_Sunset.jpg" alt="Sunset over the Ganga River at Patna, Bihar" loading="lazy" decoding="async">
-<div class="hist<section class="history-section" id="bihar-history" aria-labelledby="history-title">
-<div class="history-hero">
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Ganga_River,_Sunset.jpg" alt="The Ganga River at sunset in Patna, Bihar" loading="lazy" decoding="async">
-<div class="history-hero-copy">
-<div class="eyebrow">Bharat Unfolded · Bihar</div>
-<h2 id="history-title">History of Bihar</h2>
-<p>From the ancient kingdoms of Magadha to the freedom struggle and the making of modern Bihar.</p>
-</div>
-</div>
-<article class="history-article">
-<p class="history-lead">Bihar is one of India's oldest and most historically significant regions. The name “Bihar” comes from the Sanskrit and Pali word <i>Vihara</i>, meaning a Buddhist monastery. For centuries, this region has shaped India's political, spiritual, educational and cultural history. It was home to powerful empires, major religious movements, celebrated centres of learning and leaders who helped shape the nation.</p>
-<section class="history-chapter">
-<div class="history-kicker">Chapter 01</div>
-<h3>Ancient Bihar</h3>
-<p>In ancient times, the region was home to three major Mahajanapadas: <b>Magadha, Anga and Vajji</b> (including Mithila and Vaishali). The <b>Licchavi Republic of Vaishali</b> is widely recognised as one of the world's earliest republics.</p>
-<p>During the 6th century BCE, Bihar became a major centre for the rise of Buddhism and Jainism. <b>Gautama Buddha</b> attained enlightenment at Bodh Gaya. <b>Lord Mahavira</b>, the 24th Jain Tirthankara, was born in Kundagram (Vaishali) and attained Nirvana at Pawapuri.</p>
-<p>Magadha grew into a powerful kingdom under the Haryanka, Shishunaga and Nanda dynasties. <b>Chandragupta Maurya</b>, guided by Chanakya, established the Mauryan Empire with <b>Pataliputra</b> (modern Patna) as its capital. His grandson, <b>Emperor Ashoka</b>, embraced Buddhism after the Kalinga War and helped spread its teachings across Asia.</p>
-<p>During the 4th and 5th centuries CE, the Gupta Empire ushered in a period of major achievements in science, mathematics, literature and art. Rulers such as Samudragupta and Chandragupta II strengthened the empire, while scholars including <b>Aryabhata</b> contributed to India's intellectual heritage. Bihar also became renowned for centres of higher learning: <b>Nalanda</b>, which flourished from the Gupta era, and <b>Vikramshila</b>, founded by Pala king Dharmapala, drew scholars from across Asia.</p>
+  <div class="history-hero">
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_Ganga_River,_Sunset.jpg" alt="The Ganga River at sunset in Patna, Bihar" loading="lazy" decoding="async">
+    <div class="history-hero-copy">
+      <div class="eyebrow">Bharat Unfolded · Bihar</div>
+      <h2 id="history-title">History of Bihar</h2>
+      <p>From the ancient kingdoms of Magadha to the freedom struggle and the making of modern Bihar.</p>
+    </div>
+  </div>
+  <article class="history-article">
+    <p class="history-lead">Bihar is one of India's oldest and most historically significant regions. Its name comes from the Sanskrit and Pali word <i>vihara</i>, meaning a Buddhist monastery. For centuries, the region shaped India's political, spiritual, educational and cultural life. It was home to powerful empires, major religious movements, renowned centres of learning and leaders who helped shape the nation.</p>
+    <section class="history-chapter">
+      <div class="history-kicker">01 · Ancient era</div>
+      <h3>Ancient Bihar</h3>
+      <p>In ancient times, the region was home to three major Mahajanapadas: <b>Magadha, Anga and Vajji</b>, which included the Mithila and Vaishali region. The <b>Licchavi polity of Vaishali</b> is widely regarded as one of the earliest known republics.</p>
+      <p>During the 6th century BCE, Bihar became a major centre for Buddhism and Jainism. <b>Gautama Buddha</b> attained enlightenment at Bodh Gaya. <b>Mahavira</b>, the 24th Jain Tirthankara, was born in the Vaishali region and attained Nirvana at Pawapuri.</p>
+      <p>Magadha grew into a powerful kingdom under the Haryanka, Shishunaga and Nanda dynasties. <b>Chandragupta Maurya</b>, guided by Chanakya, established the Mauryan Empire with <b>Pataliputra</b> (modern Patna) as its capital. His grandson, <b>Emperor Ashoka</b>, embraced Buddhism after the Kalinga War and helped spread its teachings across Asia.</p>
+      <p>Under the Guptas, the region contributed to advances in science, mathematics, literature and art. <b>Aryabhata</b> is among the best-known scholars associated with this age. <b>Nalanda Mahavihara</b> grew into an international centre of learning from the 5th century CE, while <b>Vikramshila</b>, founded by Pala ruler Dharmapala, later attracted students and scholars from across Asia.</p>
+    </section>
+    <section class="history-chapter">
+      <div class="history-kicker">02 · Medieval era</div>
+      <h3>Medieval Bihar</h3>
+      <p>From the 8th to the 12th centuries, the <b>Pala dynasty</b> supported Buddhist art, monasteries and education. In northern Bihar and Mithila, the <b>Karnat dynasty</b> established its rule.</p>
+      <p>At the end of the 12th century, forces led by <b>Bakhtiyar Khilji</b> attacked the region. Nalanda and Vikramshila suffered severe destruction, and Bihar gradually came under the control of the Delhi Sultanate.</p>
+      <p>In the 16th century, <b>Sher Shah Suri</b>, born in Sasaram, defeated Mughal emperor Humayun and established the Sur Empire. He strengthened administration, introduced the silver <i>rupiya</i>, improved the road network and developed the route that became known as the Grand Trunk Road.</p>
+      <p>Under Mughal emperor Akbar, Bihar became a province, or <i>subah</i>, of the Mughal Empire. In 1666, <b>Guru Gobind Singh Ji</b>, the tenth Sikh Guru, was born in Patna. Takht Sri Patna Sahib is now one of Sikhism's most sacred sites.</p>
+    </section>
+    <section class="history-chapter">
+      <div class="history-kicker">03 · Freedom movement</div>
+      <h3>Modern Bihar and the Freedom Struggle</h3>
+      <p>British influence expanded after the battles of Plassey (1757) and Buxar (1764). Following Buxar, the East India Company secured Diwani rights—the right to collect revenue—in Bengal, Bihar and Orissa.</p>
+      <p>During the Revolt of 1857, <b>Babu Veer Kunwar Singh</b> of Jagdishpur near Arrah led a determined armed resistance against British forces and became one of the best-known leaders of the uprising.</p>
+      <p>In 1917, <b>Mahatma Gandhi</b> launched the Champaran Satyagraha in Bihar to support indigo farmers facing exploitation. It became a major milestone in India's freedom movement.</p>
+      <p>Bihar's influential national leaders included <b>Dr. Rajendra Prasad, Jayaprakash Narayan, Dr. Sri Krishna Sinha, Anugrah Narayan Sinha, Maulana Mazharul Haque</b> and <b>Swami Sahajanand Saraswati</b>. They contributed to the Non-Cooperation, Civil Disobedience and Quit India movements.</p>
+    </section>
+    <section class="history-chapter">
+      <div class="history-kicker">04 · State formation</div>
+      <h3>State Formation and Bihar After Independence</h3>
+      <p>On <b>22 March 1912</b>, Bihar and Orissa were separated from the Bengal Presidency to form a new province. The date is celebrated annually as <b>Bihar Diwas</b>. Orissa became a separate province in 1936.</p>
+      <p>On <b>15 November 2000</b>, the southern part of Bihar was separated to create <b>Jharkhand</b>, giving Bihar its present boundaries.</p>
+      <p>After independence, <b>Dr. Rajendra Prasad</b> became India's first President. In 1974, <b>Jayaprakash Narayan</b> led the <i>Sampoorna Kranti</i> (Total Revolution) movement from Patna, calling for broad political and social change.</p>
+    </section>
+  </article>
 </section>
-<section class="history-chapter">
-<div class="history-kicker">Chapter 02</div>
-<h3>Medieval Bihar</h3>
-<p>From the 8th to the 12th centuries, the <b>Pala dynasty</b> supported Buddhist art, monasteries and education, especially in eastern and southern Bihar. In northern Bihar and Mithila, the <b>Karnat dynasty</b> established its rule.</p>
-<p>At the end of the 12th century, Turkic forces led by <b>Bakhtiyar Khilji</b> attacked the region. Nalanda and Vikramshila suffered severe destruction, and Bihar gradually came under the control of the Delhi Sultanate.</p>
-<p>In the 16th century, <b>Sher Shah Suri</b>, born in Sasaram, defeated Mughal emperor Humayun and established the Sur Empire. He strengthened administration, introduced the silver <i>Rupiya</i>, improved the road network and developed the route that became known as the Grand Trunk Road.</p>
-<p>Under Mughal emperor Akbar, Bihar became a province, or <i>Subah</i>, of the Mughal Empire. A major part of Bihar's Sikh heritage began in 1666 CE with the birth of <b>Guru Gobind Singh Ji</b>, the tenth Sikh Guru, in Patna. Today, Takht Sri Patna Sahib is one of Sikhism's most sacred sites.</p>
-</section>
-<section class="history-chapter">
-<div class="history-kicker">Chapter 03</div>
-<h3>Modern Bihar and the Freedom Struggle</h3>
-<p>British influence expanded after the battles of Plassey (1757) and Buxar (1764). Following the Battle of Buxar, the East India Company secured Diwani rights—the right to collect revenue—in Bengal, Bihar and Orissa.</p>
-<p>During the Revolt of 1857, <b>Babu Veer Kunwar Singh</b>, the elderly zamindar of Jagdishpur near Arrah, led a determined armed resistance against British forces and became one of the best-known figures of the uprising.</p>
-<p>In 1917, <b>Mahatma Gandhi</b> launched the Champaran Satyagraha in Bihar, supporting indigo farmers who faced exploitation. It became a major moment in India's freedom movement and Gandhi's early satyagraha campaigns in the country.</p>
-<p>Bihar produced many influential leaders of the national movement, including <b>Dr. Rajendra Prasad, Jayaprakash Narayan, Dr. Sri Krishna Sinha, Anugrah Narayan Sinha, Maulana Mazharul Haque</b> and <b>Swami Sahajanand Saraswati</b>. They took part in movements such as Non-Cooperation, Civil Disobedience and the Quit India Movement of 1942.</p>
-</section>
-<section class="history-chapter">
-<div class="history-kicker">Chapter 04</div>
-<h3>State Formation and Bihar After Independence</h3>
-<p>On <b>22 March 1912</b>, Bihar and Orissa were separated from the Bengal Presidency to form a new province. This date is celebrated every year as <b>Bihar Diwas</b>. Orissa became a separate province in 1936.</p>
-<p>On <b>15 November 2000</b>, the southern part of Bihar was separated to form the new state of <b>Jharkhand</b>, giving Bihar its present boundaries.</p>
-<p>After independence, Bihar continued to play an important role in Indian public life. <b>Dr. Rajendra Prasad</b>, born in Bihar, became India's first President. In 1974, <b>Jayaprakash Narayan</b> led the <i>Sampoorna Kranti</i> (Total Revolution) movement from Patna, calling for broad political and social change.</p>
-</section>
-</article>
-</section>y">
-<div class="number">01 · NALANDA, BIHAR</div>
-<h2>Nalanda University</h2>
-<p>Nalanda Mahavihara was established under Emperor Kumaragupta I in the 5th century CE. From the 5th to the 12th century, it grew into one of the most celebrated centres of learning in the world. Students travelled here from China, Mongolia, Tibet, Korea and other parts of Asia because of its international reputation.</p>
-<p>The standard of teaching was exceptionally high. Students seeking admission were tested by teachers before they could study at the Mahavihara. Nalanda was a leading centre for Mahayana Buddhist learning, while subjects beyond Buddhism were also taught here.</p>
-<p>At the end of the 12th century, the institution suffered destruction during the invasion led by Bakhtiyar Khilji. Monks were killed and the valuable library was burned. Today, Nalanda is remembered as a symbol of Asian intellectual exchange, and Nalanda University has been established nearby.</p>
-<div class="facts"><span><b>Location</b>Nalanda, Bihar, India</span><span><b>Heritage status</b>UNESCO World Heritage Site · 2016</span><span><b>Weekly closure</b>No weekly off for the ruins</span></div>
+
+<article class="place-card glass">
+<div class="place-image"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Xuanzang_%28Hieun_Tsang%29_Memorial_Hall.jpg" alt="Xuanzang statue in front of the Chinese-style Hiuen Tsang Memorial Hall"></div>
+<div class="place-copy">
+<div class="number">02 · NALANDA, BIHAR</div>
+<h2>Hiuen Tsang Memorial Hall</h2>
+<p>This memorial honours Xuanzang (Hiuen Tsang), the 7th-century Chinese Buddhist monk and scholar who studied and taught at ancient Nalanda. Proposed to strengthen India–China cultural ties, its construction began in 1960 and was completed in 1984.</p>
+<p>The Chinese-style complex features a statue of Xuanzang, a memorial column, a bell enclosure and artworks depicting his travels and Buddhist history. Allow around 45–90 minutes for a visit. Please keep the hall quiet and do not touch exhibits or artwork.</p>
+<div class="facts"><span><b>Location</b>About 1.3 km from Nalanda ruins</span><span><b>Architecture</b>Traditional Chinese style</span><span><b>Visit duration</b>45–90 minutes</span></div>
 <h3>Timings &amp; Tickets</h3>
-<div class="fee-table-wrap"><table class="fee-table"><tr><th>Nalanda Ruins</th><td>9 AM – 5 PM · Daily</td></tr><tr><th>Ruins ticket</th><td>Indian: ₹20–₹50 · Foreign: ₹200–₹550 (rates may change)</td></tr><tr><th>Archaeological Museum</th><td>9 AM – 5 PM · Closed Friday</td></tr><tr><th>Museum ticket</th><td>Indian: around ₹5 (subject to revision)</td></tr></table></div>
-<p>Ticket prices can change. Confirm at the counter or official ASI ticketing portal.</p></div>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Usual visiting hours</th><td>9 AM – 5 PM</td></tr><tr><th>Weekly closure</th><td>Confirm locally, especially Friday</td></tr><tr><th>Indian entry</th><td>Approx. ₹15–₹20</td></tr><tr><th>Children</th><td>Some listings report around ₹5</td></tr><tr><th>Foreign visitors</th><td>Some listings report up to ₹100</td></tr></table></div>
+<p>Hours and ticket rates vary across listings; confirm at the site before visiting.</p>
+
 </div>
 </article>
+<article class="place-card glass">
+<div class="place-image"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Bodhgaya_3640450872_f4ec280187_t.jpg/960px-Bodhgaya_3640450872_f4ec280187_t.jpg" alt="Mahabodhi Temple's main tower and surrounding shrines at Bodh Gaya"></div>
+<div class="place-copy">
+<div class="number">03 · BODH GAYA, GAYA, BIHAR</div>
+<h2>Mahabodhi Temple</h2>
+<p>Mahabodhi Temple in Bodh Gaya marks the place where Gautama Buddha attained enlightenment beneath the Bodhi Tree. Emperor Ashoka built an early shrine and the Vajrasana (Diamond Throne) here in the 3rd century BCE. The grand brick temple seen today largely dates to the 5th–6th centuries CE.</p>
+<p>After centuries of repairs and periods of neglect, the complex underwent major restoration by Burmese rulers and British archaeologists in the 19th century, including work in the 1880s. Conservation and management later came under the Bodh Gaya Temple Act of 1949. The site is a UNESCO World Heritage Site.</p>
+<div class="facts"><span><b>Location</b>Bodh Gaya, Gaya district, Bihar</span><span><b>Heritage status</b>UNESCO World Heritage Site</span><span><b>Best to know</b>Mobile phones are restricted inside the complex</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Temple complex</th><td>5 AM – 9 PM · Daily</td></tr><tr><th>General entry</th><td>Free</td></tr><tr><th>Still camera permit</th><td>Commonly reported around ₹100</td></tr><tr><th>Video camera</th><td>Separate permit/fee may apply</td></tr></table></div>
+<p>Camera fees and security rules may change. Check the current counter instructions before entering; mobile phones are not permitted inside the temple complex.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vishnupad_temple_gaya.jpg/960px-Vishnupad_temple_gaya.jpg" alt="Vishnupad Temple on the banks of the Falgu River in Gaya"></div>
+<div class="place-copy">
+<div class="number">04 · GAYA, BIHAR</div>
+<h2>Shri Vishnupad Temple</h2>
+<p>Standing on the banks of the Falgu River in Gaya, Shri Vishnupad Temple is a major Hindu pilgrimage site, especially for Pind Daan and ancestral rites. Its sanctum holds a roughly 40 cm footprint, traditionally believed to be Lord Vishnu’s, set in rock within a silver octagonal basin. A pillared sabha mandap and tall pyramidal spire form part of the temple complex.</p>
+<p>The present temple is widely credited to Queen Ahilyabai Holkar of Indore, who rebuilt or restored it in 1787 on an older sacred site. Pilgrims visit throughout the year, with especially large numbers during Pitru Paksha.</p>
+<div class="facts"><span><b>Location</b>Falgu River, Gaya, Bihar</span><span><b>Known for</b>Pind Daan &amp; ancestral rituals</span><span><b>Temple tradition</b>Footprint revered as Lord Vishnu’s</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>General visiting hours</th><td>Approx. 5 AM – 9 PM</td></tr><tr><th>Local listed schedule</th><td>5 AM – 12:30 PM · 2 PM – 11 PM</td></tr><tr><th>Darshan entry</th><td>Free · No entry ticket</td></tr><tr><th>Puja / Pind Daan</th><td>Separate ritual charges apply</td></tr></table></div>
+<p>Hours may vary with season and temple arrangements. Mobile phones and cameras are restricted inside; confirm current rules locally.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://i0.wp.com/www.tusktravel.com/blog/wp-content/uploads/2022/04/Vishwa-Shanti-Stupa-Rajgir-Bihar.jpg?resize=975%2C600&ssl=1" alt="Vishwa Shanti Stupa, white peace pagoda on Ratnagiri Hill in Rajgir" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">05 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Vishwa Shanti Stupa</h2>
+<p>The Vishwa Shanti Stupa (World Peace Pagoda) stands on Ratnagiri Hill in Rajgir. Built by the Japanese Buddhist organization Nipponzan-Myohoji and inaugurated in 1969, the white marble pagoda has four golden Buddha statues representing birth, enlightenment, preaching and nirvana. The hilltop offers panoramic views of the Rajgir valley.</p>
+<div class="facts"><span><b>Location</b>Ratnagiri Hill, Rajgir</span><span><b>Inaugurated</b>1969</span><span><b>Built by</b>Nipponzan-Myohoji, Japan</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>9 AM – 5 PM daily</td></tr><tr><th>Hilltop access</th><td>Some listings mention up to 7:15 PM</td></tr><tr><th>Stupa entry</th><td>Free</td></tr><tr><th>Rajgir Ropeway</th><td>Usually 10 AM – 4 PM (seasonal changes)</td></tr><tr><th>Ropeway return fare</th><td>Approx. ₹100–₹150 per Indian visitor</td></tr></table></div>
+<p>Ropeway timings and fares can change with season, weather and maintenance. Confirm at the ticket counter before travelling.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gridhra_Kuta_-_Rajgir_09.jpg" alt="Vulture-shaped rock and summit shrine at Griddhakuta Peak, Rajgir" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">06 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Griddhakuta Peak (Vulture’s Peak)</h2>
+<p>Griddhakuta Peak lies in the hills of ancient Rajgir. Its name means Vulture’s Peak, inspired by a distinctive rock formation resembling a vulture. Buddhist tradition remembers this as a place where Gautama Buddha spent rainy seasons meditating and teaching, with the Lotus Sutra and Heart Sutra associated with the site in Buddhist tradition.</p>
+<p>The hill has ancient stone steps, rock-cut meditation caves and a small summit shrine. The climb is best planned in the cooler morning or late afternoon.</p>
+<div class="facts"><span><b>Location</b>Rajgir hills, Nalanda</span><span><b>Known for</b>Buddha’s teachings</span><span><b>Features</b>Rock formations, caves &amp; shrine</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>Approx. 6 AM – 5:30/6 PM</td></tr><tr><th>Entry fee</th><td>Free</td></tr></table></div>
+<p>Access is generally during daylight. Wear sturdy footwear and take care on uneven steps and around monkeys.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/The_temple_built_over_Brahma-kund.jpg" alt="Temple complex built over Brahma Kund hot spring in Rajgir" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">07 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Brahm Kund</h2>
+<p>Brahm Kund is a sacred hot-spring complex in Rajgir, fed by seven underground streams. The main pool is known for its naturally warm water, reaching around 45°C. The springs are revered in Hindu, Buddhist and Jain traditions, and the stepped bathing kunds include separate areas for men and women.</p>
+<div class="facts"><span><b>Location</b>Rajgir, Nalanda, Bihar</span><span><b>Water temperature</b>Main pool approx. 45°C</span><span><b>Known for</b>Natural hot springs</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>Approx. 7 AM – 5:30 PM daily</td></tr><tr><th>Entry fee</th><td>Free</td></tr><tr><th>Parking</th><td>Vehicle parking may be charged separately</td></tr></table></div>
+<p>Hours may change during festivals or maintenance. Confirm locally before visiting.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Venuvana.jpg" alt="Pond and bamboo grove at Venuvana monastery in Rajgir" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">08 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Venu Van (Venuvana Vihara)</h2>
+<p>Venu Van is a peaceful bamboo grove and monastery complex near Brahm Kund. According to Buddhist tradition, King Bimbisara gifted this bamboo park to Gautama Buddha as an early monastic residence. The grounds include remains of a brick stupa, the central Kalandaka Tank and shaded walking paths for quiet walks and meditation.</p>
+<div class="facts"><span><b>Location</b>Near Brahm Kund, Rajgir</span><span><b>Historic patron</b>King Bimbisara</span><span><b>Highlights</b>Bamboo grove &amp; Kalandaka Tank</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>6 AM – 6 PM daily</td></tr><tr><th>Indian entry</th><td>Approx. ₹5–₹20</td></tr><tr><th>Foreign visitors</th><td>Some listings report ₹70–₹150</td></tr></table></div>
+<p>Ticket rates can vary; confirm the current fee at the entrance.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Ghora_Katora_Lake_in_Rajgir_Bihar.jpg" alt="Ghora Katora Lake surrounded by green hills near Rajgir" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">09 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Ghora Katora Lake</h2>
+<p>Ghora Katora is a scenic natural lake in a bowl-shaped valley surrounded by hills near Rajgir. Its name means “horse bowl,” and the lake features a large Buddha statue rising from the water. The quiet setting is popular for its hill views and boating.</p>
+<p>Fuel-powered motor vehicles are restricted on the inner approach. Visitors usually continue from the drop-off point by e-rickshaw, tonga or bicycle.</p>
+<div class="facts"><span><b>Location</b>Near Rajgir, Nalanda</span><span><b>Setting</b>Lake surrounded by hills</span><span><b>Access</b>E-rickshaw, tonga or bicycle</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Daytime access</th><td>Approx. 6/8 AM – 4:30/6 PM</td></tr><tr><th>Entry</th><td>Free or approx. ₹10</td></tr><tr><th>Boating</th><td>Approx. ₹80 per person for a short ride</td></tr></table></div>
+<p>Opening hours, entry and boating charges vary by season and local arrangements. Confirm rates on arrival.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://rajgirsafari.bihar.gov.in/assets/5-BtpKkmPa.webp" alt="Asiatic lioness in the natural enclosure at Rajgir Zoo Safari" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">10 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Rajgir Wildlife Safari (Zoo Safari)</h2>
+<p>Spread across about 191 hectares between the Vaibhargiri and Songiri hills, Rajgir Zoo Safari lets visitors explore large natural enclosures in specially designed, closed and air-conditioned safari buses with trained guides. Its five zones feature lions, tigers, leopards, sloth bears and herbivores such as deer and blackbuck.</p>
+<div class="facts"><span><b>Location</b>Rajgir, Nalanda, Bihar</span><span><b>Area</b>Approx. 191 hectares</span><span><b>Safari zones</b>Lion, tiger, leopard, bear &amp; herbivore</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Current safari access</th><td>7 AM – 3 PM (subject to change)</td></tr><tr><th>Entry + guided bus safari</th><td>₹250 per person (4 years and above)</td></tr><tr><th>Booking</th><td>Online slot booking; check official portal</td></tr></table></div>
+<p>Carry a valid ID and reach before your allotted slot. Follow the guide’s safety instructions and never feed or disturb animals. Timings and ticket rules can change; verify before travel.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://rajgirsafari.bihar.gov.in/assets/1-CJfUkC4d.webp" alt="Glass Bridge skywalk above the forest at Rajgir Nature Safari" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">11 · RAJGIR, NALANDA, BIHAR</div>
+<h2>Rajgir Nature Safari &amp; Glass Bridge</h2>
+<p>Set among the Vaibhargiri and Songiri hills, Rajgir Nature Safari is an eco-adventure park spread across a forest landscape. Its main attractions include India’s Glass Bridge skywalk, a suspension bridge, zip-line, sky biking, archery, rifle shooting, gardens and nature trails.</p>
+<div class="facts"><span><b>Location</b>Rajgir–Jethian Path, Nalanda</span><span><b>Inaugurated</b>26 March 2021</span><span><b>Highlights</b>Glass Bridge &amp; adventure activities</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Current access window</th><td>7 AM – 3 PM (subject to change)</td></tr><tr><th>Nature Safari + Glass Bridge</th><td>₹300 per person (above 6 years)</td></tr><tr><th>Children (2–6 years)</th><td>₹150</td></tr><tr><th>Suspension Bridge</th><td>₹10</td></tr><tr><th>Sky biking / Zip-line</th><td>₹100 each</td></tr><tr><th>Archery / Rifle shooting</th><td>₹100 / ₹50</td></tr></table></div>
+<p>Children under 6 years or below 4 feet in height are not allowed on the Glass Bridge. Reach at least 30 minutes before your slot. Activity charges and access rules may change.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://tourism.bihar.gov.in/content/dam/bihar-tourism/images/category_a/patna/buddha_smriti_park/buddha-samiti-park.jpg" alt="Wide view of Patliputra Karuna Stupa surrounded by gardens at Buddha Smriti Park, Patna" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">12 · PATNA, BIHAR</div>
+<h2>Buddha Smriti Park (Buddha Memorial Park)</h2>
+<p>Located on Fraser Road opposite Patna Junction, this 22-acre memorial park was built on the former site of Bankipur Central Jail and inaugurated by the 14th Dalai Lama on 27 May 2010. Its centrepiece is the 200-foot Patliputra Karuna Stupa, which houses sacred Buddha relics excavated at Vaishali. The park also features Bodhi tree saplings from Bodh Gaya and Anuradhapura, international votive stupas, landscaped gardens, a meditation centre, library and multimedia museum.</p>
+<div class="facts"><span><b>Location</b>Fraser Road, near Patna Junction</span><span><b>Area</b>22 acres</span><span><b>Inaugurated</b>27 May 2010</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>9 AM – 7 PM (Tuesday–Sunday)</td></tr><tr><th>Weekly closure</th><td>Monday</td></tr><tr><th>General park entry</th><td>₹20 adult · ₹10 child</td></tr><tr><th>Patliputra Karuna Stupa</th><td>₹50 per person</td></tr><tr><th>Museum / Library</th><td>₹40 each</td></tr><tr><th>Laser show + Museum combo</th><td>Approx. ₹100</td></tr><tr><th>Meditation centre</th><td>₹200 per person</td></tr></table></div>
+<p>The evening multimedia laser show usually starts around 6:30 PM on open days. Ticket prices and show schedules may change; confirm current details at the park entrance.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://s7ap1.scene7.com/is/image/incredibleindia/bihar-museum-patna-bihar-1-attr-hero?qlt=82&amp;ts=1726740159099" alt="Wide exterior view of the modern Bihar Museum in Patna" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">13 · PATNA, BIHAR</div>
+<h2>Bihar Museum</h2>
+<p>Located on Bailey Road (Jawaharlal Nehru Marg), Bihar Museum is a modern cultural complex designed by Maki and Associates with Opolis Architects. Opened in phases from 2015 to 2018, its galleries trace Bihar’s heritage from prehistoric times to the modern era. Highlights include the Mauryan-era Didarganj Yakshi, Children’s Gallery, History Gallery, Regional Art and Contemporary Art collections. In October 2026, it received international recognition in the Worth a Journey list of the world’s best museums.</p>
+<div class="facts"><span><b>Location</b>Bailey Road, Patna</span><span><b>Architects</b>Maki and Associates</span><span><b>Highlights</b>Didarganj Yakshi &amp; heritage galleries</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Regular visiting hours</th><td>10 AM / 10:30 AM – 5 PM</td></tr><tr><th>Weekly closure</th><td>Monday</td></tr><tr><th>Indian adult / child</th><td>₹100 / ₹50</td></tr><tr><th>Foreign adult / child</th><td>₹500 / ₹250</td></tr><tr><th>Evening ticket (5–7 PM)</th><td>₹50 adult / ₹25 child (selected areas)</td></tr></table></div>
+<p>Selected spaces, including the Children’s Gallery, Library and Museum Shop, may remain open until 7 PM; the restaurant operates later. Check the museum before visiting for current timings and ticket rates.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://s7ap1.scene7.com/is/image/incredibleindia/gol-ghar-patna-bihar-1-attr-hero?qlt=82&amp;ts=1726740340434" alt="Wide view of the historic Golghar granary and its landscaped grounds in Patna" loading="lazy"></div>
+<div class="place-copy">
+<div class="number">14 · PATNA, BIHAR</div>
+<h2>Golghar</h2>
+<p>Near Gandhi Maidan and the Ganga, Golghar is a beehive-shaped granary built in 1786 by Captain John Garstin for the British Army after the devastating famine of 1770. The 29-metre-high structure has no internal pillars and is known for its exterior spiral staircase of 145 steps, originally designed for carrying grain. Its grounds and elevated viewpoint offer views of the river and Patna skyline.</p>
+<div class="facts"><span><b>Location</b>Near Gandhi Maidan, Patna</span><span><b>Built</b>1786</span><span><b>Height</b>29 metres</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>10 AM – 5 PM (Tuesday–Sunday)</td></tr><tr><th>Weekly closure</th><td>Monday</td></tr><tr><th>Ground entry</th><td>Free</td></tr><tr><th>Laser &amp; Sound Show</th><td>Approx. ₹30 per person (weekend evenings)</td></tr><tr><th>Spiral staircase</th><td>Access may be restricted during repairs</td></tr></table></div>
+<p>Ground access may continue until around 6 PM on some days. Climbing access can change during restoration or maintenance; confirm locally before planning your visit.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Buddha%27s_ashes_Stupa%2C_Vaishali%2C_Bihar.jpg/1280px-Buddha%27s_ashes_Stupa%2C_Vaishali%2C_Bihar.jpg" alt="Wide view of the ancient Buddha Relic Stupa at Vaishali" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">15 · VAISHALI, BIHAR</div>
+<h2>Buddha Relic Stupa</h2>
+<p>This ancient mud-and-brick stupa at Vaishali is traditionally associated with the Licchavis, who are said to have received one of the eight portions of the Buddha’s relics after his Mahaparinirvana. The archaeological remains were excavated between 1958 and 1962. The nearby Buddha Samyak Darshan Museum displays the sacred relics and explains Vaishali’s Buddhist heritage.</p>
+<div class="facts"><span><b>Location</b>Vaishali, Bihar</span><span><b>Tradition</b>Licchavi relic stupa</span><span><b>Excavated</b>1958–1962</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Relic Stupa grounds</th><td>9 AM – 5 PM / 6 PM (daily)</td></tr><tr><th>Stupa grounds entry</th><td>Free</td></tr><tr><th>Nearby museum</th><td>10 AM – 5 PM (Tuesday–Sunday)</td></tr><tr><th>Museum weekly closure</th><td>Monday</td></tr></table></div>
+<p>The Buddha Samyak Darshan Museum has a separate ticket counter. Confirm its current entry fee and schedule before visiting.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://h2.gifposter.com/bingImages/AshokaPillar_1920x1080.jpg" alt="Wide view of Ashokan Pillar and surrounding archaeological site at Kolhua, Vaishali" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">16 · KOLHUA, VAISHALI, BIHAR</div>
+<h2>Ashokan Pillar &amp; Stupa (Kolhua)</h2>
+<p>At Kolhua near Vaishali stands a well-preserved, single-piece polished red sandstone pillar erected by Emperor Ashoka in the 3rd century BCE. Its capital carries a life-size seated lion facing north. The monument stands beside an ancient brick stupa and the Ramkund tank, in a landscape closely linked with the Buddha’s visits to Vaishali.</p>
+<div class="facts"><span><b>Location</b>Kolhua, Vaishali</span><span><b>Period</b>3rd century BCE</span><span><b>Highlights</b>Lion capital, brick stupa &amp; Ramkund</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>9 AM – 5 PM / 6 PM (daily)</td></tr><tr><th>Entry</th><td>Free (some listings mention a counter fee)</td></tr></table></div>
+<p>Some monument guides report a nominal ticket charge. Confirm the current fee at the Kolhua entrance before visiting.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://media2.thrillophilia.com/images/photos/000/373/250/original/1622102393_21._Vishwa_Shanti_Stupa_Pushkarni_Lake_Vaishali.JPG?crop=fill&fetch_format=auto&flags=strip_profile&format=jpg&gravity=center&height=642&quality=auto&width=1280" alt="Wide landscape view of the white Vishwa Shanti Stupa at Vaishali" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">17 · VAISHALI, BIHAR</div>
+<h2>Vishwa Shanti Stupa (Vaishali)</h2>
+<p>Beside the Abhishek Pushkarini (Coronation Tank), this white World Peace Pagoda was built through the efforts of the Japanese Buddhist organization Nipponzan-Myohoji and the Rajgir Buddha Vihar Society. Golden Buddha statues represent major stages of the Buddha’s life, and sacred relics are enshrined within the monument.</p>
+<div class="facts"><span><b>Location</b>Near Abhishek Pushkarini, Vaishali</span><span><b>Built by</b>Nipponzan-Myohoji &amp; Rajgir Buddha Vihar Society</span><span><b>Known for</b>Golden Buddha statues &amp; peace pagoda</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>9 AM – 5 PM (daily)</td></tr><tr><th>Entry</th><td>Free (some listings mention nominal charges)</td></tr></table></div>
+<p>Remove footwear before stepping onto the stupa platform. Confirm any local maintenance or entry charge at the site.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vikramshila_ruins.jpg?width=1400" alt="Wide view of the excavated Vikramshila University ruins and central brick stupa" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">18 · ANTICHAK, BHAGALPUR, BIHAR</div>
+<h2>Vikramshila University Ruins</h2>
+<p>Founded in the late 8th century CE by Pala Emperor Dharmapala, Vikramshila was one of ancient India’s leading Buddhist learning centres and flourished for around four centuries. It became renowned for Vajrayana Buddhism, philosophy, logic, grammar and metaphysics, with the scholar Atisha Dipankara among its best-known figures. The university was destroyed around the end of the 12th century. Excavations have revealed a vast square monastery with more than 200 monk cells, a central cruciform brick stupa decorated with terracotta plaques, Buddha chambers and remains of a library.</p>
+<div class="facts"><span><b>Location</b>Antichak, near Kahalgaon, Bhagalpur</span><span><b>Founded by</b>Pala Emperor Dharmapala</span><span><b>Known for</b>Vajrayana learning &amp; central cruciform stupa</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>6 AM – 5:30 / 6 PM (daily)</td></tr><tr><th>Indian adult</th><td>Approx. ₹20–₹25</td></tr><tr><th>Children under 15</th><td>Free</td></tr><tr><th>Foreign visitors</th><td>Approx. ₹250–₹300</td></tr></table></div>
+<p>Commercial or professional electronic camera equipment may require prior ASI permission. Confirm current ticket rates at the site.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/VikramshilaMeausem.jpg?width=1400" alt="Exterior view of the Archaeological Site Museum at Vikramshila" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">19 · ANTICHAK, BHAGALPUR, BIHAR</div>
+<h2>Vikramshila Archaeological Museum</h2>
+<p>Located beside the excavated university, this ASI site museum opened in 2004 and preserves finds from Vikramshila and the surrounding region. Its collection includes Pala-period stone sculptures of Buddhist and Brahmanical deities such as Buddha, Avalokiteshvara, Manjushri and Vajrapani, along with terracotta figures, coins, beads, seals and a scale model of the ancient university.</p>
+<div class="facts"><span><b>Location</b>Vikramshila ruins, Antichak</span><span><b>Established</b>2004</span><span><b>Collection</b>Pala sculptures, coins &amp; antiquities</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>10 AM – 5 PM</td></tr><tr><th>Weekly closure</th><td>Friday</td></tr><tr><th>Indian visitor</th><td>Approx. ₹5 (counter fee)</td></tr><tr><th>Foreign visitors</th><td>Higher rates may apply</td></tr></table></div>
+<p>Ticket rates may change; confirm the current fee at the museum gate.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Premises_of_tomb_or_mausoleum_of_Sher_Shah_Suri_in_Sasaram%2C_Bihar%2C_India_16.jpg" alt="Wide view of Sher Shah Suri Tomb standing in its artificial lake at Sasaram" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">20 · SASARAM, ROHTAS, BIHAR</div>
+<h2>Tomb of Sher Shah Suri</h2>
+<p>Built between 1540 and 1545 CE in memory of Sher Shah Suri, founder of the Sur Empire, this 122-foot sandstone mausoleum stands in the middle of a large artificial lake. Designed by Mir Muhammad Aliwal Khan, its octagonal plan, grand dome, corner chhatris and stone causeway make it a celebrated example of Indo-Afghan architecture. The tomb was completed during the reign of Sher Shah’s son, Islam Shah.</p>
+<div class="facts"><span><b>Location</b>Sasaram, Rohtas</span><span><b>Period</b>1540–1545 CE</span><span><b>Known for</b>Octagonal tomb &amp; artificial lake</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>6 AM – 6 PM (daily)</td></tr><tr><th>Main chamber access</th><td>Usually 10 AM – 5 PM</td></tr><tr><th>Indian adult</th><td>Approx. ₹20–₹25</td></tr><tr><th>Children under 15</th><td>Free</td></tr><tr><th>Foreign visitors</th><td>Approx. ₹250–₹300</td></tr></table></div>
+<p>Ticket rates and access to the inner chamber may change. Confirm current arrangements at the monument.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Rohtasgarh_fort.jpg" alt="Wide aerial view of the historic Rohtasgarh Fort complex on the Kaimur plateau" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">21 · ROHTAS, BIHAR</div>
+<h2>Rohtasgarh Fort</h2>
+<p>Perched high on the Kaimur plateau above the Son valley, Rohtasgarh is an extensive hill fort with a long history and massive defensive walls. Sher Shah Suri captured it in 1539, and Raja Man Singh later expanded the complex during Akbar’s reign. Its historic remains include gateways such as Hathiya Pol, palace buildings, courtyards, mosques and temples. The fort is traditionally associated with Rohitaswa, son of King Harishchandra.</p>
+<div class="facts"><span><b>Location</b>Kaimur hills, Rohtas district</span><span><b>Elevation</b>About 1,500 feet</span><span><b>Highlights</b>Hathiya Pol, palaces &amp; fort walls</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>Sunrise – sunset (approx. 6 AM – 5:30 / 6 PM)</td></tr><tr><th>Entry fee</th><td>Free</td></tr><tr><th>Access</th><td>Hike from Akbarpur or local jeep / taxi</td></tr></table></div>
+<p>The hill route is steep and uneven. Start early, carry water and plan to descend before dark; check local road and access conditions before travelling.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lomas_Rishi_Cave,_Barabar_Hills.jpg?width=1400" alt="Wide view of the rock-cut entrance and granite hillside at Lomas Rishi Cave, Barabar" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">22 · BARABAR HILLS, JEHANABAD, BIHAR</div>
+<h2>Barabar Caves</h2>
+<p>Carved into massive granite hills during the Mauryan period in the 3rd century BCE, the Barabar Caves are among the oldest surviving rock-cut caves in India. Several caves were dedicated to Ajivika ascetics by Emperor Ashoka and his grandson Dasharatha. The best-known caves include Lomas Rishi, Sudama, Karan Chaupar and Vishwakarma. Their mirror-like polished interiors, inscriptions and distinctive rock-cut architecture make the site unique.</p>
+<div class="facts"><span><b>Location</b>Barabar Hills, Jehanabad</span><span><b>Period</b>3rd century BCE</span><span><b>Highlights</b>Lomas Rishi façade &amp; polished granite</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>Usually 9 AM – 5 PM (daylight access)</td></tr><tr><th>Entry fee</th><td>Free</td></tr><tr><th>Parking</th><td>Local vehicle charge may apply</td></tr></table></div>
+<p>Wear comfortable footwear for the rocky paths and steps. Opening access may vary with local conditions; confirm at the site before visiting.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://media.assettype.com/outlooktraveller%2F2024-12-26%2F2xqj9dqw%2Fnavratnafort?auto=format%2Ccompress&w=640" alt="Wide view of the historic Buxar Fort on the Ganga riverfront" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">23 · BUXAR, BIHAR</div>
+<h2>Buxar Fort</h2>
+<p>Standing near the southern bank of the Ganga in Buxar, this historic fort is traditionally dated to 1054 CE and associated with King Rudra Deo. The town became nationally important during the Battle of Buxar in 1764, when the East India Company defeated the combined forces of Mughal Emperor Shah Alam II, Shuja-ud-Daula of Awadh and Mir Qasim of Bengal. The fort area preserves historic remains and riverfront views close to the town’s ghats.</p>
+<div class="facts"><span><b>Location</b>Ganga riverfront, Buxar</span><span><b>Traditional date</b>1054 CE</span><span><b>Historic event</b>Battle of Buxar, 1764</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>9 AM – 6 PM (local access may begin earlier)</td></tr><tr><th>Entry fee</th><td>Free</td></tr></table></div>
+<p>Access arrangements around the fort and riverfront may vary. Check locally before planning your visit.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://tourism.bihar.gov.in/content/dam/bihar-tourism-aem/destination-detail/valmiki-tiger-reserve/hero%20banner.JPG/jcr%3Acontent/renditions/cq5dam.web.1280.765.webp" alt="Wide forest river landscape at Valmiki Tiger Reserve" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">24 · WEST CHAMPARAN, BIHAR</div>
+<h2>Valmiki Tiger Reserve</h2>
+<p>Along Bihar’s Indo-Nepal border, Valmiki Tiger Reserve is the state’s only tiger reserve and forms part of the Himalayan Terai forest landscape adjoining Nepal’s Chitwan National Park. Its sal forests, grasslands and river valleys shelter Bengal tigers, leopards, sloth bears, elephants, deer and rich birdlife. The main visitor zones include Valmikinagar, Manguraha and Gobardhana.</p>
+<div class="facts"><span><b>Location</b>West Champaran, Bihar</span><span><b>Landscape</b>Himalayan Terai forests</span><span><b>Safari zones</b>Valmikinagar · Manguraha · Gobardhana</span></div>
+<h3>Safari Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table">
+<tr><th>Morning safari</th><td>6 AM – 10 AM</td></tr>
+<tr><th>Evening safari</th><td>2 PM – 6 PM</td></tr>
+<tr><th>Weekly closure</th><td>Tuesday</td></tr>
+<tr><th>Gypsy / Jeep safari</th><td>Approx. ₹2,400 per vehicle (up to 6 adults)</td></tr>
+<tr><th>Canter safari</th><td>Approx. ₹400 per person (up to 12 adults; Valmikinagar)</td></tr>
+<tr><th>Motorboat / canopy walk</th><td>Approx. ₹118 / ₹12 per person</td></tr>
+<tr><th>Private resort vehicle pass</th><td>Approx. ₹800 per vehicle</td></tr>
+</table></div>
+<p>Boating is commonly listed from 9 AM – 5:30 PM. Safari is seasonal and may close during the monsoon; timings and charges can change. Confirm your zone, slot and current rates before travel.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mangala_Gauri_Temple_at_Gaya,_Bihar.jpg?width=1400" alt="Wide exterior view of Mangala Gauri Temple on the hill in Gaya" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">25 · GAYA, BIHAR</div>
+<h2>Maa Sarva Mangla Gauri Shakti Peeth Temple</h2>
+<p>Located atop Mangla Gauri Hill, also known in tradition as Bhasmakoot Parvat, this temple is revered as one of the sacred Shakti Peethas. Hindu belief holds that a part of Goddess Sati fell at this site. The shrine is associated with maternal protection, nourishment and auspiciousness, and is especially visited on Tuesdays and during Navratri.</p>
+<p>The hilltop temple features stone architecture and carvings associated with medieval construction, along with earlier sculptural remains. Visitors reach the shrine by climbing around 100–120 stone steps. The compound also contains smaller shrines and offers views over Gaya.</p>
+<div class="facts"><span><b>Location</b>Mangla Gauri Hill, Gaya, Bihar</span><span><b>Known for</b>Shakti Peetha &amp; Goddess Sati tradition</span><span><b>Access</b>Approx. 100–120 stone steps</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>5 AM – 1 PM</td></tr><tr><th>Evening hours</th><td>4 PM – 8 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr><tr><th>Puja &amp; offerings</th><td>Optional charges may apply</td></tr></table></div>
+<p>Timings may vary during festivals and special days. Queues can build on Tuesdays and during Navratri; confirm local arrangements before visiting.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://s7ap1.scene7.com/is/image/incredibleindia/mahavir-mandir-patna-bihar-patna1-bihar-attr-hero?qlt=82&amp;ts=1742174294077" alt="Wide exterior view of Mahavir Mandir with its red and white temple towers near Patna Junction" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">26 · PATNA, BIHAR</div>
+<h2>Mahavir Mandir (Patna)</h2>
+<p>Located on Fraser Road beside Patna Junction, Mahavir Mandir is one of the most visited temples dedicated to Lord Hanuman in Bihar and northern India. The temple is known for its distinctive pair of Hanuman idols in the sanctum, representing different forms of the deity.</p>
+<p>The temple's history is traditionally traced to an earlier shrine associated with the Ramanandi tradition. The present structure was renovated in the 1980s under the guidance of Acharya Kishore Kunal and the Mahavir Mandir Trust. Other shrines in the complex include those dedicated to Lord Shiva, Lord Rama, Sita and Lakshman.</p>
+<p>Mahavir Mandir is also famous for its <em>Naivedyam</em> prasad, prepared by specialists from Tirupati. The trust supports charitable work through hospitals, cancer care, food distribution and other public-welfare initiatives.</p>
+<div class="facts"><span><b>Location</b>Fraser Road, beside Patna Junction</span><span><b>Presiding deity</b>Lord Hanuman</span><span><b>Known for</b>Two Hanuman idols &amp; Naivedyam</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>5 AM – 10:30 PM daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr><tr><th>Naivedyam &amp; puja</th><td>Available at temple counters; charges vary</td></tr></table></div>
+<p>Temple timings may be extended on special days and festivals. Follow the temple's current entry and security instructions when visiting.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://d3fphkxyf5o5bm.cloudfront.net/image-resize/format%3Dwebp%2Cw%3D1200/QwRY54Li1HMwD7oNfpUK15Hvyqjwn7KxaGMMPFGEXI" alt="Night view of Takhat Sri Harimandir Ji Patna Sahib illuminated in pink and purple lights" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">27 · PATNA CITY, BIHAR</div>
+<h2>Takhat Shri Harimandir Ji Patna Sahib</h2>
+<p>Commonly known as Patna Sahib Gurudwara, Takhat Shri Harimandir Ji is one of Sikhism’s five Takhts, or seats of temporal authority. It marks the birthplace of Guru Gobind Singh Ji, the tenth Sikh Guru, who was born in Patna in December 1666.</p>
+<p>Located in historic Patna City near the Ganga, the shrine was commissioned by Maharaja Ranjit Singh in the 19th century. The present white-marble complex has peaceful courtyards and a prayer hall where kirtan and recitations from Guru Granth Sahib take place. A museum preserves historical relics associated with Guru Gobind Singh Ji.</p>
+<div class="facts"><span><b>Location</b>Harimandir Gali, Patna City, Patna</span><span><b>Significance</b>One of the Panj Takht</span><span><b>Birthplace</b>Guru Gobind Singh Ji, 1666 CE</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>Open 24 hours daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr><tr><th>Langar</th><td>Free community meal for visitors</td></tr></table></div>
+<p>Remove footwear at the designated area and cover your head before entering. Maintain quiet decorum in the prayer hall and follow local photography restrictions. Museum timings may differ from the main Gurudwara.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Devi_patan_mandir.jpg?width=1600" alt="Wide exterior view of Badi Patan Devi Temple in Patna" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">28 · SADIKPUR, PATNA CITY, BIHAR</div>
+<h2>Shri Badi Patan Devi Temple, Patna</h2>
+<p>Shri Badi Patan Devi is an ancient Shakti shrine in Sadikpur, Patna City, closely tied to the city's spiritual heritage. Tradition identifies it as one of the Shakti Peethas, where a part of Goddess Sati is believed to have fallen. The temple is also known as Maa Sarvanand Kari Patneshwari and is associated with ancient Pataliputra.</p>
+<p>The north-facing sanctum houses black-stone idols traditionally identified as Mahakali, Mahalakshmi and Mahasaraswati, along with Bhairav. Devotees visit especially during Navratri, Durga Puja and on Tuesdays. Chhoti Patan Devi is a separate shrine nearby.</p>
+<div class="facts"><span><b>Location</b>Sadikpur, Patna City</span><span><b>Known as</b>Maa Sarvanand Kari Patneshwari</span><span><b>Deities</b>Mahakali, Mahalakshmi &amp; Mahasaraswati</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>9 AM – 2 PM</td></tr><tr><th>Evening hours</th><td>4 PM – 9 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Timings may vary during festivals and special rituals. Photography inside the sanctum is typically restricted; follow the temple's current instructions.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://inditales.com/wp-content/uploads/2025/03/mundeshwari-devi-temple-bihar-628x420.jpg" alt="Wide exterior view of the ancient stone Maa Mundeshwari Temple on Mundeshwari Hill, Kaimur" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">29 · PAUNRA, KAIMUR, BIHAR</div>
+<h2>Maa Mundeshwari Temple</h2>
+<p>Located atop Mundeshwari Hill near Bhabua in Kaimur district, Maa Mundeshwari Temple is widely regarded as one of India's oldest continuously functioning Hindu shrines. Archaeological and inscriptional evidence places its origins around the 6th–7th century CE, while some local traditions describe an even earlier history.</p>
+<p>The temple is known for its rare octagonal stone plan, carved pillars and niches, and a four-faced (Chaturmukha) Shivling worshipped alongside Goddess Mundeshwari. Its hilltop setting offers views across the green Kaimur region. Pilgrims visit throughout the year, with larger gatherings during Navratri and Shivaratri.</p>
+<div class="facts"><span><b>Location</b>Mundeshwari Hill, Paunra, Kaimur</span><span><b>Architecture</b>Octagonal stone shrine</span><span><b>Known for</b>Chaturmukha Shivling &amp; Goddess Mundeshwari</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>6 AM – 7 PM daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Timings may change during festivals or special rituals. Offerings and puja arrangements are separate. Check local updates before travelling.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://tourism.bihar.gov.in/content/dam/bihar-tourism-aem/images-desti/nalanda/jal-mandir/Photo%20gallery%20%20%283%29.jpg" alt="Wide view of Jal Mandir white marble temple on the lotus pond at Pawapuri" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">30 · PAWAPURI, NALANDA, BIHAR</div>
+<h2>Jal Mandir, Pawapuri</h2>
+<p>Located in Pawapuri, Jal Mandir is one of Jainism’s holiest pilgrimage sites. The white-marble shrine stands on an island platform in the middle of a large lotus tank and is reached by a stone causeway. Jain tradition holds that Lord Mahavira, the 24th Tirthankara, attained Nirvana and was cremated at Pawapuri.</p>
+<p>The temple’s sanctum venerates the sacred charan paduka (footprints) of Lord Mahavira. According to tradition, devotees carried away soil from the cremation site, gradually forming the depression that became the water tank. The peaceful pond, lotus blooms and marble shrine make this an important destination, especially during Diwali and Mahavir Jayanti.</p>
+<div class="facts"><span><b>Location</b>Pawapuri Jal Mandir Road, Nalanda</span><span><b>Faith</b>Jainism</span><span><b>Known for</b>Mahavira’s Nirvana site &amp; marble island temple</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>Approximately 6 AM – 7 PM daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Local listings report varying hours, including possible midday breaks and extended festival timings. Remove footwear before crossing the causeway and entering the temple. Donations and footwear-keeping tips, if offered, are separate.</p>
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://pbs.twimg.com/media/GLq5b3HagAAo6Y9.jpg" alt="Wide view of the white Jain temple complex at Kundalpur, Nalanda" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">31 · KUNDALPUR, NALANDA, BIHAR</div>
+<h2>Kundalpur Digamber Jain Temple</h2>
+<p>Kundalpur, about 1.6 km from the Nalanda ruins, is revered by the Digambar Jain tradition as the birthplace of Lord Mahavira, the 24th Tirthankara. The village has several Jain temples, including a modern white-toned temple complex with spacious courtyards and peaceful surroundings.</p>
+<p>A separate building displays images of 72 Jinas. The temple complex also provides accommodation facilities for pilgrims, making Kundalpur an important stop on Bihar’s Jain pilgrimage circuit.</p>
+<div class="facts"><span><b>Location</b>Kundalpur, Nalanda, Bihar</span><span><b>Known for</b>Birthplace tradition of Lord Mahavira</span><span><b>Highlights</b>72 Jinas display &amp; pilgrim accommodation</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>9 AM – 5 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Timings and ritual schedules may vary; confirm locally before visiting. Dress modestly and maintain silence during prayers.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://images.thedailyjagran.com/images/2025/06/23/article/image/PANAURA-DHAM-1750675888412.webp" alt="Punaura Dham Janaki temple, traditionally revered as the birthplace of Goddess Sita" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">32 · PUNAURA, SITAMARHI, BIHAR</div>
+<h2>Punaura Dham (Janaki Janmabhoomi)</h2>
+<p>Located about 5 km west of Sitamarhi town, Punaura Dham is traditionally revered as the birthplace of Goddess Sita and is an important stop on the Ramayana Circuit. According to the local Ramayana tradition, King Janaka discovered the infant Sita in an earthen pot while ploughing the land during a yajna near Sage Pundrik’s ashram.</p>
+<p>The shrine and nearby Janaki Kund pond form the heart of the pilgrimage site. A major redevelopment project is underway, with an official completion target of 31 December 2028; the site remains open to visitors during phased construction.</p>
+<div class="facts"><span><b>Location</b>Punaura village, about 5 km west of Sitamarhi</span><span><b>Significance</b>Traditional birthplace of Goddess Sita</span><span><b>Known for</b>Janaki Temple &amp; Janaki Kund</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Visiting hours</th><td>6 AM – 6 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Some local listings report split hours or extended evening timings. Construction work may affect access to parts of the complex; confirm current arrangements locally before visiting.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://www.jagranimages.com/images/newimg/26062022/26_06_2022-shyama_mai_temple_darbhanga_22837673.webp" alt="Shyama Mai Temple in Darbhanga, Bihar" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">33 · KATHALBARI, DARBHANGA, BIHAR</div>
+<h2>Shyama Mai Temple (Rameshwari Shyama Mai)</h2>
+<p>Located in the Kathalbari area within the Lalit Narayan Mithila University campus, Shyama Mai Temple is a major Shakta shrine established in 1933 by Maharaja Kameshwar Singh at the funeral pyre site of Maharaja Rameshwar Singh.</p>
+<p>The temple complex stands beside a pond surrounded by smaller royal-era shrines. Its principal shrine is dedicated to Maa Kali, with associated worship of Mahakal, Ganapati and Batukabhairava. Devotees visit throughout the year, especially during Navratri and evening aarti.</p>
+<div class="facts"><span><b>Location</b>LNMU campus, Kathalbari, Darbhanga</span><span><b>Established</b>1933</span><span><b>Known for</b>Maa Kali shrine &amp; pond-side complex</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>4 AM – 1 PM</td></tr><tr><th>Evening hours</th><td>3 PM – 11 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Temple access is generally open daily. Puja items, offerings and donations are separate; follow the temple’s instructions during aarti and festival periods.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://tourism.bihar.gov.in/content/dam/bihar-tourism/images/category_a/darbhanga/ahilya_sthaan/ramayan_darbhanga_category_a__ahilya_sthan__pic_04.jpg" alt="Ahilya Sthan temple in Ahiyari, Darbhanga" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">34 · AHIYARI, DARBHANGA, BIHAR</div>
+<h2>Ahilya Sthan</h2>
+<p>Located in the Ahiyari area of Darbhanga district, Ahilya Sthan is traditionally linked to Sage Gautama’s ashram and the Ramayana episode in which Lord Rama releases Ahilya from a curse on his way to Janakpur. It is regarded locally as an early Ram-Janaki shrine in Mithila.</p>
+<p>The temple’s history is associated with 17th-century Mithila rulers, later reconstructions and a sacred stone slab venerated in local tradition. The site draws devotees during Ram Navami and Vivah Panchami.</p>
+<div class="facts"><span><b>Location</b>Ahiyari, Darbhanga district</span><span><b>Tradition</b>Ahilya’s redemption by Lord Rama</span><span><b>Known for</b>Ram-Janaki shrine &amp; sacred stone</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>5 AM – 9 PM daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Some listings report split morning and evening darshan hours. Confirm local timings before visiting. Puja offerings and voluntary donations are separate.</p>
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://static.punjabkesari.in/multimedia/16_34_586852658gopal1.jpg" alt="Maa Thawewali Temple in Thawe, Gopalganj" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">35 · THAWE, GOPALGANJ, BIHAR</div>
+<h2>Thawe Mandir (Maa Thawewali Temple)</h2>
+<p>Thawe Mandir is a prominent Shakti shrine dedicated to Goddess Durga, also revered as Singhasini Devi and Rahshu Bhawani. Local tradition connects the temple with the devotee Rahshu and a distinctive cross-shaped tree within the temple enclosure.</p>
+<p>The shrine welcomes pilgrims throughout the year and sees major gatherings during Chaitra and Shardiya Navratri. Daily worship includes morning and evening aarti.</p>
+<div class="facts"><span><b>Location</b>Thawe, Gopalganj district</span><span><b>Deity</b>Goddess Durga</span><span><b>Known for</b>Rahshu tradition &amp; Navratri fairs</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>4 AM – 9 PM daily</td></tr><tr><th>Midday pause</th><td>Commonly around 12:30 PM – 2:30 PM</td></tr><tr><th>Morning aarti</th><td>Around 5 AM</td></tr><tr><th>Evening aarti</th><td>Around 8 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Ritual schedules can vary on festival days. Special puja bookings, including vehicle puja, may carry separate charges.</p>
+
+</div>
+</article>
+<article class="place-card glass">
+<div class="place-image"><img src="https://static-gi.asianetnews.com/images/01k0f6gmajzprzr6a7hj2xhhms/someswar-nath-1752856809810_1280x720xt.jpg" alt="Someshwarnath Mahadev Temple at Areraj, East Champaran" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">36 · ARERAJ, EAST CHAMPARAN, BIHAR</div>
+<h2>Someshwarnath Mahadev Temple, Areraj</h2>
+<p>Someshwarnath Mahadev Temple in Areraj is an ancient Shiva shrine linked in Puranic tradition to King Som. It is revered across the region and neighboring Nepal and is known for its tall temple spire and sacred Shivling.</p>
+<p>The temple receives large numbers of pilgrims during Shravani Mela and Maha Shivratri, making it a major Shaiva pilgrimage destination in north-western Bihar.</p>
+<div class="facts"><span><b>Location</b>Areraj, East Champaran</span><span><b>Presiding deity</b>Lord Shiva</span><span><b>Known for</b>Shivling &amp; Shravani Mela</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Daily darshan</th><td>Early morning to evening</td></tr><tr><th>Typical morning rituals</th><td>4:30 AM – 5 AM onwards</td></tr><tr><th>Evening aarti</th><td>Around 8 PM – 9:30 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Exact daily and festival schedules may vary. Puja items, abhishek arrangements and offerings are separate.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Aerial_View_of_Garib_Nath_Mandir_Muzaffarpur.png" alt="Aerial view of Baba Garib Nath Mandir in Muzaffarpur, Bihar" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">37 · MUZAFFARPUR, BIHAR</div>
+<h2>Baba Garib Nath Mandir</h2>
+<p>Baba Garib Nath Mandir is a prominent Shiva shrine in the heart of Muzaffarpur, popularly known as the “Deoghar of North Bihar”. Local tradition associates the temple with a swayambhu Shivling discovered at an old banyan and peepal grove and later protected within a temple complex.</p>
+<p>The shrine draws large numbers of devotees, especially on Mondays during Shravan, throughout the Kanwar Yatra and on Maha Shivratri. Its central location makes it one of the best-known places of worship in Muzaffarpur.</p>
+<div class="facts"><span><b>Location</b>Garib Nath Dham Road, Muzaffarpur</span><span><b>Presiding deity</b>Lord Shiva</span><span><b>Known for</b>“Deoghar of North Bihar” &amp; Shravan pilgrimage</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>4 AM – 12 PM</td></tr><tr><th>Afternoon break</th><td>12 PM – 2 PM</td></tr><tr><th>Evening hours</th><td>2 PM – 10 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Timings may change during Shravan and festival days. Puja ceremonies, Rudrabhishek and offerings carry separate charges.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://www.shrineyatra.com/wp-content/uploads/2022/10/Ajgaibinath-Temple.jpg" alt="Ajgaibinath Temple on a rocky outcrop in the Ganga at Sultanganj, Bhagalpur" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">38 · SULTANGANJ, BHAGALPUR, BIHAR</div>
+<h2>Ajgaibinath Temple</h2>
+<p>Ajgaibinath Temple, also known as Gaibinath Mahadeo, stands on a rocky outcrop in the Ganga at Sultanganj, along the river’s northward-flowing Uttarvahini stretch. The shrine is linked in local tradition to Sage Jahnu and is an important Shiva pilgrimage site.</p>
+<p>The temple is especially significant as the traditional starting point for Kanwar Yatra pilgrims who collect sacred Ganga water at Sultanganj before travelling to Baidyanath Dham in Deoghar. The shrine is known for its swayambhu Shivling, rock-carved figures and river views; access may involve a short boat ride depending on river conditions.</p>
+<div class="facts"><span><b>Location</b>Sultanganj, Bhagalpur district</span><span><b>Presiding deity</b>Lord Shiva</span><span><b>Known for</b>Uttarvahini Ganga &amp; Kanwar Yatra</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>9 AM – 12:30 PM</td></tr><tr><th>Evening hours</th><td>5 PM – 8 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Boat and ferry availability depends on river level and local operating conditions. Boat rides, puja and offerings are separate.</p>
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://staticimg.amarujala.com/assets/images/2023/07/17/sawan-2023-inflow-of-devotees-on-second-monday-in-singheshwar-temple-is-famous-as-mankomna-linga_1689576679.jpeg?w=1200" alt="Baba Singheshwar Mahadev Temple in Madhepura during the Shravan pilgrimage" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">39 · SINGHESHWAR, MADHEPURA, BIHAR</div>
+<h2>Baba Singheshwar Sthan</h2>
+<p>Baba Singheshwar Sthan in Singheshwar near Madhepura is an ancient and revered Shiva shrine associated in regional tradition with Sage Shringi, who is said to have performed the Putreshthi Yajna for King Dasharatha. Local Puranic lore also connects the place with Lord Shiva’s antler or horn, known as “Shringa”.</p>
+<p>The temple is an important centre of worship across the Kosi region. It receives large gatherings during the annual fair around Maha Shivratri and heavy pilgrim footfall during the month of Shravan.</p>
+<div class="facts"><span><b>Location</b>Singheshwar, Madhepura district</span><span><b>Presiding deity</b>Lord Shiva</span><span><b>Known for</b>Manokamna Ling &amp; Maha Shivratri fair</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Daily darshan</th><td>Approximately 5 AM – 9 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Opening hours and mela arrangements may vary during festivals. Puja offerings and donations are separate.</p>
+</div>
+</article>
+
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://tourism.bihar.gov.in/content/dam/bihar-tourism-aem/destination-detail/ashok-dham/Banner.jpg" alt="Ashok Dham Indradamneshwar Mahadev Temple complex in Lakhisarai" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">40 · BALGUDAR, LAKHISARAI, BIHAR</div>
+<h2>Ashok Dham (Indradamneshwar Mahadev Mandir)</h2>
+<p>Ashok Dham in Balgudar, Lakhisarai district, is a prominent Shiva pilgrimage complex dedicated to Indradamneshwar Mahadev. Local and historical accounts associate the site with Pala-era worship and a temple linked to King Indradyumna. The present-day temple complex grew around a large buried Shivling rediscovered on 7 April 1977, traditionally by a shepherd boy named Ashok while playing.</p>
+<p>The complex now includes the main Mahadev shrine, surrounding temples, a museum, a Veda school and dharamshala facilities. Devotees visit in large numbers during Shravan and Maha Shivratri, and families also come for mundan ceremonies.</p>
+<div class="facts"><span><b>Location</b>Balgudar, Lakhisarai district</span><span><b>Presiding deity</b>Indradamneshwar Mahadev</span><span><b>Known for</b>Large Shivling rediscovered in 1977</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>General visiting hours</th><td>Approximately 9 AM – 5 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Hours may be extended during Shravan and Maha Shivratri. Some listings mention separate facility or museum charges; confirm any such fee at the complex before paying.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://pbs.twimg.com/media/Fd3uZsFVEAAykno.jpg" alt="Maa Tara Chandi Temple at the foot of the Kaimur hills near Sasaram" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">41 · SASARAM, ROHTAS, BIHAR</div>
+<h2>Maa Tara Chandi Temple</h2>
+<p>Maa Tara Chandi Temple is a revered Shakti shrine set into the Kaimur hill slopes near Sasaram in Rohtas district. The hillside and cave-side temple houses an image of Goddess Tara Chandi and is associated with a 12th-century inscription of King Pratap Dhavaldev, alongside older sculptural traditions.</p>
+<p>The shrine is an important local pilgrimage destination and attracts especially large numbers of devotees during Navratri. Its setting near the Kaimur hills makes it a distinctive religious stop around Sasaram.</p>
+<div class="facts"><span><b>Location</b>Kaimur hill slopes, near Sasaram</span><span><b>Presiding deity</b>Goddess Tara Chandi</span><span><b>Known for</b>Hillside shrine &amp; 12th-century inscription</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>5:30 AM – 8 PM daily</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Timings may change during Navratri and other festivals. Puja offerings and donations are separate.</p>
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://cf-img-a-in.tosshub.com/lingo/gnt/images/story/202504/67ed808a50232-chaitra-navratri-2025-02230155-16x9.jpg" alt="Goddess Aranya Devi shrine in Ara, Bhojpur district" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">42 · ARA, BHOJPUR, BIHAR</div>
+<h2>Maa Aranya Devi Temple, Ara</h2>
+<p>Maa Aranya Devi Temple in the heart of Ara, Bhojpur district, is a historic shrine dedicated to Goddess Aranya Devi, traditionally revered as the presiding and protective deity of the city. Local legends connect the goddess with the ancient forest setting and King Moradhwaja.</p>
+<p>The temple has a courtyard layout and a distinctive pyramidal roof. It welcomes devotees throughout the year, with larger gatherings during Navratri and other festive seasons.</p>
+<div class="facts"><span><b>Location</b>Ara, Bhojpur district</span><span><b>Presiding deity</b>Goddess Aranya Devi</span><span><b>Known for</b>City’s guardian deity &amp; Navratri worship</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning hours</th><td>5:30 AM – 1 PM</td></tr><tr><th>Evening hours</th><td>2 PM – 9:30 PM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Temple hours may vary on festival days. Puja items, offerings and donations are separate.</p>
+
+</div>
+</article>
+
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://www.nativeplanet.com/photos/929x523x90/2018/09/photo-92-111055-2.jpg" alt="Kapileshwarnath Mandir at Kapileshwar Sthan in Kakraul, Madhubani" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">43 · KAKRAUL, MADHUBANI, BIHAR</div>
+<h2>Kapileshwarnath Mandir (Kapileshwar Sthan)</h2>
+<p>Kapileshwarnath Mandir at Kakraul, in the Rahika area of Madhubani district, is a revered Shiva shrine in the Mithila region. Local tradition links the sacred Shiva Lingam with Sage Kapila, while a nearby pond is associated with Sage Kardama. Temple histories trace the shrine’s documented past to at least the late 15th century, around 1487 CE.</p>
+<p>The traditional Mithila temple complex includes smaller shrines, including one dedicated to Batuk Bhairava, and a nearby sacred pond. Devotees gather especially on Mondays, throughout Shravan and at the annual Maha Shivaratri fair.</p>
+<div class="facts"><span><b>Location</b>Kakraul, Rahika, Madhubani district</span><span><b>Presiding deity</b>Lord Shiva (Kapileshwarnath)</span><span><b>Known for</b>Sage Kapila tradition, Batuk Bhairava shrine &amp; sacred pond</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Monday–Saturday</th><td>7 AM – 8:30 PM (listed)</td></tr><tr><th>Sunday</th><td>8 AM – 8:30 PM (listed)</td></tr><tr><th>Other temple guides</th><td>Some list early opening from 5:30 AM</td></tr><tr><th>Darshan entry</th><td>Free</td></tr></table></div>
+<p>Opening hours can differ between listings and may change during festivals. Confirm the exact daily schedule locally. Puja items, offerings and voluntary donations are separate.</p>
+
+</div>
+</article>
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Jaimanglagarh_Temple.jpg" alt="Jai Mangla Garh Temple near Kanwar Lake in Begusarai, Bihar" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">44 · MANJHAUL, BEGUSARAI, BIHAR</div>
+<h2>Jai Mangla Garh Temple (Maa Jaimangla Gadh Shaktipeeth)</h2>
+<p>Jai Mangla Garh is an ancient Shakti shrine near Manjhaul in Begusarai district, set on a raised island-like mound within the Kanwar Lake wetland. The temple is dedicated to Goddess Chandi Mangla Devi, also known as Jayamangala. Local religious tradition reveres the site as a Shaktipeeth; archaeological finds and regional histories connect the surrounding settlement with the Gupta and Pala periods.</p>
+<p>The temple’s setting offers views across the Kanwar Lake wetland, known for its seasonal water landscape and birdlife. Devotees visit in large numbers during Navratri, Vasant Panchami and the annual Jaimangla Utsav. Approach routes and access can be affected by water levels and seasonal conditions.</p>
+<div class="facts"><span><b>Location</b>Near Manjhaul, Cheria Bariarpur, Begusarai district</span><span><b>Presiding deity</b>Maa Chandi Mangla Devi (Jayamangala)</span><span><b>Known for</b>Island-like shrine in the Kanwar Lake wetland</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Darshan hours</th><td>Daytime and evening; fixed daily hours not reliably published</td></tr><tr><th>General darshan entry</th><td>Free</td></tr><tr><th>Boat / local transport</th><td>May cost extra if needed for current access conditions</td></tr></table></div>
+<p>Confirm opening hours, water levels, approach routes and any boat arrangements locally before travelling. Puja offerings and voluntary donations are separate.</p>
+
+</div>
+</article>
+
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vidhnudham_mandir_ganpatganj_supaul.jpg" alt="Vishnu Dham temple, Sri Varadraja Perumal Devasthanam, Ganpatganj, Supaul" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">45 · GANPATGANJ, SUPAUL, BIHAR</div>
+<h2>Vishnu Dham (Sri Varadraja Perumal Devasthanam), Ganpatganj</h2>
+<p>Vishnu Dham, also known as Sri Varadraja Perumal Devasthanam or Vishnupad Temple, is a prominent Vaishnavite temple at Ganpatganj in Dharahara village, Raghopur block, Supaul district. Dedicated to Lord Vishnu, the temple is known for its South Indian / Dravidian-style architecture, tall gopuram and detailed carvings.</p>
+<p>The temple complex was developed under the Sri Varadraja Perumal Devasthanam Trust. Its foundation stone was laid in 2004 and construction was completed in 2014. Devotees visit from across Bihar and neighboring areas for darshan and worship.</p>
+<div class="facts"><span><b>Location</b>Ganpatganj, Dharahara, Raghopur, Supaul district, Bihar 852109</span><span><b>Presiding deity</b>Lord Varadraja Perumal (Vishnu)</span><span><b>Known for</b>Dravidian architecture, gopuram &amp; Vaishnavite worship</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Morning darshan</th><td>6:00 AM – 11:40 AM (listed)</td></tr><tr><th>Evening darshan</th><td>3:30 PM – 9:00 PM (listed)</td></tr><tr><th>General darshan</th><td>Free; confirm locally</td></tr></table></div>
+<p>Temple schedules may change on festivals and special occasions. Confirm the current darshan and aarti timings locally before travelling. Puja offerings and donations are separate.</p>
+
+</div>
+</article>
+
+
+
+
+<article class="place-card glass">
+<div class="place-image"><img src="https://cdnbbsr.s3waas.gov.in/s39a49a25d845a483fae4be7e341368e36/uploads/2021/08/2021080553.jpg" alt="Matsyagandha Mandir and temple complex beside Matsyagandha Lake in Saharsa" loading="lazy" decoding="async"></div>
+<div class="place-copy">
+<div class="number">46 · SAHARSA, BIHAR</div>
+<h2>Matsyagandha Mandir (Rakta Kali &amp; 64 Yogini Temple Complex)</h2>
+<p>Matsyagandha is a well-known lakeside landmark in Saharsa, developed from a formerly waterlogged area into a scenic tourist complex beside Matsyagandha Lake. The complex is associated with Rakta Kali Mandir and a distinctive oval-shaped temple whose inner walls feature engraved figures of 64 Yoginis and other deities.</p>
+<p>Visitors come to the area for worship, peaceful walks and the lake setting. The wider complex is also known as a local tourism and leisure spot; boating and other activities, when available, may involve separate charges.</p>
+<div class="facts"><span><b>Location</b>Matsyagandha Road, Sarswati Nagar / Police Line area, Saharsa, Bihar</span><span><b>Associated shrines</b>Rakta Kali Mandir &amp; 64 Yogini temple</span><span><b>Known for</b>Oval temple, 64 Yogini carvings &amp; lakeside complex</span></div>
+<h3>Timings &amp; Entry</h3>
+<div class="fee-table-wrap"><table class="fee-table"><tr><th>Complex hours</th><td>Listed as open 24 hours; verify locally</td></tr><tr><th>Temple worship</th><td>Some guides list approximately 6 AM – 9 PM</td></tr><tr><th>General darshan</th><td>Free</td></tr><tr><th>Boating / activities</th><td>Separate charges may apply when available</td></tr></table></div>
+<p>Listed gate hours may not reflect inner-sanctum access or aarti schedules. Confirm temple timings and boating availability locally before visiting.</p>
+
+</div>
+</article>
+</main>
+<footer>← Back to Bharat Unfolded</footer>
+</div>
+</body>
+</html</article>
+</section>
+
 <article class="place-card glass">
 <div class="place-image"><img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Xuanzang_%28Hieun_Tsang%29_Memorial_Hall.jpg" alt="Xuanzang statue in front of the Chinese-style Hiuen Tsang Memorial Hall"></div>
 <div class="place-copy">
