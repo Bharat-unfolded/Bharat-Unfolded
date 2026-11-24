@@ -54,6 +54,7 @@ body.single-place-view .wrap>*:not(.top):not(.place-card){display:none!important
 body.single-place-view .place-card:not([data-selected-place]){display:none!important}
 body.single-place-view .place-card[data-selected-place]{display:grid!important;max-width:1180px;margin:28px auto 48px;}
 </style>
+<style>.single-place-view article[hidden],.single-place-view .place-card[hidden]{display:none!important}.single-place-view [data-selected-place]{display:block!important;visibility:visible!important}</style>
 </head>
 <body>
 <div class="wrap">
@@ -764,6 +765,19 @@ body.single-place-view .place-card[data-selected-place]{display:grid!important;m
  const heading=document.querySelector('h1');if(heading)heading.textContent=place?(shown?place+' · Details':'Place not found'):city+' · Places to Visit';
  const note=document.createElement('p');note.className='city-search-note';note.textContent=shown?(place?'Showing the selected destination.':'Showing '+shown+' places matching '+city+'.'):(place?'This destination is not listed on this page yet.':'No listed places found for '+city+' on this page yet.');
  const wrap=document.querySelector('.wrap');if(wrap&&!place)wrap.insertBefore(note,wrap.querySelector('.region-heading,.place-card'));if(place&&shown){const selected=document.querySelector('[data-selected-place]');selected?.scrollIntoView({block:'start'});}
+})();
+</script>
+
+<script>
+(()=>{const params=new URLSearchParams(location.search),place=params.get('place');if(!place)return;
+ const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');
+ const cards=[...document.querySelectorAll('article.history-article')],q=norm(place);
+ const found=cards.find(card=>norm(card.querySelector('h2')?.textContent)===q);
+ if(!found)return;
+ cards.forEach(card=>{card.hidden=card!==found});
+ found.hidden=false;found.setAttribute('data-selected-place','true');document.body.classList.add('single-place-view');
+ const heading=document.querySelector('h1');if(heading)heading.textContent=found.querySelector('h2').textContent.trim();
+ setTimeout(()=>found.scrollIntoView({block:'start',behavior:'instant'}),80);
 })();
 </script>
 </body>
