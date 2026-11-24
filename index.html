@@ -1,82 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#ffffff">
-<meta name="description" content="Bharat Unfolded by Vikash Kumar — discover India's history, heritage and destinations state by state.">
-<title>Bharat Unfolded | India's Stories, History & Places</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#242321;--muted:#74716d;--line:#eae7e2;--accent:#b75a3d;--paper:#fffefa;--soft:#f7f2eb}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{width:min(1160px,calc(100% - 48px));margin:auto}
-header{position:sticky;top:0;z-index:10;background:#fffefaeF;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-size:22px;font-weight:800;letter-spacing:-.8px}.brand span{color:var(--accent)}.navlinks{display:flex;align-items:center;gap:9px}.navlinks a,.nav-contact{border:1px solid var(--line);border-radius:24px;padding:10px 15px;font-size:12px;font-weight:700;background:#fff}.navlinks a:hover,.nav-contact:hover{border-color:var(--accent);color:var(--accent)}
-.eyebrow{font-size:10px;letter-spacing:2.3px;text-transform:uppercase;color:var(--accent);font-weight:800}.intro{padding:64px 0 55px}.intro-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:46px;align-items:center}.founder-card{padding:34px;border:1px solid var(--line);border-radius:18px;background:#fff}.founder-card h1{font:700 42px/1.1 "Playfair Display",Georgia,serif;margin:13px 0 10px}.founder-role{font-size:13px;color:var(--accent);font-weight:700}.founder-card p{font-size:13px;color:var(--muted);line-height:1.8;margin:19px 0 0}.founder-meta{border-top:1px solid var(--line);margin-top:22px;padding-top:17px;font-size:12px;line-height:1.9;color:var(--muted)}.founder-meta strong{color:var(--ink)}.india-photo{height:410px;border-radius:18px;overflow:hidden;position:relative;background:#eee}.india-photo img{width:100%;height:100%;object-fit:cover}.photo-caption{position:absolute;left:18px;bottom:18px;padding:11px 15px;border-radius:10px;background:#fff;font-size:11px;font-weight:700}
-.story{padding:55px 0 72px;border-top:1px solid var(--line)}.story-heading{max-width:720px;margin-bottom:30px}.story-heading h2{font:700 clamp(32px,4vw,48px)/1.15 "Playfair Display",Georgia,serif;margin:12px 0}.story-heading p{font-size:14px;line-height:1.8;color:var(--muted);margin:0}.story-row{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;margin:35px 0}.story-row.reverse .story-image{order:2}.story-image{height:300px;border-radius:16px;overflow:hidden;background:#eee}.story-image img{width:100%;height:100%;object-fit:cover}.story-copy h3{font:700 27px "Playfair Display",Georgia,serif;margin:0 0 12px}.story-copy p{font-size:13px;line-height:1.9;color:var(--muted);margin:0}.history-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}.history-item{background:var(--soft);border-radius:13px;padding:18px}.history-item strong{display:block;font:700 20px "Playfair Display",Georgia,serif;color:var(--accent);margin-bottom:8px}.history-item span{font-size:11px;line-height:1.6;color:#625e58}
-.directory{padding:58px 0 80px;border-top:1px solid var(--line)}.directory-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:25px}.directory-heading h2{font:700 36px "Playfair Display",Georgia,serif;margin:9px 0}.directory-heading p{font-size:13px;color:var(--muted);margin:0;line-height:1.7}.india-label{border:1px solid var(--line);padding:11px 16px;border-radius:25px;font-size:12px;font-weight:800;white-space:nowrap}.directory-layout{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:start}.state-list-wrap,.place-results{border:1px solid var(--line);border-radius:15px;overflow:hidden;background:#fff}.list-title{padding:16px 18px;font-size:12px;font-weight:800;border-bottom:1px solid var(--line);background:#faf8f4}.state-list{max-height:570px;overflow-y:auto;padding:8px}.state-choice{display:flex;width:100%;justify-content:space-between;text-align:left;border:0;background:#fff;border-radius:8px;padding:11px 12px;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink)}.state-choice:hover,.state-choice.active{background:#f8eee8;color:var(--accent)}.state-choice span:last-child{color:var(--muted)}.place-results{min-height:360px;padding:24px}.place-topline{display:flex;justify-content:space-between;gap:15px;margin-bottom:18px}.place-topline h3{font:700 28px "Playfair Display",Georgia,serif;margin:5px 0}.place-topline p,.place-count{font-size:11px;color:var(--muted);margin:0}.place-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.place-link{display:block;border:1px solid var(--line);border-radius:11px;padding:15px}.place-link:hover{border-color:var(--accent);background:#fffaf6}.place-link strong{display:block;font-size:13px;margin-bottom:5px}.place-link span{font-size:10px;color:var(--muted)}.place-empty{padding:55px 20px;text-align:center;color:var(--muted);font-size:13px}
-footer{border-top:1px solid var(--line);padding:28px 0}.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.foot p{font-size:11px;line-height:1.7;color:var(--muted)}.foot a{color:var(--accent);font-weight:700}
-@media(max-width:800px){.intro-grid{grid-template-columns:1fr;gap:22px}.india-photo{height:320px}.history-strip{grid-template-columns:repeat(2,1fr)}.directory-layout{grid-template-columns:250px 1fr}}
-@media(max-width:600px){.wrap{width:calc(100% - 32px)}.nav{height:auto;min-height:66px;flex-wrap:wrap;padding:12px 0}.brand{font-size:20px}.navlinks{order:3;width:100%;overflow-x:auto;padding:2px 0 5px}.navlinks a{white-space:nowrap;padding:8px 12px;font-size:11px}.nav-contact{font-size:11px;padding:8px 12px}.intro{padding:35px 0}.founder-card{padding:25px}.founder-card h1{font-size:36px}.india-photo{height:245px}.story{padding:40px 0 50px}.story-row,.story-row.reverse{grid-template-columns:1fr;gap:18px;margin:26px 0}.story-row.reverse .story-image{order:0}.story-image{height:220px}.story-copy h3{font-size:24px}.history-strip{gap:9px}.history-item{padding:14px}.directory{padding:42px 0 55px}.directory-heading{align-items:start;flex-direction:column}.directory-heading h2{font-size:30px}.directory-layout{grid-template-columns:1fr;gap:12px}.state-list{max-height:230px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.state-choice{padding:10px 8px;font-size:11px}.place-results{padding:17px;min-height:260px}.place-grid{grid-template-columns:1fr 1fr}.place-topline h3{font-size:24px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Bharat Unfolded</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body { background: #ffffff; }
+  </style>
 </head>
 <body>
-<header><div class="wrap nav"><a class="brand" href="#home">Bharat <span>Unfolded.</span></a><nav class="navlinks" aria-label="Main navigation"><a href="#home">Home</a><a href="#vikash">Founder</a><a href="#india-story">India's History</a><a href="states.html">States</a></nav><a class="nav-contact" href="mailto:official@vezorex.shop">Contact ↗</a></div></header>
-<main id="home">
-<section class="intro" id="vikash"><div class="wrap intro-grid">
-<div class="founder-card"><div class="eyebrow">The person behind the project</div><h1>Vikash Kumar</h1><div class="founder-role">Founder & Creator · Bharat Unfolded</div><p>I created Bharat Unfolded to share the stories, heritage and places of India. This project is built with curiosity, respect for every culture and a wish to help people discover more of our country.</p><div class="founder-meta"><strong>Project</strong> · Bharat Unfolded<br><strong>Based in</strong> · Bihar, India<br><strong>Contact</strong> · official@vezorex.shop</div></div>
-<div class="india-photo"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1400&q=85" alt="Taj Mahal, Agra, India"><div class="photo-caption">India — a story shaped over thousands of years</div></div>
-</div></section>
-<section class="story" id="india-story"><div class="wrap">
-<div class="story-heading"><div class="eyebrow">A journey through time</div><h2>India: many eras, one living civilisation.</h2><p>India's story has grown across river valleys, ancient cities, kingdoms, trade routes, art, ideas and movements for freedom. Its past is not just preserved in monuments; it continues in languages, traditions, food, music and everyday life.</p></div>
-<div class="story-row"><div class="story-image"><img loading="lazy" src="https://images.unsplash.com/photo-1606293926075-69a00dbdae81?auto=format&fit=crop&w=1100&q=85" alt="Ancient Indian stone architecture"></div><div class="story-copy"><h3>Ancient roots</h3><p>The Indus Valley Civilisation developed some of South Asia's earliest cities, including Harappa and Mohenjo-daro. Over centuries, new traditions of learning, philosophy, mathematics, literature and architecture took shape across the subcontinent.</p></div></div>
-<div class="story-row reverse"><div class="story-image"><img loading="lazy" src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1100&q=85" alt="Historic Indian temple architecture"></div><div class="story-copy"><h3>Kingdoms, ideas and architecture</h3><p>Empires and regional kingdoms shaped different parts of India. The Maurya and Gupta periods, the Chola kingdoms, the Delhi Sultanate and the Mughal Empire each left marks on administration, art, literature and architecture. Buddhist, Hindu, Jain, Sikh and many other traditions grew and interacted over time.</p></div></div>
-<div class="story-row"><div class="story-image"><img loading="lazy" src="https://images.unsplash.com/photo-1595658658481-d53d3f999875?auto=format&fit=crop&w=1100&q=85" alt="Indian national flag"></div><div class="story-copy"><h3>The freedom movement and modern India</h3><p>Many generations took part in India's struggle against British colonial rule. India became independent on 15 August 1947. The Constitution came into effect on 26 January 1950, and India became a republic.</p></div></div>
-<div class="history-strip"><div class="history-item"><strong>c. 2600 BCE</strong><span>Major urban phase of the Indus Valley Civilisation</span></div><div class="history-item"><strong>Ancient–Medieval</strong><span>Many empires, kingdoms, faiths and centres of learning</span></div><div class="history-item"><strong>15 Aug 1947</strong><span>India became independent</span></div><div class="history-item"><strong>26 Jan 1950</strong><span>The Constitution came into effect</span></div></div>
-</div></section>
-<section class="directory" id="state-directory" hidden><div class="wrap">
-<div class="directory-heading"><div><div class="eyebrow">Discover the country</div><h2>Explore India, state by state.</h2><p>Select a state or Delhi to find places to visit. Choose a place to open its location in Google Maps.</p></div><div class="india-label">🇮🇳 INDIA</div></div>
-<div class="directory-layout"><div class="state-list-wrap"><div class="list-title">Select a state / UT</div><div class="state-list" id="stateList" aria-label="List of Indian states"></div></div><div class="place-results" id="placeResults" aria-live="polite"><div class="place-empty">Choose a state to see its destinations.</div></div></div>
-</div></section>
-</main>
-<footer><div class="wrap foot"><div><a class="brand" href="#home">Bharat <span>Unfolded.</span></a><p>Created by Vikash Kumar · Discover India with curiosity and respect.</p></div><p>Contact: <a href="mailto:official@vezorex.shop">official@vezorex.shop</a><br>© 2026 Bharat Unfolded</p></div></footer>
-<script>
-const destinations={
-"Delhi":["India Gate","Red Fort","Qutub Minar","Humayun's Tomb","Lotus Temple","Akshardham Temple"],
-"Andhra Pradesh":["Visakhapatnam","Araku Valley","Tirupati","Gandikota"],
-"Arunachal Pradesh":["Tawang","Ziro Valley","Dirang","Namdapha National Park"],
-"Assam":["Kaziranga National Park","Guwahati","Majuli","Sivasagar"],
-"Bihar":["Bodh Gaya","Nalanda","Rajgir","Patna","Vaishali"],
-"Chhattisgarh":["Chitrakote Falls","Tirathgarh Falls","Bastar","Sirpur"],
-"Goa":["Panaji","Palolem Beach","Anjuna Beach","Dudhsagar Falls"],
-"Gujarat":["Rann of Kutch","Somnath","Dwarka","Gir National Park","Ahmedabad"],
-"Haryana":["Kurukshetra","Sultanpur National Park","Pinjore Gardens","Morni Hills"],
-"Himachal Pradesh":["Shimla","Manali","Spiti Valley","Dharamshala","Kasol"],
-"Jharkhand":["Netarhat","Deoghar","Betla National Park","Hundru Falls"],
-"Karnataka":["Hampi","Coorg","Mysuru","Gokarna","Bengaluru"],
-"Kerala":["Alappuzha","Munnar","Wayanad","Kochi","Varkala"],
-"Madhya Pradesh":["Khajuraho","Sanchi","Kanha National Park","Ujjain","Pachmarhi"],
-"Maharashtra":["Mumbai","Ajanta Caves","Ellora Caves","Lonavala","Mahabaleshwar"],
-"Manipur":["Loktak Lake","Imphal","Keibul Lamjao National Park","Ukhrul"],
-"Meghalaya":["Shillong","Cherrapunji","Dawki","Mawlynnong"],
-"Mizoram":["Aizawl","Reiek","Phawngpui","Vantawng Falls"],
-"Nagaland":["Kohima","Dzukou Valley","Khonoma","Mon"],
-"Odisha":["Puri","Konark Sun Temple","Bhubaneswar","Chilika Lake","Similipal"],
-"Punjab":["Amritsar","Golden Temple","Anandpur Sahib","Patiala"],
-"Rajasthan":["Jaipur","Udaipur","Jaisalmer","Jodhpur","Pushkar"],
-"Sikkim":["Gangtok","Tsomgo Lake","Pelling","Yumthang Valley"],
-"Tamil Nadu":["Chennai","Madurai","Ooty","Rameswaram","Kanyakumari"],
-"Telangana":["Hyderabad","Warangal","Ramappa Temple","Ananthagiri Hills"],
-"Tripura":["Agartala","Neermahal","Unakoti","Jampui Hills"],
-"Uttar Pradesh":["Agra","Varanasi","Lucknow","Ayodhya","Mathura"],
-"Uttarakhand":["Rishikesh","Nainital","Mussoorie","Auli","Valley of Flowers"],
-"West Bengal":["Kolkata","Darjeeling","Sundarbans","Kalimpong","Bishnupur"]
-};
-const stateList=document.getElementById('stateList'),placeResults=document.getElementById('placeResults');
-function showState(name){document.querySelectorAll('.state-choice').forEach(b=>b.classList.toggle('active',b.dataset.state===name));const places=destinations[name]||[];placeResults.innerHTML='<div class="place-topline"><div><div class="eyebrow">Explore destination</div><h3>'+name+'</h3><p>Select a place to open its map location.</p></div><div class="place-count">'+places.length+' places</div></div><div class="place-grid">'+places.map(place=>'<a class="place-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(place+', '+name+', India')+'"><strong>'+place+'</strong><span>View on Google Maps ↗</span></a>').join('')+'</div>';}
-Object.keys(destinations).sort((a,b)=>a.localeCompare(b)).forEach(name=>{const button=document.createElement('button');button.type='button';button.className='state-choice';button.dataset.state=name;button.innerHTML='<span>'+name+'</span><span>›</span>';button.addEventListener('click',()=>showState(name));stateList.appendChild(button);});
-showState('Bihar');
-</script>
 </body>
 </html>
