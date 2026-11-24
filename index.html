@@ -35,6 +35,20 @@
 .search-hint{gap:7px;flex-wrap:nowrap;overflow-x:auto;padding:2px 0 8px;white-space:nowrap}
 .search-chip{flex:none;padding:7px 11px;font-size:11px}
 }
+
+/* Live destination search and locally ranked searches */
+.searchbox{margin-bottom:0}
+.search-results{display:none;position:relative;z-index:12;width:min(640px,100%);margin-top:9px;padding:7px;border:1px solid rgba(255,255,255,.48);border-radius:17px;background:rgba(18,43,35,.94);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 16px 40px #0005}
+.search-results.show{display:grid;gap:4px}
+.search-result{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px 13px;border:0;border-radius:11px;background:transparent;color:#fff;text-align:left;cursor:pointer}
+.search-result:hover,.search-result:focus-visible{background:#ffffff20;outline:1px solid #ffffff55}
+.search-result small{display:block;margin-top:3px;color:#c5d4cc;font-size:11px}
+.search-result .result-arrow{color:#f1cc7d}
+.search-hint{min-height:34px}
+.trend-empty{color:#f0e8d9;font-size:12px;opacity:.85}
+.search-chip{border-color:#ffffff50}
+.noresult{max-width:640px}
+@media(max-width:560px){.search-results{width:100%;margin-top:8px}.search-result{padding:11px}}
 </style>
 <link rel="stylesheet" href="./ios-glass.css"></head>
 <body>
@@ -45,7 +59,7 @@
 <nav class="menu" id="menu"><a href="#updates">Latest updates</a><a href="#states">All states & UTs</a><a href="#union-territories">Union Territories</a><a href="#places">Famous places</a><a href="#discover">Explore more</a><a href="#contact">Contact</a><a href="#policies">Policies</a></nav>
 </header>
 <main>
-<section class="hero"><div class="hero-inner"><div class="eyebrow">One country · A million stories</div><h1>India is more than a place. It's a feeling.</h1><p>Travel through India's beautiful places, discover its many cultures and stay connected with stories from every corner of the country.</p><form class="searchbox" id="searchForm"><span class="searchicon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search a state, city, monument or destination..." aria-label="Search India"><button type="submit">Explore ↗</button></form><div class="search-hint"><strong>Popular:</strong><button class="search-chip" type="button" data-search-query="Delhi">Delhi</button><button class="search-chip" type="button" data-search-query="Bihar">Bihar</button><button class="search-chip" type="button" data-search-query="Rajasthan">Rajasthan</button><button class="search-chip" type="button" data-search-query="Taj Mahal">Taj Mahal</button></div><div id="noresult" class="noresult">No matching section found. Try a state or famous place name.</div></div></section>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">One country · A million stories</div><h1>India is more than a place. It's a feeling.</h1><p>Travel through India's beautiful places, discover its many cultures and stay connected with stories from every corner of the country.</p><form class="searchbox" id="searchForm"><span class="searchicon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search a state, city, monument or destination..." aria-label="Search India"><button type="submit">Explore ↗</button></form><div class="search-hint" id="trendingSearches"><strong>Most searched:</strong><span class="trend-empty">Search destinations will appear here</span></div><div class="search-results" id="searchResults" role="listbox" aria-label="Search suggestions"></div><div id="noresult" class="noresult">No matching destination found. Try a state, city or famous place.</div></div></section>
 <section class="section updates" id="updates"><div class="section-head"><div><div class="kicker">Fresh from Bharat</div><h2>Latest updates</h2><p class="sub">News, stories and updates from across India. New posts can be added here regularly.</p></div><a class="textlink" href="#contact">Share a story ↗</a></div>
 <div class="newsgrid">
 <article class="news"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1000&q=80" alt="Taj Mahal in Agra"><div class="newsbody"><span class="tag">Featured story</span><h3>Discover the stories behind India's timeless landmarks</h3><p>From grand monuments to quiet heritage streets, every place has a story waiting to be explored.</p><div class="date">BHARAT UNFOLDED · FEATURE</div></div></article>
@@ -74,7 +88,29 @@ const grid=document.getElementById('stateGrid');states.forEach(([name,slug])=>{c
 const uts=[['Andaman and Nicobar Islands','andaman-and-nicobar-islands'],['Chandigarh','chandigarh'],['Dadra and Nagar Haveli and Daman and Diu','dadra-nagar-haveli-and-daman-and-diu'],['Delhi','delhi'],['Jammu and Kashmir','jammu-and-kashmir'],['Ladakh','ladakh'],['Lakshadweep','lakshadweep'],['Puducherry','puducherry']];
 const utGrid=document.getElementById('utGrid');uts.forEach(([name,slug])=>{const a=document.createElement('a');a.className='state';a.href='union-territories/'+slug+'.html';a.dataset.search=name.toLowerCase();a.innerHTML='<span style="color:inherit">'+name+'</span><span>↗</span>';utGrid.appendChild(a)});
 const menu=document.getElementById('menu'),hamb=document.getElementById('hamb');hamb.addEventListener('click',()=>{menu.classList.toggle('open');hamb.setAttribute('aria-expanded',menu.classList.contains('open'))});menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
-document.querySelectorAll('[data-search-query]').forEach(btn=>btn.addEventListener('click',()=>{const input=document.getElementById('searchInput');input.value=btn.dataset.searchQuery;document.getElementById('searchForm').requestSubmit()}));
-document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('searchInput').value.trim().toLowerCase();const no=document.getElementById('noresult');if(!q){no.style.display='none';return}const match=states.find(([n])=>n.toLowerCase().includes(q));if(match){location.href='states/'+match[1]+'.html';return}const utMatch=uts.find(([n])=>n.toLowerCase().includes(q));if(utMatch){location.href='union-territories/'+utMatch[1]+'.html';return}const target=[...document.querySelectorAll('#places .place')].find(x=>x.innerText.toLowerCase().includes(q));if(target){target.scrollIntoView({behavior:'smooth'});no.style.display='none';return}const section=[...document.querySelectorAll('main section')].find(x=>x.innerText.toLowerCase().includes(q));if(section){section.scrollIntoView({behavior:'smooth'});no.style.display='none'}else no.style.display='block'});
+const searchInput=document.getElementById('searchInput'),searchForm=document.getElementById('searchForm'),searchResults=document.getElementById('searchResults'),noresult=document.getElementById('noresult'),trending=document.getElementById('trendingSearches');
+const destinations=[
+...states.map(([name,slug])=>({name,type:'State',url:'states/'+slug+'.html',key:slug})),
+...uts.map(([name,slug])=>({name,type:'Union Territory',url:'union-territories/'+slug+'.html',key:slug})),
+{name:'Taj Mahal',type:'Agra · Uttar Pradesh',url:'https://en.wikipedia.org/wiki/Taj_Mahal',key:'taj-mahal'},
+{name:'Qutub Minar',type:'Delhi · Monument',url:'union-territories/delhi.html#qutub-minar',key:'qutub-minar'},
+{name:'India Gate',type:'Delhi · Monument',url:'union-territories/delhi.html#india-gate',key:'india-gate'},
+{name:'Red Fort',type:'Delhi · Monument',url:'union-territories/delhi.html#red-fort',key:'red-fort'},
+{name:'Humayun’s Tomb',type:'Delhi · Monument',url:'union-territories/delhi.html#humayuns-tomb',key:'humayuns-tomb'},
+{name:'Hawa Mahal',type:'Jaipur · Rajasthan',url:'https://en.wikipedia.org/wiki/Hawa_Mahal',key:'hawa-mahal'},
+{name:'Jaipur',type:'Rajasthan · City',url:'states/rajasthan.html',key:'jaipur'},
+{name:'Varanasi',type:'Uttar Pradesh · City',url:'states/uttar-pradesh.html',key:'varanasi'},
+{name:'Patna',type:'Bihar · City',url:'states/bihar.html',key:'patna'}
+];
+function getSearchCounts(){try{return JSON.parse(localStorage.getItem('buSearchCounts')||'{}')}catch{return {}}}
+function recordSearch(item){const counts=getSearchCounts();counts[item.key]=(counts[item.key]||0)+1;try{localStorage.setItem('buSearchCounts',JSON.stringify(counts))}catch{};renderTrending()}
+function renderTrending(){const counts=getSearchCounts();const ranked=destinations.filter(d=>(counts[d.key]||0)>0).sort((a,b)=>(counts[b.key]||0)-(counts[a.key]||0)).slice(0,4);trending.innerHTML='<strong>Most searched:</strong>'+(ranked.length?ranked.map(d=>'<button class="search-chip" type="button" data-trend="'+d.key+'">'+d.name+'</button>').join(''):'<span class="trend-empty">Your most searched destinations will appear here</span>');trending.querySelectorAll('[data-trend]').forEach(b=>b.addEventListener('click',()=>{const item=destinations.find(d=>d.key===b.dataset.trend);if(item)goToDestination(item)}))}
+function goToDestination(item){recordSearch(item);searchResults.classList.remove('show');noresult.style.display='none';if(item.url.startsWith('http'))location.href=item.url;else location.href=item.url}
+function renderSuggestions(){const q=searchInput.value.trim().toLowerCase();noresult.style.display='none';if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}const matches=destinations.filter(d=>d.name.toLowerCase().includes(q)||d.type.toLowerCase().includes(q)).sort((a,b)=>{const ae=a.name.toLowerCase().startsWith(q)?0:1,be=b.name.toLowerCase().startsWith(q)?0:1;return ae-be||a.name.localeCompare(b.name)}).slice(0,7);searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');searchResults.classList.toggle('show',matches.length>0);searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));if(!matches.length){searchResults.classList.remove('show');noresult.style.display='block'}}
+searchInput.addEventListener('input',renderSuggestions);
+searchInput.addEventListener('keydown',e=>{if(e.key==='Escape')searchResults.classList.remove('show');if(e.key==='Enter'){e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first)first.click();else renderSuggestions()}});
+searchForm.addEventListener('submit',e=>{e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first){first.click();return}renderSuggestions()});
+renderTrending();
+
 </script>
 </body></html>
