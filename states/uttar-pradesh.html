@@ -189,7 +189,7 @@ body.single-place-view .wrap>*:not(.top):not(.place-card):not(.footer){display:n
 <script>
 (function(){
 const input=document.getElementById('upQuery'),form=document.getElementById('upSearch'),status=document.getElementById('upStatus'),empty=document.getElementById('upEmpty'),cards=[...document.querySelectorAll('.place-card')];
-const norm=s=>(s||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9\\u0900-\\u097f]+/g,' ').trim();
+const norm=s=>(s||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\u0900-\u097f]+/g,' ').trim();
 function showAll(){document.body.classList.remove('single-place-view');cards.forEach(c=>{c.hidden=false;c.removeAttribute('data-selected-place')});empty.style.display='none';status.classList.remove('error');status.textContent='Showing all '+cards.length+' destinations. Search by temple, monument, English or Hindi name, or city.';history.replaceState(null,'',location.pathname)}
 function search(q,openFirst){const query=norm(q);document.body.classList.remove('single-place-view');cards.forEach(c=>c.removeAttribute('data-selected-place'));if(!query){showAll();return}
 const hits=cards.filter(c=>{const hay=norm([c.dataset.name,c.dataset.city,c.dataset.search,c.innerText].join(' '));return hay.includes(query)||query.split(' ').filter(Boolean).every(w=>hay.includes(w))});
