@@ -77,18 +77,37 @@ function update(){const q=normalize(input.value),words=q.split(' ').filter(w=>w.
 input.addEventListener('input',update);buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;update()}));
 const requestedPlace=new URLSearchParams(location.search).get('place');
 if(requestedPlace){
- const target=normalize(requestedPlace);
- const match=cards.find(card=>normalize(card.querySelector('h2')?.innerText)===target);
+ const normalizeTitle=value=>String(value||'')
+  .replace(/<[^>]*>/g,' ')
+  .normalize('NFD')
+  .replace(/[\\u0300-\\u036f]/g,'')
+  .toLowerCase()
+  .replace(/&amp;/g,' and ')
+  .replace(/[^\\p{L}\\p{N}]+/gu,' ')
+  .trim()
+  .replace(/\\s+/g,' ');
+ const getEnglishTitle=card=>{
+  const heading=card.querySelector('h2');
+  if(!heading)return '';
+  const clone=heading.cloneNode(true);
+  clone.querySelectorAll('.hindi-name,[lang="hi"],.hindi').forEach(node=>node.remove());
+  return clone.textContent;
+ };
+ const target=normalizeTitle(decodeURIComponentSafe(requestedPlace));
+ function decodeURIComponentSafe(value){try{return decodeURIComponent(value)}catch{return value}}
+ const match=cards.find(card=>normalizeTitle(getEnglishTitle(card))===target);
  if(match){
   cards.forEach(card=>{card.hidden=card!==match});
   [document.querySelector('.toolbar'),document.querySelector('.hero'),document.querySelector('.intro'),document.querySelector('h1'),document.querySelector('.accent'),document.querySelector('.top'),count,empty].filter(Boolean).forEach(el=>el.hidden=true);
   match.hidden=false;
   match.classList.add('search-focus-card');
   document.body.classList.add('single-place-view');
-  setTimeout(()=>match.scrollIntoView({behavior:'instant',block:'start'}),60);
+  setTimeout(()=>match.scrollIntoView({behavior:'instant',block:'start'}),80);
  }else{
-  const partial=cards.find(card=>normalize(card.querySelector('h2')?.innerText).includes(target));
-  if(partial){cards.forEach(card=>{card.hidden=card!==partial});partial.hidden=false;partial.classList.add('search-focus-card');}
+  cards.forEach(card=>card.hidden=true);
+  [document.querySelector('.toolbar'),document.querySelector('.hero'),document.querySelector('.intro'),document.querySelector('h1'),document.querySelector('.accent'),document.querySelector('.top'),count].filter(Boolean).forEach(el=>el.hidden=true);
+  empty.style.display='block';
+  empty.textContent='Exact destination not found: '+requestedPlace;
  }
 }
 </script>
