@@ -129,7 +129,56 @@ function getSearchCounts(){try{return JSON.parse(localStorage.getItem('buSearchC
 function recordSearch(item){const counts=getSearchCounts();counts[item.key]=(counts[item.key]||0)+1;try{localStorage.setItem('buSearchCounts',JSON.stringify(counts))}catch{};renderTrending()}
 function renderTrending(){const counts=getSearchCounts();const ranked=destinations.filter(d=>(counts[d.key]||0)>0).sort((a,b)=>(counts[b.key]||0)-(counts[a.key]||0)).slice(0,4);trending.innerHTML='<strong>Most searched:</strong>'+(ranked.length?ranked.map(d=>'<button class="search-chip" type="button" data-trend="'+d.key+'">'+d.name+'</button>').join(''):'<span class="trend-empty">Your most searched destinations will appear here</span>');trending.querySelectorAll('[data-trend]').forEach(b=>b.addEventListener('click',()=>{const item=destinations.find(d=>d.key===b.dataset.trend);if(item)goToDestination(item)}))}
 function goToDestination(item){recordSearch(item);searchResults.classList.remove('show');noresult.style.display='none';if(item.url.startsWith('http'))location.href=item.url;else location.href=item.url}
-function renderSuggestions(){const q=searchInput.value.trim().toLowerCase();noresult.style.display='none';if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}const catalog=[...destinations,...attractionDestinations];const exactCities=catalog.filter(d=>/· City$/.test(d.type)&&d.name.toLowerCase()===q);const nameMatches=catalog.filter(d=>d.name.toLowerCase().includes(q));const pool=exactCities.length?exactCities:nameMatches.length?nameMatches:catalog.filter(d=>d.type.toLowerCase().includes(q));const matches=[...new Map(pool.map(d=>[d.url,d])).values()].sort((a,b)=>{const ae=a.name.toLowerCase()===q?0:a.name.toLowerCase().startsWith(q)?1:2,be=b.name.toLowerCase()===q?0:b.name.toLowerCase().startsWith(q)?1:2;return ae-be||a.name.localeCompare(b.name)}).slice(0,10);searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');searchResults.classList.toggle('show',matches.length>0);searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));if(!matches.length){searchResults.classList.remove('show');noresult.style.display='block'}}
+function normalizeSearchText(value){
+ return String(value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\\s+/g,' ');
+}
+function editDistance(a,b){
+ if(Math.abs(a.length-b.length)>2)return 99;
+ let prev=Array.from({length:b.length+1},(_,i)=>i);
+ for(let i=1;i<=a.length;i++){
+  const row=[i];let min=i;
+  for(let j=1;j<=b.length;j++){
+   const v=Math.min(row[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+   row[j]=v;if(v<min)min=v;
+  }
+  if(min>2)return 99;prev=row;
+ }
+ return prev[b.length];
+}
+function searchAliases(value){
+ return normalizeSearchText(value).replace(/\\bmahaveer\\b/g,'mahavir').replace(/\\bmahavirji\\b/g,'mahavir').replace(/\\bsajjan\\s*garh\\b/g,'sajjangarh').replace(/\\bamber\\b/g,'amer');
+}
+function destinationScore(d,q){
+ const name=searchAliases(d.name),type=searchAliases(d.type),full=name+' '+type,words=q.split(' ').filter(Boolean);
+ if(name===q)return 1000;
+ if(name.startsWith(q))return 900;
+ if(name.includes(q))return 800;
+ if(full.includes(q))return 700;
+ let score=0,matched=0;
+ const nameWords=name.split(' '),allWords=full.split(' ');
+ for(const word of words){
+  let best=0;
+  for(const candidate of allWords){
+   if(candidate===word)best=Math.max(best,100);
+   else if(candidate.startsWith(word)||word.startsWith(candidate))best=Math.max(best,75);
+   else if(word.length>=5&&candidate.length>=5&&editDistance(word,candidate)<=2)best=Math.max(best,55);
+   else if(candidate.includes(word)||word.includes(candidate))best=Math.max(best,35);
+  }
+  if(best){matched++;score+=best}
+ }
+ return matched===words.length?score+(nameWords.length?10:0):0;
+}
+function renderSuggestions(){
+ const q=searchAliases(searchInput.value.trim());noresult.style.display='none';
+ if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}
+ const catalog=[...destinations,...attractionDestinations];
+ const ranked=catalog.map(d=>({d,score:destinationScore(d,q)})).filter(x=>x.score>0);
+ const matches=[...new Map(ranked.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name)).map(x=>[x.d.url,x.d])).values()].slice(0,12);
+ searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');
+ searchResults.classList.toggle('show',matches.length>0);
+ searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));
+ if(!matches.length){searchResults.classList.remove('show');noresult.style.display='block'}
+}
 searchInput.addEventListener('input',renderSuggestions);
 searchInput.addEventListener('keydown',e=>{if(e.key==='Escape')searchResults.classList.remove('show');if(e.key==='Enter'){e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first)first.click();else renderSuggestions()}});
 searchForm.addEventListener('submit',e=>{e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first){first.click();return}renderSuggestions()});
