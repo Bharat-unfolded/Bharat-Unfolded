@@ -172,6 +172,14 @@ function destinationScore(d,q){
 function renderSuggestions(){
  const q=searchAliases(searchInput.value.trim());noresult.style.display='none';
  if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}
+ // An exact state / union-territory query must open that state page only.
+ const exactRegion=[...states.map(([name,slug])=>({name,type:'State',url:'states/'+slug+'.html',key:slug})),...uts.map(([name,slug])=>({name,type:'Union Territory',url:'union-territories/'+slug+'.html',key:slug}))].find(d=>searchAliases(d.name)===q);
+ if(exactRegion){
+  searchResults.innerHTML='<button class="search-result" type="button" role="option" data-region-match><span>'+exactRegion.name+'<small>'+exactRegion.type+' · Explore all places</small></span><span class="result-arrow">↗</span></button>';
+  searchResults.classList.add('show');
+  searchResults.querySelector('[data-region-match]').addEventListener('click',()=>goToDestination(exactRegion));
+  return;
+ }
  const catalog=[...destinations,...attractionDestinations];
  const ranked=catalog.map(d=>({d,score:destinationScore(d,q)})).filter(x=>x.score>0);
  const matches=[...new Map(ranked.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name)).map(x=>[x.d.url,x.d])).values()].slice(0,12);
