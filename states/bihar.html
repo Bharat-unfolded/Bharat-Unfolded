@@ -49,6 +49,10 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
 @media(max-width:720px){.history-hero,.history-hero-copy{min-height:240px}.history-article{padding:20px 18px;border-radius:18px}.history-lead{font-size:15px;margin-bottom:22px}.history-chapter{padding:20px 0 22px}.history-chapter p{font-size:13px;line-height:1.85}}
 
 .top-back{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;border:1px solid rgba(255,255,255,.78);border-radius:30px;background:rgba(255,255,255,.38);color:var(--ink);font-size:12px;font-weight:750;letter-spacing:.08em;text-decoration:none;cursor:pointer;transition:background .2s ease,transform .2s ease}.top-back:hover{background:rgba(255,255,255,.78);transform:translateY(-1px)}.top-back:focus-visible{outline:3px solid #d7a94b;outline-offset:3px}
+
+body.single-place-view .wrap>*:not(.top):not(.place-card){display:none!important}
+body.single-place-view .place-card:not([data-selected-place]){display:none!important}
+body.single-place-view .place-card[data-selected-place]{display:grid!important;max-width:1180px;margin:28px auto 48px;}
 </style>
 </head>
 <body>
@@ -742,11 +746,12 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
  if(!city&&!place)return;
  const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&amp;/g,'&').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
  const q=norm(place||city),cards=[...document.querySelectorAll('.place-card')];let shown=0;
- cards.forEach(card=>{const title=card.querySelector('h2')?.textContent||'',text=card.innerText;const match=place?norm(title)===q:norm(text).includes(q);card.style.display=match?'':'none';if(match)shown++});
+ if(place)document.body.classList.add('single-place-view');
+ cards.forEach(card=>{const title=card.querySelector('h2')?.textContent||'',text=card.innerText;const match=place?norm(title)===q:norm(text).includes(q);card.style.display=match?'':'none';if(match){shown++;if(place)card.setAttribute('data-selected-place','true')}else card.removeAttribute('data-selected-place')});
  document.querySelectorAll('.region-heading').forEach(el=>{el.style.display=[...el.parentElement.querySelectorAll('.place-card')].some(card=>card.style.display!=='none')?'':'none'});
  const heading=document.querySelector('h1');if(heading)heading.textContent=place?(shown?place+' · Details':'Place not found'):city+' · Places to Visit';
  const note=document.createElement('p');note.className='city-search-note';note.textContent=shown?(place?'Showing the selected destination.':'Showing '+shown+' places matching '+city+'.'):(place?'This destination is not listed on this page yet.':'No listed places found for '+city+' on this page yet.');
- const wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(note,wrap.querySelector('.region-heading,.place-card'));
+ const wrap=document.querySelector('.wrap');if(wrap&&!place)wrap.insertBefore(note,wrap.querySelector('.region-heading,.place-card'));if(place&&shown){const selected=document.querySelector('[data-selected-place]');selected?.scrollIntoView({block:'start'});}
 })();
 </script>
 </body>
