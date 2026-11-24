@@ -57,12 +57,12 @@
 .journey-card{cursor:pointer;position:relative}.journey-card:focus-visible{outline:3px solid #b18a42;outline-offset:4px}.journey-cta{display:inline-block;margin-top:18px;background:#174b3e;color:#fff;padding:10px 16px;border-radius:24px;font-size:12px;font-weight:700}.journey-modal{position:fixed;inset:0;z-index:9999;background:#071a16b8;display:none;align-items:center;justify-content:center;padding:20px}.journey-modal.open{display:flex}.journey-dialog{width:min(560px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 80px #0005;position:relative}.journey-dialog .tag{margin-bottom:14px}.journey-dialog h2{font:700 30px Georgia,serif;color:#18372e;margin:8px 0}.journey-dialog p{color:#65736c;line-height:1.7;font-size:14px}.journey-dialog .journey-place-meta{font-size:11px;letter-spacing:.12em;color:#a47b35;font-weight:700;margin:12px 0 22px}.journey-actions{display:flex;gap:10px;flex-wrap:wrap}.journey-actions a,.journey-actions button{border:0;border-radius:24px;padding:12px 18px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer}.journey-open{background:#174b3e;color:#fff}.journey-again{background:#f4efe4;color:#34483f}.journey-close{position:absolute;right:16px;top:14px;border:0;background:#f1f3ef;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}</style>
 <link rel="stylesheet" href="./ios-glass.css">
 <style>
-.thought-strip{min-height:32px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 16px;background:linear-gradient(100deg,#10251f,#174b43,#10251f);color:#f5f0e4;text-align:center;font-size:12px;letter-spacing:.01em}.thought-label{font-size:9px;font-weight:800;letter-spacing:.14em;color:#f1c878}.thought-text{font-weight:500;letter-spacing:.015em}.thought-author{color:#f1c878;font-size:11px;font-style:italic}.thought-text.is-loading{opacity:.65}
-@media(max-width:600px){.thought-strip{gap:5px 8px;font-size:11px;padding:8px 12px}.thought-label{font-size:8px}}
+.thought-strip{min-height:34px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 16px;background:linear-gradient(100deg,#10251f,#174b43,#10251f);color:#f5f0e4;text-align:center;font-size:12px;letter-spacing:.01em}.thought-label{font-size:9px;font-weight:800;letter-spacing:.1em;color:#f1c878}.thought-text{font-weight:500;letter-spacing:.015em}.thought-author{color:#f1c878;font-size:11px;font-style:italic}.thought-countdown{font-variant-numeric:tabular-nums;font-size:10px;font-weight:800;letter-spacing:.06em;color:#f8dda0;background:#ffffff16;border:1px solid #ffffff30;border-radius:20px;padding:4px 8px;min-width:42px}.thought-sound{border:1px solid #ffffff38;background:#ffffff15;color:#fff;border-radius:50%;width:25px;height:25px;display:inline-grid;place-items:center;font-size:13px;cursor:pointer;padding:0}.thought-sound[aria-pressed="false"]{opacity:.55}.thought-text.is-loading{opacity:.65}
+@media(max-width:600px){.thought-strip{gap:5px 7px;font-size:11px;padding:8px 10px}.thought-label{font-size:8px}.thought-countdown{font-size:9px;padding:3px 7px}}
 </style>
 </head>
 <body>
-<div class="topline thought-strip" id="dailyThought" role="status" aria-live="polite"><span class="thought-label">A THOUGHT FOR YOU</span><span class="thought-text" id="thoughtText">A new thought is on its way…</span><span class="thought-author" id="thoughtAuthor"></span></div>
+<div class="topline thought-strip" id="dailyThought" role="status" aria-live="polite"><span class="thought-label">आज का विचार</span><span class="thought-text" id="thoughtText">एक नया विचार आने वाला है…</span><span class="thought-author" id="thoughtAuthor"></span><span class="thought-countdown" id="thoughtCountdown" aria-label="अगले विचार का समय">01:00</span><button class="thought-sound" id="thoughtSound" type="button" aria-label="विचार की ध्वनि बंद करें" aria-pressed="true" title="प्यारी चिड़िया की आवाज़ चालू/बंद करें">🐦</button></div>
 <header class="nav">
 <a class="brand" href="#"><span class="brandmark">भ</span><span>BHARAT UNFOLDED<small>DISCOVER THE INCREDIBLE</small></span></a>
 <div class="navright"><a class="navlink" href="#updates">Latest updates</a><a class="navlink" href="#states">All states</a><a class="navlink" href="#places">Famous places</a><button class="hamb" id="hamb" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></div>
@@ -262,43 +262,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
 
 </script>
 <script>
-(()=> {
- const textEl=document.getElementById('thoughtText');
- const authorEl=document.getElementById('thoughtAuthor');
- if(!textEl||!authorEl)return;
- const thoughts=[
-  'हर बड़ा सफर एक छोटे कदम से शुरू होता है।',
-  'आज की मेहनत ही कल की सफलता बनती है।',
-  'खुद पर भरोसा रखो, रास्ते खुद बनते जाएंगे।',
-  'धीरे चलना कोई हार नहीं, बस रुकना मत।',
-  'मुश्किलें रास्ता रोकने नहीं, मजबूत बनाने आती हैं।',
-  'सीखते रहो, क्योंकि हर दिन एक नया मौका है।',
-  'सपने वही सच होते हैं जिनके लिए रोज मेहनत की जाती है।',
-  'अपनी तुलना किसी और से नहीं, अपने कल से करो।',
-  'छोटी-छोटी कोशिशें एक दिन बड़ी जीत बन जाती हैं।',
-  'जहाँ उम्मीद होती है, वहीं से नई शुरुआत होती है।',
-  'समय बदलता है, इसलिए हौसला बनाए रखो।',
-  'अपने लक्ष्य पर ध्यान दो, शोर अपने आप कम हो जाएगा।',
-  'गलतियाँ अंत नहीं, सीखने का एक तरीका हैं।',
-  'आज का एक सही फैसला कल की दिशा बदल सकता है।',
-  'जो अपने आप को बेहतर बनाता है, वही आगे बढ़ता है।',
-  'हर सुबह अपने सपनों के लिए एक नया मौका लेकर आती है।',
-  'धैर्य रखो, अच्छी चीज़ों को समय लगता है।',
-  'रास्ता कठिन हो तो समझो मंज़िल खास है।',
-  'खुद की काबिलियत पर शक मत करो, कोशिश जारी रखो।',
-  'मुस्कुराते रहो और अपना काम करते रहो।'
- ];
- let previous=-1;
- function loadThought(){
-  let index=Math.floor(Math.random()*thoughts.length);
-  if(thoughts.length>1&&index===previous)index=(index+1)%thoughts.length;
-  previous=index;
-  textEl.classList.remove('is-loading');
-  textEl.textContent='“'+thoughts[index]+'”';
-  authorEl.textContent='— आज का विचार';
- }
- loadThought();
- window.setInterval(loadThought,60000);
+(()=>{
+ const textEl=document.getElementById('thoughtText'),authorEl=document.getElementById('thoughtAuthor'),countdownEl=document.getElementById('thoughtCountdown'),soundBtn=document.getElementById('thoughtSound');
+ if(!textEl||!authorEl||!countdownEl||!soundBtn)return;
+ const thoughts=['हर बड़ा सफर एक छोटे कदम से शुरू होता है।','आज की मेहनत ही कल की सफलता बनती है।','खुद पर भरोसा रखो, रास्ते खुद बनते जाएंगे।','धीरे चलना कोई हार नहीं, बस रुकना मत।','मुश्किलें रास्ता रोकने नहीं, मजबूत बनाने आती हैं।','सीखते रहो, क्योंकि हर दिन एक नया मौका है।','सपने वही सच होते हैं जिनके लिए रोज मेहनत की जाती है।','अपनी तुलना किसी और से नहीं, अपने कल से करो।','छोटी-छोटी कोशिशें एक दिन बड़ी जीत बन जाती हैं।','जहाँ उम्मीद होती है, वहीं से नई शुरुआत होती है।','समय बदलता है, इसलिए हौसला बनाए रखो।','अपने लक्ष्य पर ध्यान दो, शोर अपने आप कम हो जाएगा।','गलतियाँ अंत नहीं, सीखने का एक तरीका हैं।','आज का एक सही फैसला कल की दिशा बदल सकता है।','जो अपने आप को बेहतर बनाता है, वही आगे बढ़ता है।','हर सुबह अपने सपनों के लिए एक नया मौका लेकर आती है।','धैर्य रखो, अच्छी चीज़ों को समय लगता है।','रास्ता कठिन हो तो समझो मंज़िल खास है।','खुद की काबिलियत पर शक मत करो, कोशिश जारी रखो।','मुस्कुराते रहो और अपना काम करते रहो।'];
+ let previous=-1,secondsLeft=60,soundOn=true,audioContext=null;
+ function unlockSound(){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;if(!audioContext)audioContext=new C();if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});}
+ function birdChirp(){if(!soundOn||!audioContext||audioContext.state!=='running')return;const now=audioContext.currentTime;[0,.16,.34].forEach((delay,i)=>{const osc=audioContext.createOscillator(),gain=audioContext.createGain();osc.type='sine';osc.frequency.setValueAtTime(i===1?2100:1850,now+delay);osc.frequency.exponentialRampToValueAtTime(i===1?2700:2450,now+delay+.075);gain.gain.setValueAtTime(.0001,now+delay);gain.gain.exponentialRampToValueAtTime(.075,now+delay+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+delay+.12);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now+delay);osc.stop(now+delay+.13);});}
+ function loadThought(){let index=Math.floor(Math.random()*thoughts.length);if(thoughts.length>1&&index===previous)index=(index+1)%thoughts.length;previous=index;textEl.textContent='“'+thoughts[index]+'”';authorEl.textContent='— आज का विचार';birdChirp();}
+ function renderCountdown(){countdownEl.textContent=String(Math.floor(secondsLeft/60)).padStart(2,'0')+':'+String(secondsLeft%60).padStart(2,'0');}
+ soundBtn.addEventListener('click',()=>{unlockSound();soundOn=!soundOn;soundBtn.setAttribute('aria-pressed',String(soundOn));soundBtn.setAttribute('aria-label',soundOn?'विचार की ध्वनि बंद करें':'विचार की ध्वनि चालू करें');soundBtn.textContent=soundOn?'🐦':'🔇';if(soundOn)birdChirp();});
+ document.addEventListener('pointerdown',unlockSound,{once:true,passive:true});document.addEventListener('keydown',unlockSound,{once:true});
+ loadThought();renderCountdown();
+ window.setInterval(()=>{secondsLeft--;if(secondsLeft<=0){loadThought();secondsLeft=60;}renderCountdown();},1000);
 })();
 </script>
 </body></html>
