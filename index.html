@@ -261,42 +261,36 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
  const textEl=document.getElementById('thoughtText');
  const authorEl=document.getElementById('thoughtAuthor');
  if(!textEl||!authorEl)return;
- const fallback=[
-  ['Great things are done by a series of small things brought together.','Vincent van Gogh'],
-  ['The secret of getting ahead is getting started.','Mark Twain'],
-  ['It always seems impossible until it is done.','Nelson Mandela'],
-  ['Do what you can, with what you have, where you are.','Theodore Roosevelt'],
-  ['The future depends on what you do today.','Mahatma Gandhi'],
-  ['Believe you can and you are halfway there.','Theodore Roosevelt'],
-  ['Learning never exhausts the mind.','Leonardo da Vinci'],
-  ['A journey of a thousand miles begins with a single step.','Lao Tzu'],
-  ['Small steps every day lead to big changes.','Bharat Unfolded']
+ const thoughts=[
+  'हर बड़ा सफर एक छोटे कदम से शुरू होता है।',
+  'आज की मेहनत ही कल की सफलता बनती है।',
+  'खुद पर भरोसा रखो, रास्ते खुद बनते जाएंगे।',
+  'धीरे चलना कोई हार नहीं, बस रुकना मत।',
+  'मुश्किलें रास्ता रोकने नहीं, मजबूत बनाने आती हैं।',
+  'सीखते रहो, क्योंकि हर दिन एक नया मौका है।',
+  'सपने वही सच होते हैं जिनके लिए रोज मेहनत की जाती है।',
+  'अपनी तुलना किसी और से नहीं, अपने कल से करो।',
+  'छोटी-छोटी कोशिशें एक दिन बड़ी जीत बन जाती हैं।',
+  'जहाँ उम्मीद होती है, वहीं से नई शुरुआत होती है।',
+  'समय बदलता है, इसलिए हौसला बनाए रखो।',
+  'अपने लक्ष्य पर ध्यान दो, शोर अपने आप कम हो जाएगा।',
+  'गलतियाँ अंत नहीं, सीखने का एक तरीका हैं।',
+  'आज का एक सही फैसला कल की दिशा बदल सकता है।',
+  'जो अपने आप को बेहतर बनाता है, वही आगे बढ़ता है।',
+  'हर सुबह अपने सपनों के लिए एक नया मौका लेकर आती है।',
+  'धैर्य रखो, अच्छी चीज़ों को समय लगता है।',
+  'रास्ता कठिन हो तो समझो मंज़िल खास है।',
+  'खुद की काबिलियत पर शक मत करो, कोशिश जारी रखो।',
+  'मुस्कुराते रहो और अपना काम करते रहो।'
  ];
- let previous='';
- let fallbackIndex=Math.floor(Math.random()*fallback.length);
- const show=(quote,author='')=>{
+ let previous=-1;
+ function loadThought(){
+  let index=Math.floor(Math.random()*thoughts.length);
+  if(thoughts.length>1&&index===previous)index=(index+1)%thoughts.length;
+  previous=index;
   textEl.classList.remove('is-loading');
-  textEl.textContent='“'+quote+'”';
-  authorEl.textContent=author?'— '+author:'';
- };
- async function loadThought(){
-  textEl.classList.add('is-loading');
-  try{
-   const response=await fetch('https://dummyjson.com/quotes/random',{cache:'no-store'});
-   if(!response.ok)throw new Error('Quote service unavailable');
-   const data=await response.json();
-   const quote=(data.quote||'').trim();
-   const author=(data.author||'').trim();
-   if(!quote||quote===previous)throw new Error('Repeated quote');
-   previous=quote;
-   show(quote,author);
-  }catch(error){
-   let item=fallback[fallbackIndex%fallback.length];
-   if(item[0]===previous)item=fallback[(fallbackIndex+1)%fallback.length];
-   fallbackIndex=fallback.indexOf(item)+1;
-   previous=item[0];
-   show(item[0],item[1]);
-  }
+  textEl.textContent='“'+thoughts[index]+'”';
+  authorEl.textContent='— आज का विचार';
  }
  loadThought();
  window.setInterval(loadThought,60000);
