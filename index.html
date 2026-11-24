@@ -78,6 +78,36 @@
 @media(prefers-reduced-motion:reduce){.hero-sound-toggle.haptic-tap{animation:none}}
 </style>
 
+<style>
+/* Desktop fix: give the rotating thought enough room so the text never gets squeezed */
+@media (min-width: 851px){
+  .hero-thought{
+    width:min(760px,88%);
+    max-width:760px;
+    gap:14px;
+    padding:12px 16px;
+  }
+  .hero-thought-copy{
+    flex:1 1 auto;
+    min-width:0;
+  }
+  .hero-thought-copy span{
+    display:block;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:normal;
+    line-height:1.45;
+  }
+  .hero-sound-toggle{
+    flex:0 0 auto;
+    gap:7px;
+    padding:5px 10px 5px 5px;
+  }
+  .hero-thought-time{
+    flex:0 0 auto;
+  }
+}
+</style>
 </head>
 <body>
 
