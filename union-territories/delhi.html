@@ -4,16 +4,16 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}
 :root{--ink:#17324d;--gold:#a85d16;--green:#16764a}
 body{margin:0;min-height:100vh;padding:26px 22px 76px;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","DM Sans",sans-serif;background:linear-gradient(125deg,rgba(242,140,40,.20),rgba(255,255,255,.20) 48%,rgba(19,128,75,.19)),radial-gradient(ellipse at 12% 4%,rgba(255,180,90,.28),transparent 42%),radial-gradient(ellipse at 90% 88%,rgba(25,140,80,.24),transparent 44%),#f5f2e9;background-attachment:fixed}
-body:before{content:"";position:fixed;inset:10px;z-index:20;border:1px solid rgba(255,255,255,.76);border-radius:25px;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 8px 30px rgba(39,54,44,.06);pointer-events:none}
+body:before{content:"";position:fixed;inset:10px;z-index:20;border:1px solid rgba(255,255,255,.82);border-radius:25px;box-shadow:inset 0 1px 0 rgba(255,255,255,.72),0 8px 30px rgba(39,54,44,.07);pointer-events:none}\nbody:after{content:"";position:fixed;z-index:19;top:28px;bottom:28px;left:18px;right:18px;border-left:1px solid rgba(255,255,255,.38);border-right:1px solid rgba(255,255,255,.38);border-radius:18px;pointer-events:none}
 .scroll-progress{position:fixed;z-index:30;top:10px;left:11px;height:3px;width:0;border-radius:0 5px 5px 0;background:linear-gradient(90deg,#f28c28 0 33%,#fff 33% 66%,#13804b 66%);box-shadow:0 0 10px rgba(255,255,255,.8)}
-.wrap{width:min(1120px,100%);margin:0 auto;position:relative}.top{display:flex;justify-content:center;margin:0 0 16px}
+.wrap{width:min(1320px,100%);margin:0 auto;position:relative}.top{display:flex;justify-content:center;margin:0 0 16px}
 .back{color:var(--ink);text-decoration:none;font-size:11px;font-weight:800;letter-spacing:.15em;padding:10px 17px;border:1px solid rgba(255,255,255,.78);border-radius:30px;background:rgba(255,255,255,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
 h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-height:1.35;font-weight:750}
 .glass{border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.22);box-shadow:0 18px 55px rgba(35,55,42,.10),inset 0 1px 0 rgba(255,255,255,.72);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%)}
 .hero{overflow:hidden;border-radius:25px}.hero img{display:block;width:100%;height:clamp(220px,38vw,420px);object-fit:cover}
 .copy{padding:clamp(20px,3vw,32px);background:rgba(255,255,255,.20)}.copy p{margin:0;color:#344b43;font-size:15px;line-height:1.85}.copy p+p{margin-top:14px}
 .accent{width:54px;height:3px;border-radius:5px;background:linear-gradient(90deg,#f28c28 0 33%,#fff 33% 66%,#13804b 66%);margin:0 auto 18px}
-.places{display:grid;gap:24px;margin:28px auto 0;width:min(1120px,100%)}
+.places{display:grid;gap:26px;margin:30px auto 0;width:100%}
 .place-card{overflow:hidden;display:grid;grid-template-columns:minmax(280px,.95fr) minmax(0,1.05fr);border-radius:24px}
 .place-image{min-height:100%;background:rgba(255,255,255,.12)}.place-image img{display:block;width:100%;height:100%;min-height:340px;object-fit:cover}
 .credit{display:block;padding:7px 12px;color:#43584d;font-size:10px;background:rgba(255,255,255,.36)}.credit a{color:#16764a}
@@ -28,12 +28,12 @@ h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-he
 .hero,.place-card{border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 48px rgba(32,52,42,.10),inset 0 1px 0 rgba(255,255,255,.8);transition:transform .35s cubic-bezier(.2,.75,.25,1),box-shadow .35s,border-color .35s}
 .place-card{transform:translateY(18px);opacity:0;transition:transform .65s cubic-bezier(.2,.75,.25,1),opacity .65s,box-shadow .3s}
 .place-card.is-visible{transform:translateY(0);opacity:1}
-.place-card:active{transform:scale(.992);box-shadow:0 9px 24px rgba(32,52,42,.13)}
+.place-card:active{transform:scale(.992);box-shadow:0 9px 24px rgba(32,52,42,.13)}\n.place-card:hover{box-shadow:0 24px 62px rgba(32,52,42,.16),inset 0 1px 0 rgba(255,255,255,.9);border-color:rgba(255,255,255,.98)}\n.place-image img{transition:transform .7s cubic-bezier(.2,.75,.25,1),filter .4s}\n.place-card:hover .place-image img{transform:scale(1.025);filter:saturate(1.06)}\nhtml{scroll-behavior:smooth;scroll-padding-top:28px} ::selection{background:rgba(19,128,75,.22);color:#17324d}
 .back{transition:transform .25s,background .25s,box-shadow .25s}
 .back:hover,.back:focus-visible{transform:translateY(-2px);background:rgba(255,255,255,.55);box-shadow:0 8px 22px rgba(32,52,42,.10);outline:none}
 .place-copy h2 a{transition:color .2s}
 .place-copy h2 a:hover{color:var(--green)}
-@media(max-width:720px){body{padding:18px 14px 54px}body:before{inset:6px;border-radius:18px}}
+@media(min-width:721px){body{padding:30px 34px 82px}.top{margin-bottom:18px}.place-card{min-height:390px}.place-image img{min-height:390px}}\n@media(max-width:720px){body{padding:18px 14px 54px}body:before{inset:6px;border-radius:18px}body:after{left:12px;right:12px;top:18px;bottom:18px}}
 @media(prefers-reduced-motion:reduce){.place-card{opacity:1;transform:none;transition:none}}
 </style></head><body><div class="scroll-progress" aria-hidden="true"></div><main class="wrap">
 <div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED</a></div><h1>33 Incredible Tourist Places to Visit in Delhi</h1>
