@@ -1,0 +1,21 @@
+/* Bharat Unfolded — iOS-inspired glass design system */
+:root{--ios-glass:rgba(255,255,255,.58);--ios-glass-strong:rgba(255,255,255,.78);--ios-stroke:rgba(255,255,255,.62);--ios-shadow:0 12px 34px rgba(17,38,31,.10);--ios-blur:blur(22px) saturate(165%);--ios-green:#174b3b;--ios-orange:#e9953c}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","DM Sans",sans-serif}
+a,button,input,textarea,select{-webkit-tap-highlight-color:transparent}
+a{transition:color .2s,opacity .2s}
+button,.btn,[role=button]{border-radius:14px;transition:transform .2s,box-shadow .2s,background .2s}
+button:active,.btn:active,[role=button]:active{transform:scale(.98)}
+input,textarea,select{border-radius:14px}
+:where(.nav,nav,header,.navbar,.site-header){-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%)}
+:where(.nav,nav,.navbar,.site-header){border-bottom:1px solid rgba(255,255,255,.55)}
+:where(.card,.news,.place,.state,.explore,.content-card,.info-card,.policy-card){border:1px solid rgba(255,255,255,.72);border-radius:20px;box-shadow:var(--ios-shadow);overflow:hidden}
+:where(.card,.content-card,.info-card,.policy-card){background:rgba(255,255,255,.72);-webkit-backdrop-filter:var(--ios-blur);backdrop-filter:var(--ios-blur)}
+:where(.state,.explore){transition:transform .22s,box-shadow .22s,border-color .22s}
+:where(.state,.explore):hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(17,38,31,.14);border-color:rgba(255,255,255,.95)}
+:where(button,.btn,.textlink){touch-action:manipulation}
+:where(input,textarea,select):focus{outline:0;border-color:rgba(233,149,60,.75);box-shadow:0 0 0 4px rgba(233,149,60,.14)}
+:where(.footer,footer){border-top:1px solid rgba(255,255,255,.12)}
+img{max-width:100%}
+@media(max-width:640px){:where(.card,.news,.place,.state,.explore,.content-card,.info-card,.policy-card){border-radius:17px}button,.btn{min-height:42px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
