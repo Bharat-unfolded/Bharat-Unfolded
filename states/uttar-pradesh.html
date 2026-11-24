@@ -74,6 +74,7 @@ input,button,a,.place-copy,.place-copy *{user-select:text;-webkit-user-select:te
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 <link rel="stylesheet" href="../ios-glass.css">
+<style>.single-place-view article[hidden],.single-place-view .place-card[hidden]{display:none!important}.single-place-view [data-selected-place]{display:block!important;visibility:visible!important}</style>
 </head>
 <body>
 <main class="wrap">
@@ -314,6 +315,20 @@ input.addEventListener('keydown',event=>{if(event.key==='Escape'){input.value=''
 /* Copy, cut and text selection are deliberately left untouched. */
 cards.forEach(card=>{const img=card.querySelector('.place-image img');if(img){img.addEventListener('error',()=>{img.closest('.place-image').classList.add('image-failed');img.remove();},{once:true});}});
 if(location.hash){const target=document.querySelector(location.hash);if(target&&target.classList.contains('place-card')){input.value=target.dataset.name;search(target.dataset.name,true);}else showAll(false);}else showAll(false);
+})();
+</script>
+
+<script>
+(()=>{const place=new URLSearchParams(location.search).get('place');if(!place)return;
+ const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');
+ const cards=[...document.querySelectorAll('#places .place-card')],q=norm(place);
+ const found=cards.find(card=>norm(card.dataset.name||card.querySelector('h2')?.textContent)===q);
+ if(!found)return;
+ cards.forEach(card=>{card.hidden=card!==found});found.hidden=false;found.setAttribute('data-selected-place','true');
+ document.body.classList.add('single-place-view');
+ const panel=document.querySelector('.search-panel');if(panel)panel.hidden=true;
+ const heading=document.querySelector('h1');if(heading)heading.textContent=found.dataset.name||place;
+ setTimeout(()=>found.scrollIntoView({block:'start',behavior:'instant'}),80);
 })();
 </script>
 </body></html>
