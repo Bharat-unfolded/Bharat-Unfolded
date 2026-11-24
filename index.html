@@ -54,7 +54,7 @@
 .search-chip{border-color:#ffffff50}
 .noresult{max-width:640px}
 @media(max-width:560px){.search-results{width:100%;margin-top:8px}.search-result{padding:11px}}
-</style>
+.journey-card{cursor:pointer;position:relative}.journey-card:focus-visible{outline:3px solid #b18a42;outline-offset:4px}.journey-cta{display:inline-block;margin-top:18px;background:#174b3e;color:#fff;padding:10px 16px;border-radius:24px;font-size:12px;font-weight:700}.journey-modal{position:fixed;inset:0;z-index:9999;background:#071a16b8;display:none;align-items:center;justify-content:center;padding:20px}.journey-modal.open{display:flex}.journey-dialog{width:min(560px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 80px #0005;position:relative}.journey-dialog .tag{margin-bottom:14px}.journey-dialog h2{font:700 30px Georgia,serif;color:#18372e;margin:8px 0}.journey-dialog p{color:#65736c;line-height:1.7;font-size:14px}.journey-dialog .journey-place-meta{font-size:11px;letter-spacing:.12em;color:#a47b35;font-weight:700;margin:12px 0 22px}.journey-actions{display:flex;gap:10px;flex-wrap:wrap}.journey-actions a,.journey-actions button{border:0;border-radius:24px;padding:12px 18px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer}.journey-open{background:#174b3e;color:#fff}.journey-again{background:#f4efe4;color:#34483f}.journey-close{position:absolute;right:16px;top:14px;border:0;background:#f1f3ef;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}</style>
 <link rel="stylesheet" href="./ios-glass.css"></head>
 <body>
 <div class="topline">EXPLORE INDIA · STORIES · CULTURE · PLACES</div>
@@ -70,7 +70,7 @@
 <article class="news"><a href="https://viratramaayanmandir.com//wordpress/" target="_blank" rel="noopener" aria-label="Read more about Virat Ramayan Mandir"><img src="https://static.punjabkesari.in/multimedia/2026_1image_11_36_073840726viratramayanmandsirshiv-ll.jpg" alt="The 33-foot monolithic black granite Shivling at Virat Ramayan Mandir, East Champaran" loading="lazy" decoding="async"></a><div class="newsbody"><span class="tag">Latest Update · Bihar</span><h3>Virat Ramayan Mandir: 33-Foot Shivling Installed in East Champaran</h3><p>At Kaithwalia (Kaithawalia/Bahuara), near the Kesariya–Chakia road, the Mahavir Mandir Trust is developing the Virat Ramayan Mandir complex along the Ram Janaki Marg. In January 2026, a 33-foot monolithic black-granite Shivling, weighing around 200–210 tonnes and carved near Mahabalipuram, Tamil Nadu, was installed at the site. Devotees are already visiting to see the Shivling while construction of the wider temple complex continues. Reports from April–May 2026 put completion at around 30% of the contracted earth and civil work.</p><div class="date">EAST CHAMPARAN, BIHAR · CONSTRUCTION UPDATE · MAY 2026</div></div></article>
 
 <article class="news"><img src="assets/nirmal-baba-mandir.webp" alt="Nirmal Baba Mandir at Nirmal Baba Chowk, Nirmali" loading="lazy" decoding="async"><div class="newsbody"><span class="tag">Featured place · Bihar</span><h3>Nirmal Baba Mandir, Nirmali</h3><p>A neighborhood shrine at Nirmal Baba Chowk on Nirmali–Bangawan Road, Jhallipatti, Supaul district. Listed open 24 hours, with free general darshan.</p><div class="date">JHALLIPATTI, NIRMALI · SUPAUL, BIHAR</div><a class="textlink" href="states/bihar.html?place=Nirmal%20Baba%20Mandir">View temple details ↗</a></div></article>
-<article class="news"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Scenic mountain landscape"><div class="newsbody"><span class="tag">Travel</span><h3>Find your next journey</h3><p>Explore landscapes, local experiences and destinations across India.</p><div class="date">TRAVEL · EXPLORE</div></div></article>
+<article class="news journey-card" id="journeyCard" role="button" tabindex="0" aria-label="Find a surprise destination from across India"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Scenic Indian travel landscape"><div class="newsbody"><span class="tag">Surprise destination</span><h3>Find your next journey</h3><p>Click to discover one handpicked place from a different state of India.</p><div class="date">28 STATES · ONE NEW PLACE EACH TIME</div><span class="journey-cta">Surprise me ↗</span></div></article>
 <article class="news"><img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80" alt="Indian cultural architecture"><div class="newsbody"><span class="tag">Culture</span><h3>Many cultures, one incredible India</h3><p>Discover traditions, festivals, art and food from different regions.</p><div class="date">CULTURE · STORIES</div></div></article>
 </div><p class="empty-note">Latest stories and destination updates from across India. Check each linked report for more details.</p></section>
 <section class="section states-wrap" id="states"><div class="section-head"><div><div class="kicker">Explore by region</div><h2>All 28 states of India</h2><p class="sub">Choose a state to open its page. State pages are ready as blank spaces and can be filled gradually.</p></div><span class="textlink">28 STATES ↗</span></div><div class="statesgrid" id="stateGrid"></div></section>
@@ -89,6 +89,7 @@
 </main>
 <section id="contact" aria-labelledby="contactTitle" style="padding:42px 6%;background:transparent;border-top:1px solid #e2e7df"><div style="max-width:900px;margin:0 auto"><p style="margin:0 0 8px;color:#a17a31;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">GET IN TOUCH</p><h2 id="contactTitle" style="margin:0 0 12px;color:var(--ink);font-size:clamp(26px,4vw,36px)">Contact Bharat Unfolded</h2><p style="margin:0 0 22px;color:var(--muted);line-height:1.7">For questions, corrections, suggestions or collaboration enquiries, contact our team using the details below.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"><div style="padding:18px 0;border-bottom:1px solid #e2e7df"><p style="margin:0 0 6px;color:var(--muted);font-size:13px">Founder</p><p style="margin:0;color:var(--ink);font-weight:700">Vikash Kumar</p></div><div style="padding:18px 0;border-bottom:1px solid #e2e7df"><p style="margin:0 0 6px;color:var(--muted);font-size:13px">Email</p><a href="mailto:official@vezorex.shop" style="color:var(--green);font-weight:700;text-decoration:underline">official@vezorex.shop</a></div><div style="padding:18px 0;border-bottom:1px solid #e2e7df"><p style="margin:0 0 6px;color:var(--muted);font-size:13px">Website</p><a href="https://vezorex.shop" style="color:var(--green);font-weight:700;text-decoration:underline">vezorex.shop</a></div></div><p style="margin:20px 0 0;color:var(--muted);font-size:13px;line-height:1.7">Please include the relevant page link when reporting an error. We do not currently offer a phone support line or web contact form.</p></div></section>
 <footer class="footer" id="policies" style="background:transparent;color:var(--ink);padding:28px 6% 34px;border-top:1px solid #e2e7df"><div style="max-width:1300px;margin:auto;display:flex;justify-content:center;align-items:center;gap:28px;flex-wrap:wrap"><a href="./terms.html" style="color:var(--green);font-size:14px;font-weight:700">Terms &amp; Conditions</a><a href="./privacy-policy.html" style="color:var(--green);font-size:14px;font-weight:700">Privacy Policy</a></div></footer>
+<div class="journey-modal" id="journeyModal" aria-hidden="true"><div class="journey-dialog" role="dialog" aria-modal="true" aria-labelledby="journeyTitle"><button class="journey-close" id="journeyClose" aria-label="Close">×</button><span class="tag">Your next Indian destination</span><h2 id="journeyTitle">Discover somewhere new</h2><div class="journey-place-meta" id="journeyMeta"></div><p id="journeyDescription"></p><div class="journey-actions"><a class="journey-open" id="journeyExplore" href="states/bihar.html">Explore this state ↗</a><button class="journey-again" id="journeyAgain" type="button">Show another place ↻</button></div></div></div>
 <script>
 const states=[['Andhra Pradesh','andhra-pradesh'],['Arunachal Pradesh','arunachal-pradesh'],['Assam','assam'],['Bihar','bihar'],['Chhattisgarh','chhattisgarh'],['Goa','goa'],['Gujarat','gujarat'],['Haryana','haryana'],['Himachal Pradesh','himachal-pradesh'],['Jharkhand','jharkhand'],['Karnataka','karnataka'],['Kerala','kerala'],['Madhya Pradesh','madhya-pradesh'],['Maharashtra','maharashtra'],['Manipur','manipur'],['Meghalaya','meghalaya'],['Mizoram','mizoram'],['Nagaland','nagaland'],['Odisha','odisha'],['Punjab','punjab'],['Rajasthan','rajasthan'],['Sikkim','sikkim'],['Tamil Nadu','tamil-nadu'],['Telangana','telangana'],['Tripura','tripura'],['Uttar Pradesh','uttar-pradesh'],['Uttarakhand','uttarakhand'],['West Bengal','west-bengal']];
 const grid=document.getElementById('stateGrid');states.forEach(([name,slug])=>{const a=document.createElement('a');a.className='state';a.href='states/'+slug+'.html';a.dataset.search=name.toLowerCase();a.innerHTML='<span style="color:inherit">'+name+'</span><span>↗</span>';grid.appendChild(a)});
@@ -183,6 +184,68 @@ searchInput.addEventListener('input',renderSuggestions);
 searchInput.addEventListener('keydown',e=>{if(e.key==='Escape')searchResults.classList.remove('show');if(e.key==='Enter'){e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first)first.click();else renderSuggestions()}});
 searchForm.addEventListener('submit',e=>{e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first){first.click();return}renderSuggestions()});
 renderTrending();
+
+const journeyPlaces=[
+["Taj Mahal","Agra · Uttar Pradesh","A world-famous white-marble mausoleum on the Yamuna, built by Shah Jahan in memory of Mumtaz Mahal.","states/uttar-pradesh.html"],
+["Varanasi Ghats","Varanasi · Uttar Pradesh","Walk along the ancient Ganga riverfront, where historic ghats, temples and evening Ganga Aarti shape the city’s rhythm.","states/uttar-pradesh.html"],
+["Golden Temple","Amritsar · Punjab","The Harmandir Sahib is a serene Sikh shrine known for its gilded sanctum and the community kitchen serving visitors.","states/punjab.html"],
+["Dal Lake","Srinagar · Jammu & Kashmir","A Himalayan lake known for houseboats, shikara rides, floating gardens and mountain views.","union-territories/jammu-and-kashmir.html"],
+["Mehrangarh Fort","Jodhpur · Rajasthan","A vast hilltop fort with grand courtyards, palaces and sweeping views over Jodhpur’s blue old city.","states/rajasthan.html"],
+["Hampi Group of Monuments","Hampi · Karnataka","Explore the remarkable Vijayanagara-era ruins, stone temples and boulder-strewn landscapes of Hampi.","states/karnataka.html"],
+["Mysore Palace","Mysuru · Karnataka","A richly decorated royal palace known for Indo-Saracenic architecture and illuminated evening views on selected days.","states/karnataka.html"],
+["Munnar","Idukki · Kerala","A hill station of tea gardens, misty valleys and cool mountain roads in the Western Ghats.","states/kerala.html"],
+["Konark Sun Temple","Konark · Odisha","A UNESCO-listed 13th-century temple designed as the monumental stone chariot of the Sun God.","states/odisha.html"],
+["Kaziranga National Park","Assam","A UNESCO-listed grassland and wetland reserve famous for the greater one-horned rhinoceros.","states/assam.html"],
+["Living Root Bridges","Meghalaya","Walk through forest villages to see bridges carefully grown from the living roots of rubber trees.","states/meghalaya.html"],
+["Tawang Monastery","Tawang · Arunachal Pradesh","A major Himalayan Buddhist monastery overlooking the Tawang valley and surrounding mountains.","states/arunachal-pradesh.html"],
+["Charminar","Hyderabad · Telangana","Hyderabad’s landmark 16th-century monument, surrounded by lively bazaars and historic lanes.","states/telangana.html"],
+["Ajanta Caves","Aurangabad region · Maharashtra","Ancient Buddhist rock-cut caves celebrated for their murals, sculptures and monastery halls.","states/maharashtra.html"],
+["Rann of Kutch","Kutch · Gujarat","A vast seasonal salt desert known for white landscapes, sunsets and the Rann Utsav season.","states/gujarat.html"],
+["Goa Old Churches","Old Goa · Goa","Discover the historic churches and convents of Old Goa, including the UNESCO-listed Basilica of Bom Jesus.","states/goa.html"],
+["Sanchi Stupa","Sanchi · Madhya Pradesh","A landmark Buddhist complex with a great stupa and carved gateways dating back to ancient India.","states/madhya-pradesh.html"],
+["Khajuraho Temples","Chhatarpur · Madhya Pradesh","A UNESCO-listed group of medieval temples known for detailed stone carving and architecture.","states/madhya-pradesh.html"],
+["Mahabodhi Temple","Bodh Gaya · Bihar","The sacred site associated with Gautama Buddha’s enlightenment, with the Bodhi Tree and historic temple complex.","states/bihar.html"],
+["Ranthambore National Park","Sawai Madhopur · Rajasthan","A wildlife reserve of forests, lakes and historic ruins, known for tiger habitat and guided safaris.","states/rajasthan.html"],
+["Kumbhalgarh Fort","Rajsamand · Rajasthan","A dramatic Aravalli hill fort famous for its massive defensive wall and mountain setting.","states/rajasthan.html"],
+["Varkala Cliff","Varkala · Kerala","A striking coastal cliff overlooking the Arabian Sea, with beaches, cafes and walking paths.","states/kerala.html"],
+["Rishikesh","Dehradun region · Uttarakhand","A Ganga-side town known for yoga, ashrams, suspension bridges and adventure activities.","states/uttarakhand.html"],
+["Valley of Flowers","Chamoli · Uttarakhand","A high-altitude Himalayan valley known for alpine flowers during its short summer season.","states/uttarakhand.html"],
+["Sundarbans","West Bengal","A vast mangrove delta and tiger habitat explored through regulated boat routes and local guides.","states/west-bengal.html"],
+["Dzukou Valley","Nagaland","A highland valley known for rolling green slopes, seasonal flowers and trekking trails.","states/nagaland.html"],
+["Loktak Lake","Manipur","A freshwater lake famous for floating phumdis and Keibul Lamjao, the world’s only floating national park.","states/manipur.html"],
+["Chitrakote Falls","Bastar · Chhattisgarh","A broad horseshoe-shaped waterfall on the Indravati River, especially impressive during the monsoon.","states/chhattisgarh.html"],
+["Baba Baidyanath Dham","Deoghar · Jharkhand","One of the revered Jyotirlinga pilgrimage sites, drawing devotees throughout the year.","states/jharkhand.html"],
+["Gol Gumbaz","Vijayapura · Karnataka","A 17th-century mausoleum famed for its enormous dome and whispering gallery.","states/karnataka.html"],
+["Diu Fort","Diu","A historic Portuguese-era coastal fort with sea views and massive stone ramparts.","union-territories/dadra-nagar-haveli-and-daman-and-diu.html"],
+["Cellular Jail","Port Blair · Andaman & Nicobar Islands","A national memorial recalling the freedom struggle, with galleries and an evening light-and-sound programme.","union-territories/andaman-and-nicobar-islands.html"],
+["Chandigarh Rock Garden","Chandigarh","A unique sculpture garden built from recycled materials, with courtyards, waterfalls and winding paths.","union-territories/chandigarh.html"],
+["Puducherry French Quarter","Puducherry","Stroll past pastel colonial-era streets, seaside promenades, cafes and heritage buildings.","union-territories/puducherry.html"],
+["Ujjayanta Palace","Agartala · Tripura","A former royal palace with elegant domes and museum galleries in the heart of Agartala.","states/tripura.html"],
+["Aizawl Viewpoints","Aizawl · Mizoram","Explore hilltop viewpoints across a compact mountain city set along the ridges of Mizoram.","states/mizoram.html"],
+["Rumtek Monastery","Gangtok region · Sikkim","A major Tibetan Buddhist monastery known for its traditional architecture and mountain setting.","states/sikkim.html"],
+["Brahmaputra Riverfront","Guwahati · Assam","Enjoy broad river views and sunset scenery along the Brahmaputra in Assam’s largest city.","states/assam.html"],
+["Jantar Mantar","Jaipur · Rajasthan","A UNESCO-listed astronomical observatory with monumental instruments built by Maharaja Sawai Jai Singh II.","states/rajasthan.html"]
+];
+let lastJourneyIndex=-1;
+function showJourney(){
+ let n=Math.floor(Math.random()*journeyPlaces.length);
+ if(journeyPlaces.length>1&&n===lastJourneyIndex)n=(n+1+Math.floor(Math.random()*(journeyPlaces.length-1)))%journeyPlaces.length;
+ lastJourneyIndex=n;
+ const p=journeyPlaces[n];
+ document.getElementById('journeyTitle').textContent=p[0];
+ document.getElementById('journeyMeta').textContent=p[1];
+ document.getElementById('journeyDescription').textContent=p[2];
+ document.getElementById('journeyExplore').href=p[3];
+ const m=document.getElementById('journeyModal');m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function closeJourney(){const m=document.getElementById('journeyModal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+const journeyCard=document.getElementById('journeyCard');
+journeyCard.addEventListener('click',showJourney);
+journeyCard.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showJourney()}});
+document.getElementById('journeyAgain').addEventListener('click',showJourney);
+document.getElementById('journeyClose').addEventListener('click',closeJourney);
+document.getElementById('journeyModal').addEventListener('click',e=>{if(e.target.id==='journeyModal')closeJourney()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
 
 </script>
 </body></html>
