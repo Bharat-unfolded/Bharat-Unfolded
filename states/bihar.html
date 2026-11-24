@@ -738,16 +738,15 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
 </div>
 <script>
 (function(){
- const city=new URLSearchParams(location.search).get('city');
- if(!city)return;
- const q=city.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
- const cards=[...document.querySelectorAll('.place-card')];
- let shown=0;
- cards.forEach(card=>{const match=card.innerText.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q);card.style.display=match?'':'none';if(match)shown++});
- const heading=document.querySelector('main h1, h1');
- if(heading)heading.textContent=city+' · Places to Visit';
- const note=document.createElement('p');note.className='city-search-note';note.textContent=shown?('Showing '+shown+' places in or mentioning '+city+'.'):'No listed places found for '+city+' on this page yet.';
- const main=document.querySelector('main');if(main)main.prepend(note);
+ const params=new URLSearchParams(location.search),city=params.get('city'),place=params.get('place');
+ if(!city&&!place)return;
+ const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/&amp;/g,'&').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+ const q=norm(place||city),cards=[...document.querySelectorAll('.place-card')];let shown=0;
+ cards.forEach(card=>{const title=card.querySelector('h2')?.textContent||'',text=card.innerText;const match=place?norm(title)===q:norm(text).includes(q);card.style.display=match?'':'none';if(match)shown++});
+ document.querySelectorAll('.region-heading').forEach(el=>{el.style.display=[...el.parentElement.querySelectorAll('.place-card')].some(card=>card.style.display!=='none')?'':'none'});
+ const heading=document.querySelector('h1');if(heading)heading.textContent=place?(shown?place+' · Details':'Place not found'):city+' · Places to Visit';
+ const note=document.createElement('p');note.className='city-search-note';note.textContent=shown?(place?'Showing the selected destination.':'Showing '+shown+' places matching '+city+'.'):(place?'This destination is not listed on this page yet.':'No listed places found for '+city+' on this page yet.');
+ const wrap=document.querySelector('.wrap');if(wrap)wrap.insertBefore(note,wrap.querySelector('.region-heading,.place-card'));
 })();
 </script>
 </body>
