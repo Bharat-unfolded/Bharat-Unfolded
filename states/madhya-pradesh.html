@@ -84,9 +84,29 @@ body:after{bottom:-22vh;opacity:.65;animation-duration:23s;animation-direction:a
 <article class="place-card glass" id="place-40" data-place="Harsiddhi Mata Temple (Ujjain)" data-city="Ujjain"><div class="place-visual"><span class="visual-orbit"></span><span class="visual-icon">✦</span><small>BHARAT UNFOLDED · MADHYA PRADESH</small></div><div class="place-copy"><div class="number">40 · UJJAIN, MADHYA PRADESH</div><h2>Harsiddhi Mata Temple (Ujjain) </h2><p>Shree Harsiddhi Mata Shaktipeeth Temple in Ujjain is an important Shakta shrine linked in tradition to Shakti Peetha lore and the patron deity of King Vikramaditya. Marked by tall carved deep-stambhas (lamp pillars) illuminated in the evening and Maratha-era architectural elements, it draws steady devotees day and night.</p><div class="facts"><span><b>Location</b>Ujjain, Madhya Pradesh, India</span><span><b>Discover</b>Heritage, nature and culture of Madhya Pradesh</span></div><h3>Timings &amp; Entry</h3><div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening hours</th><td>Mon–Sat: 6:00 AM – 11:00 PM; Sun: 6:00 AM – 10:00 PM</td></tr><tr><th>Entry / ticket</th><td>General darshan entry is *Free* (optional lamps, offerings, or donations are separate)</td></tr></table></div><p class="visit-note">Hours and ticket rates are indicative and may change by season, weather, festival or local administration. Confirm current access and charges before travelling.</p></div></article></section>
 <footer class="footer"><a href="../index.html">← Back to Bharat Unfolded</a><p>BHARAT UNFOLDED · MADHYA PRADESH · 40 DESTINATIONS</p></footer>
 </main><script>
-const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');
+const norm=s=>String(s||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^\\p{L}\\p{N}]+/gu,' ').trim().replace(/\\s+/g,' ');
 const cards=[...document.querySelectorAll('.place-card')];
-function openPlace(q){const v=norm(q);let found=cards.find(c=>norm(c.dataset.place)===v||norm(c.querySelector('h2').innerText)===v);if(!found)found=cards.find(c=>norm(c.dataset.place).includes(v)||v.includes(norm(c.dataset.place)));if(!found){document.getElementById('mpStatus').textContent='No matching Madhya Pradesh place found. Try the full monument or city name.';return false;}cards.forEach(c=>{c.removeAttribute('data-selected-place')});found.dataset.selectedPlace='true';document.body.classList.add('single-place-view');document.getElementById('mpStatus').textContent='Showing '+found.querySelector('h2').innerText;history.replaceState(null,'','?place='+encodeURIComponent(found.dataset.place));found.scrollIntoView({behavior:'smooth',block:'start'});return true;}
+function matchScore(card,query){
+ const heading=card.querySelector('h2')?.innerText||'';
+ const fields=[card.dataset.place,card.dataset.city,heading,card.querySelector('.number')?.innerText||''].map(norm).filter(Boolean);
+ if(fields.some(x=>x===query))return 1000;
+ if(fields.some(x=>x.startsWith(query)))return 900;
+ if(fields.some(x=>x.includes(query)))return 800;
+ const words=query.split(' ').filter(Boolean), searchable=fields.join(' ');
+ return words.length&&words.every(w=>searchable.includes(w))?600:0;
+}
+function openPlace(q){
+ const v=norm(q);if(!v)return false;
+ const ranked=cards.map(card=>({card,score:matchScore(card,v)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+ const found=ranked[0]?.card;
+ if(!found){document.getElementById('mpStatus').textContent='No matching Madhya Pradesh place found. Try its English name, Hindi name, or city.';return false;}
+ cards.forEach(c=>c.removeAttribute('data-selected-place'));
+ found.dataset.selectedPlace='true';document.body.classList.add('single-place-view');
+ document.getElementById('mpStatus').textContent='Showing '+(found.querySelector('h2')?.innerText||found.dataset.place);
+ const canonical=found.dataset.place||found.querySelector('h2')?.innerText||q;
+ history.replaceState(null,'','?place='+encodeURIComponent(canonical));
+ found.scrollIntoView({behavior:'smooth',block:'start'});return true;
+}
 const params=new URLSearchParams(location.search);if(params.has('place'))openPlace(params.get('place'));
 document.getElementById('mpSearch').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('mpQuery').value.trim();if(q)openPlace(q)});
 </script></body></html>
