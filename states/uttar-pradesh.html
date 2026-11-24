@@ -13,6 +13,33 @@ h1{margin:0 auto 12px;text-align:center;font-size:clamp(22px,3vw,32px);line-heig
 .place-card{overflow:hidden;display:grid;grid-template-columns:minmax(260px,.82fr) minmax(0,1.18fr);border-radius:23px;border:1px solid rgba(255,255,255,.84);box-shadow:0 18px 48px rgba(32,52,42,.10),inset 0 1px 0 rgba(255,255,255,.8);margin:14px 0;background:rgba(255,255,255,.48);transition:transform .2s,box-shadow .2s}.place-card[hidden]{display:none!important}.place-card:hover{transform:translateY(-2px);box-shadow:0 22px 54px rgba(32,52,42,.15)}.place-image{background:linear-gradient(135deg,#e6e1d5,#d5dfd6);overflow:hidden;min-height:100%;align-self:stretch}.place-image img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:center}.place-image.image-failed{background:linear-gradient(145deg,#1d5144,#d1aa64);min-height:360px}.place-copy{padding:clamp(22px,3vw,35px);color:#243d35!important}.place-copy h2{color:#173b34!important}.place-copy p,.place-copy .tagline,.place-copy .facts span,.place-copy .fee-table td,.place-copy .visit-note{color:#344b43!important}.place-copy h3{color:#18764e!important}.number{color:#a86f23;font-size:10px;font-weight:900;letter-spacing:.15em}.place-copy h2{margin:9px 0 5px;font-size:clamp(22px,2.5vw,30px);line-height:1.17;color:#173b34}.tagline{font-size:11px;color:#98702e;font-weight:750;letter-spacing:.04em;margin:0 0 12px}.place-copy p{font-size:14px;line-height:1.78;margin:0 0 12px}.facts{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}.facts span{flex:1 1 150px;padding:10px 12px;border:1px solid rgba(255,255,255,.85);border-radius:13px;background:rgba(255,255,255,.52);font-size:12px;line-height:1.5}.facts b{display:block;margin-bottom:4px;color:#a86f23;font-size:10px;text-transform:uppercase;letter-spacing:.1em}.place-copy h3{margin:18px 0 9px;color:#18764e;font-size:16px}.fee-table-wrap{margin-top:10px;overflow:hidden;border:1px solid rgba(255,255,255,.85);border-radius:15px;background:rgba(255,255,255,.52)}.fee-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.55}.fee-table th,.fee-table td{padding:10px 13px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(220,226,216,.85)}.fee-table th{width:30%;color:#173b34;font-weight:800}.fee-table td{color:#344b43}.fee-table tr:last-child th,.fee-table tr:last-child td{border-bottom:0}.place-copy .visit-note{font-size:11px;line-height:1.6;color:#68796f;margin:10px 0 0}.no-results{display:none;padding:22px;border-radius:16px;background:#fff2eb;color:#914b35;text-align:center;font-size:14px}.footer{text-align:center;margin-top:35px;padding:22px 12px;border-top:1px solid rgba(255,255,255,.75);color:#43584d;font-size:12px;line-height:1.8}.footer a{display:inline-flex;background:linear-gradient(135deg,#f2d18e,#c59b54);color:#17352e;text-decoration:none;border-radius:999px;padding:13px 22px;font-weight:850}
 body.single-place-view .wrap>*:not(.top):not(.place-card):not(.footer){display:none!important}body.single-place-view .place-card:not([data-selected-place]){display:none!important}body.single-place-view .place-card[data-selected-place]{display:grid!important;max-width:1180px;margin:28px auto 48px}
 @media(max-width:760px){body{padding:15px 10px 42px}.hero{min-height:220px;border-radius:19px}.place-card{grid-template-columns:1fr;border-radius:19px;margin:12px 0}.place-image{min-height:0}.place-image img{height:235px;min-height:220px}.place-copy{padding:20px 17px}.intro{padding:16px 17px}.fee-table th{width:38%}.searchbox button{padding:11px 13px}.searchbox input{font-size:13px}}
+
+/* Delhi-style readable layout + safe text selection */
+html{scroll-behavior:smooth}
+body{color:#17324d;background:linear-gradient(125deg,rgba(242,140,40,.16),rgba(255,255,255,.25) 48%,rgba(19,128,75,.14)),radial-gradient(ellipse at 12% 4%,rgba(255,180,90,.22),transparent 42%),radial-gradient(ellipse at 90% 88%,rgba(25,140,80,.17),transparent 44%),#f5f2e9;background-attachment:fixed}
+.wrap{width:min(1320px,100%)}
+.back{color:#17324d;background:rgba(255,255,255,.45);border-color:rgba(255,255,255,.9);box-shadow:0 8px 22px rgba(30,50,40,.07)}
+h1{color:#17324d}
+.hero{min-height:300px;border-radius:25px;background-image:linear-gradient(90deg,rgba(8,35,31,.78),rgba(8,35,31,.22)),url("https://commons.wikimedia.org/wiki/Special:FilePath/Taj%20Mahal%20in%20April%202016%2028.jpg");background-position:center 48%;background-size:cover}
+.intro,.search-panel{background:rgba(255,255,255,.48);border:1px solid rgba(255,255,255,.86);box-shadow:0 15px 42px rgba(35,55,42,.09),inset 0 1px 0 rgba(255,255,255,.85);backdrop-filter:blur(22px) saturate(145%);-webkit-backdrop-filter:blur(22px) saturate(145%)}
+.searchbox{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.95)}
+.searchbox input{color:#17324d;user-select:text;-webkit-user-select:text}
+.searchbox input::placeholder{color:#718278}
+.searchbox button{background:linear-gradient(135deg,#f2d18e,#c59b54);color:#17352e}
+.place-card{grid-template-columns:minmax(300px,.9fr) minmax(0,1.1fr);background:rgba(255,255,255,.44);border:1px solid rgba(255,255,255,.9);box-shadow:0 18px 48px rgba(32,52,42,.10),inset 0 1px 0 rgba(255,255,255,.8);backdrop-filter:blur(20px) saturate(145%);-webkit-backdrop-filter:blur(20px) saturate(145%);transition:box-shadow .2s}
+.place-card:hover{transform:none;box-shadow:0 20px 52px rgba(32,52,42,.14)}
+.place-image{min-height:390px}
+.place-image img{min-height:390px;object-fit:cover}
+.place-copy{background:rgba(255,255,255,.12);user-select:text;-webkit-user-select:text}
+.place-copy h2{font-size:clamp(22px,2.4vw,30px)}
+.place-copy p,.place-copy h2,.place-copy .tagline,.facts span,.fee-table th,.fee-table td,.visit-note{user-select:text;-webkit-user-select:text}
+::selection{background:rgba(219,168,80,.38);color:#17324d}
+.search-status{min-height:20px}
+body.single-place-view .wrap>*:not(.top):not(.place-card):not(.footer){display:none!important}
+body.single-place-view .place-card:not([data-selected-place]){display:none!important}
+body.single-place-view .place-card[data-selected-place]{display:grid!important;max-width:1180px;margin:28px auto 48px}
+@media(max-width:760px){.hero{min-height:230px}.place-card{grid-template-columns:1fr}.place-image{min-height:0}.place-image img{height:245px;min-height:245px}}
+
 </style></head><body><main class="wrap"><div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED</a></div>
 <h1>31 Top Tourist Places &amp; Temples in Uttar Pradesh</h1><div class="accent"></div>
 <section class="hero"><div class="hero-copy"><div class="eyebrow">Bharat Unfolded · Uttar Pradesh</div><h2>Discover Uttar Pradesh</h2><p>Explore the Taj Mahal, sacred cities, royal architecture, Buddhist heritage, river ghats, wildlife and the living traditions of India's most populous state.</p></div></section>
@@ -192,13 +219,13 @@ const input=document.getElementById('upQuery'),form=document.getElementById('upS
 const norm=s=>(s||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\u0900-\u097f]+/g,' ').trim();
 function showAll(){document.body.classList.remove('single-place-view');cards.forEach(c=>{c.hidden=false;c.removeAttribute('data-selected-place')});empty.style.display='none';status.classList.remove('error');status.textContent='Showing all '+cards.length+' destinations. Search by temple, monument, English or Hindi name, or city.';history.replaceState(null,'',location.pathname)}
 function search(q,openFirst){const query=norm(q);document.body.classList.remove('single-place-view');cards.forEach(c=>c.removeAttribute('data-selected-place'));if(!query){showAll();return}
-const hits=cards.filter(c=>{const hay=norm([c.dataset.name,c.dataset.city,c.dataset.search,c.innerText].join(' '));return hay.includes(query)||query.split(' ').filter(Boolean).every(w=>hay.includes(w))});
+const hits=cards.filter(c=>{const hay=norm([c.dataset.name,c.dataset.city,c.dataset.search,c.textContent].join(' '));return hay.includes(query)||query.split(' ').filter(Boolean).every(w=>hay.includes(w))});
 cards.forEach(c=>c.hidden=!hits.includes(c));empty.style.display=hits.length?'none':'block';status.classList.toggle('error',!hits.length);
 if(!hits.length){status.textContent='No match for “'+q+'”. Try a shorter temple name, city or alternate spelling.';return}
 status.textContent=hits.length+' matching destination'+(hits.length===1?'':'s')+' found.';
 if(openFirst){const chosen=hits[0];cards.forEach(c=>{c.hidden=c!==chosen;c.removeAttribute('data-selected-place')});chosen.setAttribute('data-selected-place','');document.body.classList.add('single-place-view');status.textContent='Opened: '+chosen.dataset.name+' · '+chosen.dataset.city;history.replaceState(null,'','#'+chosen.id);window.scrollTo({top:0,behavior:'smooth'})}}
 input.addEventListener('input',()=>search(input.value,false));form.addEventListener('submit',e=>{e.preventDefault();search(input.value,true)});
-cards.forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('a'))return;input.value=c.dataset.name;search(c.dataset.name,true)}));
+/* Cards deliberately have no click-to-open handler: selecting or copying their text must never hide the page. */
 if(location.hash){const target=document.querySelector(location.hash);if(target&&target.classList.contains('place-card')){input.value=target.dataset.name;search(target.dataset.name,true)}}else showAll();
 })();
 </script></body></html>
