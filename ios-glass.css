@@ -19,3 +19,35 @@ input,textarea,select{border-radius:14px}
 img{max-width:100%}
 @media(max-width:640px){:where(.card,.news,.place,.state,.explore,.content-card,.info-card,.policy-card){border-radius:17px}button,.btn{min-height:42px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+
+/* Global polish, accessibility and responsive fixes */
+:root{color-scheme:light;scroll-padding-top:88px}
+body{min-width:320px;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+::selection{background:#d7a94b55;color:#142d25}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid #d7a94b!important;outline-offset:3px}
+.skip-link{position:fixed;z-index:10000;top:10px;left:10px;transform:translateY(-160%);padding:12px 16px;border-radius:12px;background:#10251f;color:#fff;font-weight:800;box-shadow:0 8px 24px #0003}
+.skip-link:focus{transform:translateY(0)}
+img{height:auto}
+button:disabled{opacity:.55;cursor:not-allowed}
+.menu{z-index:100;max-height:min(75vh,560px);overflow:auto}
+.menu a:focus-visible{background:#f1f4ef}
+.searchbox{min-width:0}
+.search-results{max-height:min(54vh,430px);overflow:auto;overscroll-behavior:contain}
+.search-result{min-height:48px}
+.search-result span:first-child{min-width:0;overflow-wrap:anywhere}
+.noresult{line-height:1.5}
+.state,.explore,.news,.place{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.news:focus-within,.place:focus-visible{outline:3px solid #d7a94b;outline-offset:3px}
+.back-to-top{position:fixed;z-index:90;right:20px;bottom:22px;width:48px;height:48px;display:grid;place-items:center;border:1px solid #ffffff88;border-radius:50%;background:rgba(19,66,52,.88);color:#fff;font-size:24px;font-weight:800;box-shadow:0 8px 24px #10251f35;backdrop-filter:blur(16px);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s;cursor:pointer}
+.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+@media(max-width:560px){
+ :root{scroll-padding-top:72px}
+ .nav{position:sticky;top:0}
+ .menu{position:fixed;top:76px;right:12px;left:12px;min-width:0;border:1px solid #e8ece6;border-radius:18px;box-shadow:0 20px 55px #10251f30}
+ .search-results{max-height:48vh}
+ .back-to-top{right:14px;bottom:16px;width:44px;height:44px}
+ .section-head .textlink{white-space:normal}
+}
+@media(hover:none){.news:hover,.place:hover,.state:hover,.explore:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.back-to-top{transition:none}}
