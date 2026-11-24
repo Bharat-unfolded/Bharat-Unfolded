@@ -266,7 +266,7 @@ const status=document.getElementById('upStatus');
 const empty=document.getElementById('upEmpty');
 const showAllButton=document.getElementById('upShowAll');
 const cards=Array.from(document.querySelectorAll('#places .place-card'));
-const normalize=value=>(value||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9\\u0900-\\u097f]+/g,' ').trim();
+const normalize=value=>(value||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9\u0900-\u097f]+/g,' ').trim();
 function showAll(clearHash=true){
  cards.forEach(card=>{card.hidden=false;card.removeAttribute('data-selected-place')});
  empty.style.display='none';showAllButton.hidden=true;status.classList.remove('error');
@@ -275,7 +275,7 @@ function showAll(clearHash=true){
 }
 function findMatches(query){
  const q=normalize(query);if(!q)return [];
- const terms=q.split(/\\s+/).filter(Boolean);
+ const terms=q.split(/\s+/).filter(Boolean);
  return cards.map(card=>{
   const name=normalize(card.dataset.name),city=normalize(card.dataset.city);
   const searchable=normalize([card.dataset.name,card.dataset.city,card.dataset.search,card.textContent].join(' '));
