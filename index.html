@@ -130,7 +130,7 @@ function recordSearch(item){const counts=getSearchCounts();counts[item.key]=(cou
 function renderTrending(){const counts=getSearchCounts();const ranked=destinations.filter(d=>(counts[d.key]||0)>0).sort((a,b)=>(counts[b.key]||0)-(counts[a.key]||0)).slice(0,4);trending.innerHTML='<strong>Most searched:</strong>'+(ranked.length?ranked.map(d=>'<button class="search-chip" type="button" data-trend="'+d.key+'">'+d.name+'</button>').join(''):'<span class="trend-empty">Your most searched destinations will appear here</span>');trending.querySelectorAll('[data-trend]').forEach(b=>b.addEventListener('click',()=>{const item=destinations.find(d=>d.key===b.dataset.trend);if(item)goToDestination(item)}))}
 function goToDestination(item){recordSearch(item);searchResults.classList.remove('show');noresult.style.display='none';if(item.url.startsWith('http'))location.href=item.url;else location.href=item.url}
 function normalizeSearchText(value){
- return String(value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\\s+/g,' ');
+ return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
 }
 function editDistance(a,b){
  if(Math.abs(a.length-b.length)>2)return 99;
@@ -146,7 +146,7 @@ function editDistance(a,b){
  return prev[b.length];
 }
 function searchAliases(value){
- return normalizeSearchText(value).replace(/\\bmahaveer\\b/g,'mahavir').replace(/\\bmahavirji\\b/g,'mahavir').replace(/\\bsajjan\\s*garh\\b/g,'sajjangarh').replace(/\\bamber\\b/g,'amer');
+ return normalizeSearchText(value).replace(/\bmahaveer\b/g,'mahavir').replace(/\bmahavirji\b/g,'mahavir').replace(/\bsajjan\s*garh\b/g,'sajjangarh').replace(/\bamber\b/g,'amer');
 }
 function destinationScore(d,q){
  const name=searchAliases(d.name),type=searchAliases(d.type),full=name+' '+type,words=q.split(' ').filter(Boolean);
