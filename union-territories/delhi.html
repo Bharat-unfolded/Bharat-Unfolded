@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f2a34a"><meta name="description" content="Explore Delhi's famous tourist places, monuments and temples."><title>33 Incredible Tourist Places to Visit in Delhi | Bharat Unfolded</title><link rel="stylesheet" href="../ios-glass.css">
 <style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}
 :root{--ink:#17324d;--gold:#a85d16;--green:#16764a}
-body{margin:0;min-height:100vh;padding:25px 18px 70px;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","DM Sans",sans-serif;background:linear-gradient(135deg,rgba(242,140,40,.22),rgba(255,255,255,.18) 45%,rgba(19,128,75,.20)),radial-gradient(ellipse at 15% 5%,rgba(255,180,90,.32),transparent 40%),radial-gradient(ellipse at 90% 85%,rgba(25,140,80,.25),transparent 42%),#f5f2e9;background-attachment:fixed}
-.wrap{width:min(1120px,100%);margin:0 auto}.top{display:flex;justify-content:center;margin:0 0 16px}
+body{margin:0;min-height:100vh;padding:26px 22px 76px;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","DM Sans",sans-serif;background:linear-gradient(125deg,rgba(242,140,40,.20),rgba(255,255,255,.20) 48%,rgba(19,128,75,.19)),radial-gradient(ellipse at 12% 4%,rgba(255,180,90,.28),transparent 42%),radial-gradient(ellipse at 90% 88%,rgba(25,140,80,.24),transparent 44%),#f5f2e9;background-attachment:fixed}
+body:before{content:"";position:fixed;inset:10px;z-index:20;border:1px solid rgba(255,255,255,.76);border-radius:25px;box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 8px 30px rgba(39,54,44,.06);pointer-events:none}
+.scroll-progress{position:fixed;z-index:30;top:10px;left:11px;height:3px;width:0;border-radius:0 5px 5px 0;background:linear-gradient(90deg,#f28c28 0 33%,#fff 33% 66%,#13804b 66%);box-shadow:0 0 10px rgba(255,255,255,.8)}
+.wrap{width:min(1120px,100%);margin:0 auto;position:relative}.top{display:flex;justify-content:center;margin:0 0 16px}
 .back{color:var(--ink);text-decoration:none;font-size:11px;font-weight:800;letter-spacing:.15em;padding:10px 17px;border:1px solid rgba(255,255,255,.78);border-radius:30px;background:rgba(255,255,255,.28);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
 h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-height:1.35;font-weight:750}
 .glass{border:1px solid rgba(255,255,255,.72);background:rgba(255,255,255,.22);box-shadow:0 18px 55px rgba(35,55,42,.10),inset 0 1px 0 rgba(255,255,255,.72);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%)}
@@ -21,7 +23,19 @@ h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-he
 .facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.facts span{flex:1 1 145px;padding:11px 13px;border:1px solid rgba(255,255,255,.68);border-radius:14px;background:rgba(255,255,255,.24);font-size:12px;line-height:1.5;backdrop-filter:blur(14px)}
 .facts b{display:block;margin-bottom:4px;color:var(--gold);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
 @media(max-width:720px){body{padding:16px 11px 45px}.place-card{grid-template-columns:1fr}.place-image img{height:250px;min-height:230px}.places{gap:18px}.hero{border-radius:18px}.place-card{border-radius:19px}.copy{padding:20px}.place-copy{padding:21px 18px}}
-</style></head><body><main class="wrap">
+
+/* Framed glass surface and gentle scroll feedback */
+.hero,.place-card{border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 48px rgba(32,52,42,.10),inset 0 1px 0 rgba(255,255,255,.8);transition:transform .35s cubic-bezier(.2,.75,.25,1),box-shadow .35s,border-color .35s}
+.place-card{transform:translateY(18px);opacity:0;transition:transform .65s cubic-bezier(.2,.75,.25,1),opacity .65s,box-shadow .3s}
+.place-card.is-visible{transform:translateY(0);opacity:1}
+.place-card:active{transform:scale(.992);box-shadow:0 9px 24px rgba(32,52,42,.13)}
+.back{transition:transform .25s,background .25s,box-shadow .25s}
+.back:hover,.back:focus-visible{transform:translateY(-2px);background:rgba(255,255,255,.55);box-shadow:0 8px 22px rgba(32,52,42,.10);outline:none}
+.place-copy h2 a{transition:color .2s}
+.place-copy h2 a:hover{color:var(--green)}
+@media(max-width:720px){body{padding:18px 14px 54px}body:before{inset:6px;border-radius:18px}}
+@media(prefers-reduced-motion:reduce){.place-card{opacity:1;transform:none;transition:none}}
+</style></head><body><div class="scroll-progress" aria-hidden="true"></div><main class="wrap">
 <div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED</a></div><h1>33 Incredible Tourist Places to Visit in Delhi</h1>
 <article class="hero glass"><img src="https://delhitourism.travel/images/places-to-visit/headers/humayun-s-tomb-delhi-entry-fee-timings-holidays-reviews-header.jpg" alt="Humayun's Tomb in Delhi" fetchpriority="high"><div class="copy"><div class="accent"></div>
 <p>Capital of India, the historical and vivacious Delhi is blessed with innumerable monuments, scenic locations and prominent shrines. From historic buildings showcasing the Mughal Era and British Raj to some of the country's best markets, entertainment zones and cuisines, Delhi has something for everyone.</p>
@@ -90,4 +104,8 @@ h1{margin:0 auto 20px;text-align:center;font-size:clamp(18px,2.5vw,26px);line-he
       <div class="facts"><span><b>Timings</b>10:00 AM – 6:30 PM (Closed Mondays)</span><span><b>Entry fee</b>Starting ₹110 (Adults) · ₹80 (Child)</span></div>
     </div>
   </article>
-</section></main></body></html>
+</section></main><script>
+(()=>{const bar=document.querySelector('.scroll-progress');const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.width=(max>0?scrollY/max*100:0)+'%'};addEventListener('scroll',update,{passive:true});addEventListener('resize',update);update();
+const cards=document.querySelectorAll('.place-card');if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -35px 0px'});cards.forEach(card=>observer.observe(card))}else{cards.forEach(card=>card.classList.add('is-visible'))}
+})();
+</script></body></html>
