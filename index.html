@@ -286,9 +286,9 @@ function renderSuggestions(){
   searchResults.querySelector('[data-region-match]').addEventListener('click',()=>goToDestination(exactRegion));
   return;
  }
- const catalog=[...destinations,...attractionDestinations,...pageDestinations];
+ const catalog=[...pageDestinations,...attractionDestinations,...destinations];
  const ranked=catalog.map(d=>({d,score:destinationScore(d,q)})).filter(x=>x.score>0);
- const matches=[...new Map(ranked.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name)).map(x=>[x.d.url,x.d])).values()].slice(0,20);
+ const matches=[...new Map(ranked.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name)).map(x=>[searchAliases(x.d.name),x.d])).values()].slice(0,20);
  searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');
  searchResults.classList.toggle('show',matches.length>0);
  searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));
