@@ -1,2 +1,4 @@
-# anjaan-bharat
-Discover the unknown stories, places, culture and hidden gems of India.
+# Bharat Unfolded
+Discover India's hidden places, living cultures, local flavours and untold stories.
+
+Website: https://vezorex.shop
