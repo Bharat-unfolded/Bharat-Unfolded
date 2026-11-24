@@ -736,6 +736,20 @@ footer{margin-top:32px;text-align:center;padding:18px;color:#43584d;font-size:12
 </main>
 <footer>← Back to Bharat Unfolded</footer>
 </div>
+<script>
+(function(){
+ const city=new URLSearchParams(location.search).get('city');
+ if(!city)return;
+ const q=city.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+ const cards=[...document.querySelectorAll('.place-card')];
+ let shown=0;
+ cards.forEach(card=>{const match=card.innerText.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(q);card.style.display=match?'':'none';if(match)shown++});
+ const heading=document.querySelector('main h1, h1');
+ if(heading)heading.textContent=city+' · Places to Visit';
+ const note=document.createElement('p');note.className='city-search-note';note.textContent=shown?('Showing '+shown+' places in or mentioning '+city+'.'):'No listed places found for '+city+' on this page yet.';
+ const main=document.querySelector('main');if(main)main.prepend(note);
+})();
+</script>
 </body>
 </html</article>
 </section>
