@@ -55,7 +55,12 @@
 .noresult{max-width:640px}
 @media(max-width:560px){.search-results{width:100%;margin-top:8px}.search-result{padding:11px}}
 .journey-card{cursor:pointer;position:relative}.journey-card:focus-visible{outline:3px solid #b18a42;outline-offset:4px}.journey-cta{display:inline-block;margin-top:18px;background:#174b3e;color:#fff;padding:10px 16px;border-radius:24px;font-size:12px;font-weight:700}.journey-modal{position:fixed;inset:0;z-index:9999;background:#071a16b8;display:none;align-items:center;justify-content:center;padding:20px}.journey-modal.open{display:flex}.journey-dialog{width:min(560px,100%);background:#fff;border-radius:22px;padding:30px;box-shadow:0 25px 80px #0005;position:relative}.journey-dialog .tag{margin-bottom:14px}.journey-dialog h2{font:700 30px Georgia,serif;color:#18372e;margin:8px 0}.journey-dialog p{color:#65736c;line-height:1.7;font-size:14px}.journey-dialog .journey-place-meta{font-size:11px;letter-spacing:.12em;color:#a47b35;font-weight:700;margin:12px 0 22px}.journey-actions{display:flex;gap:10px;flex-wrap:wrap}.journey-actions a,.journey-actions button{border:0;border-radius:24px;padding:12px 18px;font-weight:700;font-size:13px;text-decoration:none;cursor:pointer}.journey-open{background:#174b3e;color:#fff}.journey-again{background:#f4efe4;color:#34483f}.journey-close{position:absolute;right:16px;top:14px;border:0;background:#f1f3ef;border-radius:50%;width:34px;height:34px;font-size:20px;cursor:pointer}</style>
-<link rel="stylesheet" href="./ios-glass.css">\n<style>\n.thought-strip{min-height:32px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 16px;background:linear-gradient(100deg,#10251f,#174b43,#10251f);color:#f5f0e4;text-align:center;font-size:12px;letter-spacing:.01em}.thought-label{font-size:9px;font-weight:800;letter-spacing:.14em;color:#f1c878}.thought-text{font-weight:500;letter-spacing:.015em}.thought-author{color:#f1c878;font-size:11px;font-style:italic}.thought-text.is-loading{opacity:.65}\n@media(max-width:600px){.thought-strip{gap:5px 8px;font-size:11px;padding:8px 12px}.thought-label{font-size:8px}}\n</style>\n</head>
+<link rel="stylesheet" href="./ios-glass.css">
+<style>
+.thought-strip{min-height:32px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 16px;background:linear-gradient(100deg,#10251f,#174b43,#10251f);color:#f5f0e4;text-align:center;font-size:12px;letter-spacing:.01em}.thought-label{font-size:9px;font-weight:800;letter-spacing:.14em;color:#f1c878}.thought-text{font-weight:500;letter-spacing:.015em}.thought-author{color:#f1c878;font-size:11px;font-style:italic}.thought-text.is-loading{opacity:.65}
+@media(max-width:600px){.thought-strip{gap:5px 8px;font-size:11px;padding:8px 12px}.thought-label{font-size:8px}}
+</style>
+</head>
 <body>
 <div class="topline thought-strip" id="dailyThought" role="status" aria-live="polite"><span class="thought-label">A THOUGHT FOR YOU</span><span class="thought-text" id="thoughtText">A new thought is on its way…</span><span class="thought-author" id="thoughtAuthor"></span></div>
 <header class="nav">
@@ -295,4 +300,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
  loadThought();
  window.setInterval(loadThought,60000);
 })();
-</script>\n</body></html>
+</script>
+</body></html>
