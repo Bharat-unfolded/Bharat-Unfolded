@@ -254,23 +254,26 @@ function searchAliases(value){
 }
 function destinationScore(d,q){
  const name=searchAliases(d.name),type=searchAliases(d.type),aliases=(d.aliases||[]).map(searchAliases).join(' '),full=name+' '+type+' '+aliases,words=q.split(' ').filter(Boolean);
- if(name===q)return 1000;
- if(name.startsWith(q))return 900;
- if(name.includes(q))return 800;
- if(full.includes(q))return 700;
- let score=0,matched=0;
- const nameWords=name.split(' '),allWords=full.split(' ');
+ if(name===q)return 1200;
+ if(name.startsWith(q))return 1100;
+ if(name.includes(q))return 1000;
+ if(full.includes(q))return 900;
+ const nameWords=name.split(' ').filter(Boolean),allWords=full.split(' ').filter(Boolean);
+ let score=0,matched=0,nameMatched=0;
  for(const word of words){
-  let best=0;
+  let best=0,bestIsName=false;
   for(const candidate of allWords){
-   if(candidate===word)best=Math.max(best,100);
-   else if(candidate.startsWith(word)||word.startsWith(candidate))best=Math.max(best,75);
-   else if(word.length>=5&&candidate.length>=5&&editDistance(word,candidate)<=2)best=Math.max(best,55);
-   else if(candidate.includes(word)||word.includes(candidate))best=Math.max(best,35);
+   const inName=nameWords.includes(candidate);let value=0;
+   if(candidate===word)value=100;
+   else if(candidate.length>=3&&(candidate.startsWith(word)||word.startsWith(candidate)))value=72;
+   else if(word.length>=5&&candidate.length>=5&&editDistance(word,candidate)<=2)value=52;
+   else if(word.length>=4&&candidate.length>=4&&candidate.includes(word))value=32;
+   if(value>best){best=value;bestIsName=inName;}
   }
-  if(best){matched++;score+=best}
+  if(best){matched++;score+=best;if(bestIsName)nameMatched++;}
  }
- return matched===words.length?score+(nameWords.length?10:0):0;
+ // Require every query word to match a meaningful token; ignore tiny fragments like 'in' inside 'Badrinath'.
+ return matched===words.length?score+nameMatched*35:0;
 }
 function renderSuggestions(){
  const q=searchAliases(searchInput.value.trim());noresult.style.display='none';
