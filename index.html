@@ -107,13 +107,29 @@ const destinations=[
 {name:'Hawa Mahal',type:'Jaipur · Rajasthan',url:'https://en.wikipedia.org/wiki/Hawa_Mahal',key:'hawa-mahal'},
 {name:'Jaipur',type:'Rajasthan · City',url:'states/rajasthan.html',key:'jaipur'},
 {name:'Varanasi',type:'Uttar Pradesh · City',url:'states/uttar-pradesh.html',key:'varanasi'},
-{name:'Patna',type:'Bihar · City',url:'states/bihar.html',key:'patna'}
+{name:'Patna',type:'Bihar · City',url:'states/bihar.html?city=Patna',key:'patna'},
+{name:'Gaya',type:'Bihar · City',url:'states/bihar.html?city=Gaya',key:'gaya'},
+{name:'Bodh Gaya',type:'Bihar · City',url:'states/bihar.html?city=Bodh%20Gaya',key:'bodh-gaya'},
+{name:'Saharsa',type:'Bihar · City',url:'states/bihar.html?city=Saharsa',key:'saharsa'},
+{name:'Supaul',type:'Bihar · City',url:'states/bihar.html?city=Supaul',key:'supaul'},
+{name:'Nalanda',type:'Bihar · City',url:'states/bihar.html?city=Nalanda',key:'nalanda'},
+{name:'Vaishali',type:'Bihar · City',url:'states/bihar.html?city=Vaishali',key:'vaishali'},
+{name:'Jaipur',type:'Rajasthan · City',url:'states/rajasthan.html?city=Jaipur',key:'jaipur'},
+{name:'Udaipur',type:'Rajasthan · City',url:'states/rajasthan.html?city=Udaipur',key:'udaipur'},
+{name:'Jodhpur',type:'Rajasthan · City',url:'states/rajasthan.html?city=Jodhpur',key:'jodhpur'},
+{name:'Jaisalmer',type:'Rajasthan · City',url:'states/rajasthan.html?city=Jaisalmer',key:'jaisalmer'},
+{name:'Ajmer',type:'Rajasthan · City',url:'states/rajasthan.html?city=Ajmer',key:'ajmer'},
+{name:'Pushkar',type:'Rajasthan · City',url:'states/rajasthan.html?city=Pushkar',key:'pushkar'},
+{name:'Mount Abu',type:'Rajasthan · City',url:'states/rajasthan.html?city=Mount%20Abu',key:'mount-abu'},
+{name:'Bikaner',type:'Rajasthan · City',url:'states/rajasthan.html?city=Bikaner',key:'bikaner'},
+{name:'Chittorgarh',type:'Rajasthan · City',url:'states/rajasthan.html?city=Chittorgarh',key:'chittorgarh'},
+{name:'Kota',type:'Rajasthan · City',url:'states/rajasthan.html?city=Kota',key:'kota'}
 ];
 function getSearchCounts(){try{return JSON.parse(localStorage.getItem('buSearchCounts')||'{}')}catch{return {}}}
 function recordSearch(item){const counts=getSearchCounts();counts[item.key]=(counts[item.key]||0)+1;try{localStorage.setItem('buSearchCounts',JSON.stringify(counts))}catch{};renderTrending()}
 function renderTrending(){const counts=getSearchCounts();const ranked=destinations.filter(d=>(counts[d.key]||0)>0).sort((a,b)=>(counts[b.key]||0)-(counts[a.key]||0)).slice(0,4);trending.innerHTML='<strong>Most searched:</strong>'+(ranked.length?ranked.map(d=>'<button class="search-chip" type="button" data-trend="'+d.key+'">'+d.name+'</button>').join(''):'<span class="trend-empty">Your most searched destinations will appear here</span>');trending.querySelectorAll('[data-trend]').forEach(b=>b.addEventListener('click',()=>{const item=destinations.find(d=>d.key===b.dataset.trend);if(item)goToDestination(item)}))}
 function goToDestination(item){recordSearch(item);searchResults.classList.remove('show');noresult.style.display='none';if(item.url.startsWith('http'))location.href=item.url;else location.href=item.url}
-function renderSuggestions(){const q=searchInput.value.trim().toLowerCase();noresult.style.display='none';if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}const matches=destinations.filter(d=>d.name.toLowerCase().includes(q)||d.type.toLowerCase().includes(q)).sort((a,b)=>{const ae=a.name.toLowerCase().startsWith(q)?0:1,be=b.name.toLowerCase().startsWith(q)?0:1;return ae-be||a.name.localeCompare(b.name)}).slice(0,7);searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');searchResults.classList.toggle('show',matches.length>0);searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));if(!matches.length){searchResults.classList.remove('show');noresult.style.display='block'}}
+function renderSuggestions(){const q=searchInput.value.trim().toLowerCase();noresult.style.display='none';if(!q){searchResults.classList.remove('show');searchResults.innerHTML='';return}const cityMatches=destinations.filter(d=>/· City$/.test(d.type)&&d.name.toLowerCase()===q);const pool=cityMatches.length?cityMatches:destinations.filter(d=>d.name.toLowerCase().includes(q)||d.type.toLowerCase().includes(q));const matches=pool.sort((a,b)=>{const ae=a.name.toLowerCase().startsWith(q)?0:1,be=b.name.toLowerCase().startsWith(q)?0:1;return ae-be||a.name.localeCompare(b.name)}).slice(0,7);searchResults.innerHTML=matches.map((d,i)=>'<button class="search-result" type="button" role="option" data-result="'+i+'"><span>'+d.name+'<small>'+d.type+'</small></span><span class="result-arrow">↗</span></button>').join('');searchResults.classList.toggle('show',matches.length>0);searchResults.querySelectorAll('[data-result]').forEach((b,i)=>b.addEventListener('click',()=>goToDestination(matches[i])));if(!matches.length){searchResults.classList.remove('show');noresult.style.display='block'}}
 searchInput.addEventListener('input',renderSuggestions);
 searchInput.addEventListener('keydown',e=>{if(e.key==='Escape')searchResults.classList.remove('show');if(e.key==='Enter'){e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first)first.click();else renderSuggestions()}});
 searchForm.addEventListener('submit',e=>{e.preventDefault();const first=searchResults.querySelector('[data-result]');if(first){first.click();return}renderSuggestions()});
