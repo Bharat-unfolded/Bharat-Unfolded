@@ -70,6 +70,14 @@
 .thought-strip{min-height:34px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;padding:7px 16px;background:linear-gradient(100deg,#10251f,#174b43,#10251f);color:#f5f0e4;text-align:center;font-size:12px;letter-spacing:.01em}.thought-label{font-size:9px;font-weight:800;letter-spacing:.1em;color:#f1c878}.thought-text{font-weight:500;letter-spacing:.015em}.thought-author{color:#f1c878;font-size:11px;font-style:italic}.thought-countdown{font-variant-numeric:tabular-nums;font-size:10px;font-weight:800;letter-spacing:.06em;color:#f8dda0;background:#ffffff16;border:1px solid #ffffff30;border-radius:20px;padding:4px 8px;min-width:42px}.thought-sound{border:1px solid #ffffff38;background:#ffffff15;color:#fff;border-radius:50%;width:25px;height:25px;display:inline-grid;place-items:center;font-size:13px;cursor:pointer;padding:0}.thought-sound[aria-pressed="false"]{opacity:.55}.thought-text.is-loading{opacity:.65}
 @media(max-width:600px){.thought-strip{gap:5px 7px;font-size:11px;padding:8px 10px}.thought-label{font-size:8px}.thought-countdown{font-size:9px;padding:3px 7px}}
 </style>
+
+<style>
+/* Clear, visible feedback when the sound control is tapped. */
+.hero-sound-toggle.haptic-tap{animation:thoughtTap .22s ease-out}
+@keyframes thoughtTap{0%{transform:scale(1)}35%{transform:scale(.91);box-shadow:0 0 0 5px rgba(255,220,152,.25)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.hero-sound-toggle.haptic-tap{animation:none}}
+</style>
+
 </head>
 <body>
 
@@ -273,21 +281,141 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
 </script>
 <script>
 (()=>{
- const thoughtEl=document.getElementById('heroThoughtText'),countdownEl=document.getElementById('heroThoughtCountdown'),soundBtn=document.getElementById('heroParrotSound'),soundLabel=document.getElementById('heroSoundLabel');
- if(!thoughtEl||!countdownEl||!soundBtn)return;
- const thoughts=['हर बड़ा सफर एक छोटे कदम से शुरू होता है।','आज की मेहनत ही कल की सफलता बनती है।','खुद पर भरोसा रखो, रास्ते खुद बनते जाएंगे।','धीरे चलना कोई हार नहीं, बस रुकना मत।','मुश्किलें रास्ता रोकने नहीं, मजबूत बनाने आती हैं।','सीखते रहो, क्योंकि हर दिन एक नया मौका है।','सपने वही सच होते हैं जिनके लिए रोज मेहनत की जाती है।','अपनी तुलना किसी और से नहीं, अपने कल से करो।','छोटी-छोटी कोशिशें एक दिन बड़ी जीत बन जाती हैं।','जहाँ उम्मीद होती है, वहीं से नई शुरुआत होती है।','समय बदलता है, इसलिए हौसला बनाए रखो।','अपने लक्ष्य पर ध्यान दो, शोर अपने आप कम हो जाएगा।','गलतियाँ अंत नहीं, सीखने का एक तरीका हैं।','आज का एक सही फैसला कल की दिशा बदल सकता है।','जो अपने आप को बेहतर बनाता है, वही आगे बढ़ता है।','हर सुबह अपने सपनों के लिए एक नया मौका लेकर आती है।','धैर्य रखो, अच्छी चीज़ों को समय लगता है।','रास्ता कठिन हो तो समझो मंज़िल खास है।','खुद की काबिलियत पर शक मत करो, कोशिश जारी रखो।','मुस्कुराते रहो और अपना काम करते रहो।'];
- let previous=-1,secondsLeft=60,soundOn=false,audioContext=null;
- function unlockSound(){const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;if(!audioContext)audioContext=new C();if(audioContext.state==='suspended')audioContext.resume().catch(()=>{});return true;}
- function birdChirp(){if(!soundOn||!audioContext||audioContext.state!=='running')return;const now=audioContext.currentTime;const notes=[{t:0,f:1850,d:.12},{t:.15,f:2380,d:.09},{t:.29,f:2050,d:.13},{t:.52,f:2650,d:.1},{t:.66,f:2250,d:.16}];notes.forEach((n,i)=>{const osc=audioContext.createOscillator(),gain=audioContext.createGain(),filter=audioContext.createBiquadFilter();osc.type=i%2?'triangle':'sine';osc.frequency.setValueAtTime(n.f,now+n.t);osc.frequency.exponentialRampToValueAtTime(n.f*(i%2?1.16:1.1),now+n.t+n.d*.55);filter.type='lowpass';filter.frequency.value=4200;gain.gain.setValueAtTime(.0001,now+n.t);gain.gain.exponentialRampToValueAtTime(.045,now+n.t+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+n.t+n.d);osc.connect(filter);filter.connect(gain);gain.connect(audioContext.destination);osc.start(now+n.t);osc.stop(now+n.t+n.d+.01);});}
- function haptic(pattern=18){try{if('vibrate'in navigator)navigator.vibrate(pattern);}catch(e){}}
- function updateSoundControl(){soundBtn.setAttribute('aria-pressed',String(soundOn));soundBtn.setAttribute('aria-label',soundOn?'Turn birdsong off':'Turn birdsong on');soundLabel.textContent=soundOn?'Sound ON':'Sound OFF';}
- function loadThought(){let index=Math.floor(Math.random()*thoughts.length);if(thoughts.length>1&&index===previous)index=(index+1)%thoughts.length;previous=index;thoughtEl.textContent='“'+thoughts[index]+'”';if(soundOn){birdChirp();haptic(12);}}
- function renderCountdown(){countdownEl.textContent=String(Math.floor(secondsLeft/60)).padStart(2,'0')+':'+String(secondsLeft%60).padStart(2,'0');}
- soundBtn.addEventListener('click',()=>{soundOn=!soundOn;haptic([18,35,18]);if(soundOn){unlockSound();if(audioContext&&audioContext.state==='running')birdChirp();else if(audioContext)audioContext.resume().then(birdChirp).catch(()=>{});}updateSoundControl();});
+ const thoughtEl=document.getElementById('heroThoughtText');
+ const countdownEl=document.getElementById('heroThoughtCountdown');
+ const soundBtn=document.getElementById('heroParrotSound');
+ const soundLabel=document.getElementById('heroSoundLabel');
+ if(!thoughtEl||!countdownEl||!soundBtn||!soundLabel)return;
+
+ const thoughts=[
+ 'हर बड़ा सफर एक छोटे कदम से शुरू होता है।',
+ 'आज की मेहनत ही कल की सफलता बनती है।',
+ 'खुद पर भरोसा रखो, रास्ते खुद बनते जाएंगे।',
+ 'धीरे चलना कोई हार नहीं, बस रुकना मत।',
+ 'मुश्किलें रास्ता रोकने नहीं, मजबूत बनाने आती हैं।',
+ 'सीखते रहो, क्योंकि हर दिन एक नया मौका है।',
+ 'सपने वही सच होते हैं जिनके लिए रोज मेहनत की जाती है।',
+ 'अपनी तुलना किसी और से नहीं, अपने कल से करो।',
+ 'छोटी-छोटी कोशिशें एक दिन बड़ी जीत बन जाती हैं।',
+ 'जहाँ उम्मीद होती है, वहीं से नई शुरुआत होती है।',
+ 'समय बदलता है, इसलिए हौसला बनाए रखो।',
+ 'अपने लक्ष्य पर ध्यान दो, शोर अपने आप कम हो जाएगा।',
+ 'गलतियाँ अंत नहीं, सीखने का एक तरीका हैं।',
+ 'आज का एक सही फैसला कल की दिशा बदल सकता है।',
+ 'जो अपने आप को बेहतर बनाता है, वही आगे बढ़ता है।',
+ 'हर सुबह अपने सपनों के लिए एक नया मौका लेकर आती है।',
+ 'धैर्य रखो, अच्छी चीज़ों को समय लगता है।',
+ 'रास्ता कठिन हो तो समझो मंज़िल खास है।',
+ 'खुद की काबिलियत पर शक मत करो, कोशिश जारी रखो।',
+ 'मुस्कुराते रहो और अपना काम करते रहो।'
+ ];
+
+ let previous=-1;
+ let secondsLeft=60;
+ let soundOn=false;
+ let audioContext=null;
+
+ function getAudioContext(){
+  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioContextClass)return null;
+  if(!audioContext)audioContext=new AudioContextClass();
+  return audioContext;
+ }
+
+ // A short, gentle two-part bird-like chirp made with Web Audio.
+ function playBirdChirp(){
+  const ctx=getAudioContext();
+  if(!soundOn||!ctx||ctx.state!=='running')return;
+  const now=ctx.currentTime;
+  const chirps=[
+   {start:0,frequency:1850,duration:.13},
+   {start:.17,frequency:2350,duration:.11},
+   {start:.34,frequency:2050,duration:.15},
+   {start:.58,frequency:2580,duration:.12},
+   {start:.76,frequency:2250,duration:.18}
+  ];
+  chirps.forEach((chirp,index)=>{
+   const osc=ctx.createOscillator();
+   const gain=ctx.createGain();
+   const filter=ctx.createBiquadFilter();
+   const t=now+chirp.start;
+   osc.type=index%2?'triangle':'sine';
+   osc.frequency.setValueAtTime(chirp.frequency,t);
+   osc.frequency.exponentialRampToValueAtTime(chirp.frequency*1.12,t+chirp.duration*.55);
+   filter.type='lowpass';
+   filter.frequency.setValueAtTime(4200,t);
+   gain.gain.setValueAtTime(.0001,t);
+   gain.gain.exponentialRampToValueAtTime(.055,t+.018);
+   gain.gain.exponentialRampToValueAtTime(.0001,t+chirp.duration);
+   osc.connect(filter);
+   filter.connect(gain);
+   gain.connect(ctx.destination);
+   osc.start(t);
+   osc.stop(t+chirp.duration+.02);
+  });
+ }
+
+ function giveHapticFeedback(){
+  // Vibration API works on some Android browsers, but iOS Safari does not expose it.
+  if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function'){
+   try{navigator.vibrate([18,35,18]);return;}catch(error){}
+  }
+  // Visible tap feedback fallback; this is not a physical vibration.
+  soundBtn.classList.remove('haptic-tap');
+  void soundBtn.offsetWidth;
+  soundBtn.classList.add('haptic-tap');
+ }
+
+ function updateSoundControl(){
+  soundBtn.setAttribute('aria-pressed',String(soundOn));
+  soundBtn.setAttribute('aria-label',soundOn?'Turn birdsong off':'Turn birdsong on');
+  soundLabel.textContent=soundOn?'Sound ON':'Sound OFF';
+  soundBtn.title=soundOn?'Birdsong is on. Tap to turn it off.':'Birdsong is off. Tap to turn it on.';
+ }
+
+ function loadThought(){
+  let index=Math.floor(Math.random()*thoughts.length);
+  if(thoughts.length>1&&index===previous)index=(index+1)%thoughts.length;
+  previous=index;
+  thoughtEl.textContent='“'+thoughts[index]+'”';
+  if(soundOn)playBirdChirp();
+ }
+
+ function renderCountdown(){
+  countdownEl.textContent=String(Math.floor(secondsLeft/60)).padStart(2,'0')+':'+String(secondsLeft%60).padStart(2,'0');
+ }
+
+ soundBtn.addEventListener('click',async()=>{
+  soundOn=!soundOn;
+  giveHapticFeedback();
+  if(soundOn){
+   const ctx=getAudioContext();
+   if(ctx){
+    try{
+     if(ctx.state==='suspended')await ctx.resume();
+     playBirdChirp();
+    }catch(error){
+     soundOn=false;
+    }
+   }else{
+    soundOn=false;
+   }
+  }
+  updateSoundControl();
+ });
+
+ // Keep the timer and rotate the thought every 60 seconds.
  updateSoundControl();
- document.addEventListener('pointerdown',()=>{if(audioContext&&audioContext.state==='suspended')audioContext.resume().catch(()=>{});},{passive:true});
- loadThought();renderCountdown();
- window.setInterval(()=>{secondsLeft--;if(secondsLeft<=0){loadThought();secondsLeft=60;}renderCountdown();},1000);
+ loadThought();
+ renderCountdown();
+ window.setInterval(()=>{
+  secondsLeft-=1;
+  if(secondsLeft<=0){
+   secondsLeft=60;
+   loadThought();
+  }
+  renderCountdown();
+ },1000);
 })();
 </script>
 </body></html>
