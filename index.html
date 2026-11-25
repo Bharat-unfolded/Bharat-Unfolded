@@ -345,7 +345,7 @@ if(region){
 }
 const seen=new Set();matches=matches.filter(x=>{const k=norm(x.d.name)+'|'+x.d.url;if(seen.has(k))return false;seen.add(k);return true;});
 if(mode!=='place')matches.sort((a,b)=>a.d.name.localeCompare(b.d.name));
-const shown=matches.slice(0,200),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shown=matches,esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 if(shown.length){searchResults.innerHTML=shown.map(x=>{const state=x.state||regionOf(x.d)||'India';const city=x.city||cityOf(x.d)||String(x.d.type||'').split(/[·,]/)[0].trim();return '<a class="search-result search-result-card" role="option" href="'+esc(x.d.url)+'"><span class="result-copy"><strong>'+esc(x.d.name)+'</strong><small>'+esc(city)+(city&&state?' · ':'')+esc(state)+'</small></span><span class="result-arrow" aria-hidden="true">↗</span></a>';}).join('');searchResults.classList.add('show');}
 else{searchResults.classList.remove('show');searchResults.innerHTML='';noresult.innerHTML='<span>No places found for “'+esc(rawQuery)+'”. Try searching by state, city, or temple name.</span> <button type="button" class="search-reset" id="clearSearch">Clear search</button>';noresult.style.display='block';document.getElementById('clearSearch')?.addEventListener('click',()=>{searchInput.value='';noresult.style.display='none';searchResults.classList.remove('show');searchResults.innerHTML='';searchInput.focus();});}
 searchInput.setAttribute('aria-expanded',String(searchResults.classList.contains('show')));
