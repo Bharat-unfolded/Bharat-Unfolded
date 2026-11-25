@@ -136,44 +136,67 @@
 </script>
 
 <script>
+
 (()=> {
- const cards=[...document.querySelectorAll('.place-card')];
  const used=new Set();
- const token=s=>(s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/).filter(w=>w.length>2);
- async function findPhoto(img){
-   if(img.dataset.imageState==='loading'||img.dataset.imageState==='done'||img.dataset.imageState==='failed')return;
+ const verifiedFiles={
+  "Tungnath Temple & Chopta":"Temple and shrines at Tunganath 01.jpg",
+  "Rudranath Temple":"Rudra Nath Temple.jpg",
+  "Kalpeshwar Temple":"Kalpeshwar Mahadev, Kalpnath temple, Panch Kedar Uttarakhand.jpg",
+  "Auli Ski Resort & Ropeway":"Auli hill station.jpg",
+  "Naini Lake & Naina Devi Temple":"Naini Lake, Nainital, Uttarakhand, India.jpg",
+  "Snow View Point & Tiffin Top":"Snow View Point, Nainital.jpg",
+  "Bhimtal, Naukuchiatal & Sattal":"Bhimtal lake - Uttarakhand.jpg"
+ };
+ const clean=s=>(s||'').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim();
+ const words=s=>clean(s).toLowerCase().replace(/[^a-z0-9]+/g,' ').split(/\s+/).filter(w=>w.length>2);
+ const fileUrl=file=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(file)+'?width=1100';
+ async function commonsSearch(query){
+   const endpoint='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=15&gsrsearch='+encodeURIComponent(query)+'&prop=imageinfo&iiprop=url|mime&iiurlwidth=1100&format=json&origin=*';
+   const response=await fetch(endpoint,{mode:'cors',credentials:'omit'});
+   if(!response.ok)throw new Error('Commons HTTP '+response.status);
+   const data=await response.json();
+   return Object.values(data.query?.pages||{}).filter(p=>p.imageinfo?.[0]?.thumburl&&/^image\/(jpeg|png|webp)$/i.test(p.imageinfo[0].mime||''));
+ }
+ async function loadPhoto(img){
+   if(img.dataset.imageState==='loading'||img.dataset.imageState==='done')return;
    img.dataset.imageState='loading';
    const card=img.closest('.place-card');
-   const name=card?.dataset.name||img.alt.replace(/, Uttarakhand$/,'');
-   const city=card?.dataset.city||'Uttarakhand';
-   const words=token(name+' '+city+' Uttarakhand');
-   const query=encodeURIComponent(name+' '+city+' Uttarakhand');
-   try{
-     const url='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+query+'&gsrnamespace=6&gsrlimit=12&prop=imageinfo&iiprop=url|mime&iiurlwidth=1000&format=json&origin=*';
-     const response=await fetch(url,{mode:'cors'});
-     if(!response.ok)throw new Error('Commons request failed');
-     const data=await response.json();
-     const pages=Object.values(data.query?.pages||{}).filter(p=>p.imageinfo?.[0]?.thumburl&&/^image\/(jpeg|png|webp)$/i.test(p.imageinfo[0].mime||''));
-     pages.sort((a,b)=>{
-       const score=p=>{const title=token(p.title);return words.reduce((n,w)=>n+(title.includes(w)?1:0),0)};
-       return score(b)-score(a);
-     });
-     const chosen=pages.find(p=>!used.has(p.title));
-     if(!chosen)throw new Error('No distinct matching photo found');
-     used.add(chosen.title);
-     img.onload=()=>{img.dataset.imageState='done';img.closest('.place-image')?.classList.remove('image-failed')};
-     img.onerror=()=>{img.dataset.imageState='failed';img.closest('.place-image')?.classList.add('image-failed')};
-     img.src=chosen.imageinfo[0].thumburl;
-   }catch(e){
+   const name=clean(card?.dataset.name||img.alt.replace(/, Uttarakhand$/,''));
+   const city=clean(card?.dataset.city||'Uttarakhand');
+   img.referrerPolicy='no-referrer';
+   img.onload=()=>{img.dataset.imageState='done';img.closest('.place-image')?.classList.remove('image-failed')};
+   img.onerror=async()=>{
+     img.dataset.imageState='retrying';
+     const fallback=verifiedFiles[name];
+     if(fallback&&!img.dataset.directFallback){img.dataset.directFallback='1';img.src=fileUrl(fallback);return;}
      img.dataset.imageState='failed';
      img.closest('.place-image')?.classList.add('image-failed');
+   };
+   const direct=verifiedFiles[name];
+   if(direct){img.src=fileUrl(direct);return;}
+   const searches=[name.split('&')[0].split('/')[0].trim(),name.replace(/\s*&\s*/g,' '),city+' Uttarakhand'];
+   for(const query of searches){
+     try{
+       const results=await commonsSearch(query);
+       const target=words(name);
+       results.sort((a,b)=>{
+         const score=p=>{const title=words(p.title);return target.reduce((n,w)=>n+(title.includes(w)?1:0),0)};
+         return score(b)-score(a);
+       });
+       const chosen=results.find(p=>!used.has(p.title))||results[0];
+       if(chosen){used.add(chosen.title);img.src=chosen.imageinfo[0].thumburl;return;}
+     }catch(e){}
    }
+   img.dataset.imageState='failed';
+   img.closest('.place-image')?.classList.add('image-failed');
  }
+ const images=[...document.querySelectorAll('.place-image img')];
  if('IntersectionObserver' in window){
    const observer=new IntersectionObserver(entries=>{
-     entries.forEach(entry=>{if(entry.isIntersecting){observer.unobserve(entry.target);findPhoto(entry.target)}});
-   },{rootMargin:'500px 0px'});
-   document.querySelectorAll('.place-image img').forEach(img=>observer.observe(img));
- }else document.querySelectorAll('.place-image img').forEach(findPhoto);
+     entries.forEach(entry=>{if(entry.isIntersecting){observer.unobserve(entry.target);loadPhoto(entry.target)}});
+   },{rootMargin:'900px 0px'});
+   images.forEach(img=>observer.observe(img));
+ }else images.forEach(loadPhoto);
 })();
 </script></body></html>
