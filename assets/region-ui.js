@@ -91,7 +91,8 @@
  renderSoundButton();
  document.addEventListener('click',event=>{
   const target=event.target.closest('a,button,[role="button"],summary,input[type="button"],input[type="submit"],input[type="search"],select,[data-click-sound]');
-  if(!target||target===soundButton||target.closest('[data-sound-toggle]'))return;
+  if(!target)return;
+  if(target.closest('[data-sound-toggle]')){tick();return;}
   tick();
  },true);
 })();
