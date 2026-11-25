@@ -53,6 +53,21 @@ body{margin:0;padding:0 0 50px;color:var(--ink);font-family:system-ui,-apple-sys
   const img=card.querySelector('.place-photo img'),status=card.querySelector('.photo-status');
   const title=card.querySelector('h2')?.textContent?.trim(),base=img?.dataset.search;
   if(!img||!title||!base)return;
+  // Prefer the page's supplied direct HTTPS image URL before searching Commons.
+  const direct=img.dataset.photo;
+  if(direct){
+   const directLoaded=await new Promise(resolve=>{
+    const probe=new Image(),timer=setTimeout(()=>{probe.src='';resolve(false)},10000);
+    probe.onload=()=>{clearTimeout(timer);resolve(true)};
+    probe.onerror=()=>{clearTimeout(timer);resolve(false)};
+    probe.src=direct;
+   });
+   if(directLoaded){
+    img.src=direct;img.classList.add('is-ready');
+    if(status)status.textContent='Original destination photo';
+    return;
+   }
+  }
   const aliases={
    'INS Khukri Memorial & Chakratirth Beach':['INS Khukri Memorial Diu','INS Khukri ship model Diu'],
    'Sea Shell Museum & Zampa Gateway':['Zampa Gateway Diu','Sea Shell Museum Diu'],
