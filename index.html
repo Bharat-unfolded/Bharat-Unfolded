@@ -329,15 +329,21 @@ const regionOf=d=>regions.find(r=>phraseMatch(d.type,r.name))?.name||'';
 const cityOf=d=>{const type=String(d.type||''),state=regionOf(d);let before=type;if(state){const p=norm(type).lastIndexOf(norm(state));if(p>=0)before=type.slice(0,p);}return before.replace(/\b\d+\s*\/\s*\d+\b/g,'').replace(/\b\d+\b/g,'').replace(/[·|]/g,' ').split(/[,;]/).map(x=>x.trim()).filter(Boolean).join(', ');};
 const placeScore=d=>{const shortAliases=(Array.isArray(d.aliases)?d.aliases:[]).filter(a=>String(a).length<100&&!String(a).includes(','));const fields=[d.name,...shortAliases,d.tags||'',d.keywords||''].map(norm).filter(Boolean);let best=0;for(const field of fields){if(field===q)best=Math.max(best,3000);else if(field.startsWith(q))best=Math.max(best,2500);else if(field.includes(q))best=Math.max(best,2200);else{const qw=words(q),fw=words(field);if(qw.length&&qw.every(w=>fw.some(t=>t===w||(w.length>=3&&t.startsWith(w))||near(w,t))))best=Math.max(best,1800+qw.length*20);}}return best;};
 let matches=[],mode='place';
+const exactPlaces=catalog.map(d=>({d,state:regionOf(d),city:cityOf(d)})).filter(x=>{
+ const name=norm(x.d.name);
+ const aliases=(Array.isArray(x.d.aliases)?x.d.aliases:[]).map(norm);
+ return name===q||name.startsWith(q)||aliases.some(a=>a===q||a.startsWith(q));
+});
 const region=regions.find(r=>phraseMatch(r.name,q));
-if(region){
+if(exactPlaces.length){
+ mode='place';matches=exactPlaces;
+}else if(region){
  mode='state';
- matches=catalog.map(d=>({d,state:regionOf(d),city:cityOf(d)})).filter(x=>norm(x.state)===norm(region.name)&&!/\\b(city|state|union territory)\\b/i.test(String(x.d.type||'')));
+ matches=catalog.map(d=>({d,state:regionOf(d),city:cityOf(d)})).filter(x=>norm(x.state)===norm(region.name)&&!/\b(city|state|union territory)\b/i.test(String(x.d.type||'')));
 }else{
  const cityMatches=catalog.map(d=>({d,state:regionOf(d),city:cityOf(d)})).filter(x=>phraseMatch(x.city,q));
- if(cityMatches.length){
-  mode='city';matches=cityMatches;
- }else{
+ if(cityMatches.length){mode='city';matches=cityMatches;}
+ else{
   matches=catalog.map(d=>({d,score:placeScore(d),state:regionOf(d),city:cityOf(d)})).filter(x=>x.score>0);
   const best=matches.length?Math.max(...matches.map(x=>x.score)):0;
   matches=matches.filter(x=>x.score>=Math.max(1700,best-250)).sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name));
