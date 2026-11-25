@@ -55,6 +55,29 @@ body.single-place-view .place-card:not([data-selected-place]){display:none!impor
 body.single-place-view .place-card[data-selected-place]{display:grid!important;max-width:1180px;margin:28px auto 48px;}
 </style>
 <style>.single-place-view article[hidden],.single-place-view .place-card[hidden]{display:none!important}.single-place-view [data-selected-place]{display:block!important;visibility:visible!important}</style>
+<style id="bu-device-card-columns">
+/* One card on phones/tablets; two cards only on laptop/desktop widths. */
+.bu-two-card-grid,.jh-grid,#jhGrid,#places,.places{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ gap:16px!important;
+ width:100%!important;
+ min-width:0!important;
+ align-items:stretch!important;
+}
+.bu-two-card-grid>.place-card,.jh-grid>.place-card,#jhGrid>.place-card,#places>.place-card,.places>.place-card{
+ width:100%!important;
+ min-width:0!important;
+ max-width:none!important;
+ margin:0!important;
+}
+@media(min-width:1024px){
+ .bu-two-card-grid,.jh-grid,#jhGrid,#places,.places{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:20px!important;
+ }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
