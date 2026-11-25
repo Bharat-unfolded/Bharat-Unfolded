@@ -90,7 +90,7 @@
  soundButton.addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('bu-ui-sound',soundOn?'on':'off');}catch(_){}renderSoundButton();});
  renderSoundButton();
  document.addEventListener('click',event=>{
-  const target=event.target.closest('a,button,[role="button"],summary,input,select,textarea,[onclick],[tabindex]:not([tabindex="-1"]),.journey-card,[data-click-sound]');
+  const target=event.target.closest('a,button,[role="button"],summary,input,select,textarea,[onclick],[tabindex]:not([tabindex="-1"]),.journey-card,.place-card,.card,[data-click-sound]');
   if(!target)return;
   if(target.closest('[data-sound-toggle]')){tick();return;}
   tick();
