@@ -219,34 +219,47 @@ footer{margin-top:32px;text-align:center;padding:24px 18px 30px}
 <script id="haryana-commons-image-loader">
 (function(){
  const imgs=[...document.querySelectorAll('img[data-query]')];
- const clean=s=>(s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(' ').filter(w=>w.length>2&&!['the','and','for','with','india','haryana','view','photo','image','site'].includes(w));
- function score(title,query){const a=clean(title),b=clean(query);let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.max(1,Math.min(b.length,5))}
+ const stopWords=new Set(['the','and','for','with','from','india','haryana','view','photo','image','site','near']);
+ const words=s=>(s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!stopWords.has(w));
+ function score(title,query){
+  const a=words(title),b=words(query);if(!b.length)return 0;
+  const hits=b.filter(w=>a.includes(w)).length;
+  return hits/b.length;
+ }
  async function search(query){
-  const endpoint='https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srlimit=20&srsearch='+encodeURIComponent('filetype:bitmap '+query)+'&format=json&origin=*';
-  const response=await fetch(endpoint,{mode:'cors',credentials:'omit'});if(!response.ok)throw Error('Commons search');
-  const data=await response.json(),files=(data.query?.search||[]).map(x=>x.title);if(!files.length)return[];
-  const info='https://commons.wikimedia.org/w/api.php?action=query&titles='+encodeURIComponent(files.join('|'))+'&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
-  const ir=await fetch(info,{mode:'cors',credentials:'omit'});if(!ir.ok)throw Error('Commons image info');
-  const idata=await ir.json();return Object.values(idata.query?.pages||{}).map(p=>({title:p.title,info:p.imageinfo?.[0]})).filter(x=>x.info?.thumburl||x.info?.url);
+  const url='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent('filetype:bitmap '+query)+'&prop=imageinfo&iiprop=url&iiurlwidth=1100&format=json&origin=*';
+  const response=await fetch(url,{mode:'cors',credentials:'omit',headers:{Accept:'application/json'}});
+  if(!response.ok)throw Error('Wikimedia Commons returned '+response.status);
+  const data=await response.json();
+  return Object.values(data.query?.pages||{}).map(p=>({title:p.title,info:p.imageinfo?.[0]})).filter(x=>x.info?.thumburl||x.info?.url);
  }
  async function load(img){
-  const q=img.dataset.query||img.alt,status=img.parentElement.querySelector('.photo-status');
-  const variants=[q,q.split(' ').slice(0,4).join(' '),q.split(' ').slice(0,3).join(' ')];
-  for(const term of [...new Set(variants)]){
+  const query=img.dataset.query||img.alt;
+  const status=img.parentElement?.querySelector('.photo-status');
+  const terms=[query,words(query).slice(0,4).join(' '),words(query).slice(0,3).join(' ')].filter(Boolean);
+  for(const term of [...new Set(terms)]){
    try{
-    const files=await search(term),ranked=files.map(x=>({...x,rank:score(x.title,q)})).sort((a,b)=>b.rank-a.rank);
-    const best=ranked.find(x=>x.rank>=.25)||ranked[0];
-    if(best){
-     img.onload=()=>{img.classList.add('loaded');img.classList.remove('failed');if(status)status.remove()};
-     img.onerror=()=>{img.classList.add('failed');if(status)status.textContent='Photo temporarily unavailable'};
-     img.src=best.info.thumburl||best.info.url;img.dataset.commonsFile=best.title;return;
-    }
-   }catch(e){}
+    const files=await search(term);
+    const ranked=files.map(file=>({...file,rank:score(file.title,query)})).sort((a,b)=>b.rank-a.rank);
+    const best=ranked.find(file=>file.rank>=0.25)||ranked[0];
+    if(!best)continue;
+    const source=best.info.thumburl||best.info.url;
+    await new Promise((resolve,reject)=>{
+     const timer=setTimeout(()=>reject(Error('Image timeout')),18000);
+     img.onload=()=>{clearTimeout(timer);img.classList.add('loaded');img.classList.remove('failed');img.dataset.commonsFile=best.title;if(status)status.remove();resolve()};
+     img.onerror=()=>{clearTimeout(timer);reject(Error('Image failed'))};
+     img.src=source;
+    });
+    return;
+   }catch(error){}
   }
-  img.classList.add('failed');if(status)status.textContent='Photo temporarily unavailable';
+  img.classList.add('failed');
+  if(status)status.textContent='Photo unavailable — retry later';
  }
- let cursor=0;async function worker(){while(cursor<imgs.length){const img=imgs[cursor++];await load(img)}}
- Promise.all(Array.from({length:4},worker));
+ let next=0;
+ async function worker(){while(next<imgs.length){const img=imgs[next++];await load(img)}}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>Promise.all(Array.from({length:5},worker)),{once:true});
+ else Promise.all(Array.from({length:5},worker));
 })();
 </script>
 <style id="haryana-responsive-image-layout">
