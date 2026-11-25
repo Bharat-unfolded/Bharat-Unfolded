@@ -15,8 +15,14 @@
  const menu=header.querySelector('.bu-menu-toggle');
  menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation');menu.textContent=open?'×':'☰';nav.classList.toggle('open',open);});
  nav.addEventListener('click',e=>{if(e.target.closest('a')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.textContent='☰';}});
- const brandOld=[...document.querySelectorAll('body > nav, body > header.top, body > div.top, .bu-glass-nav, nav.nav, header.ap-nav, .ap-nav')];
- brandOld.forEach(el=>{if(!el.classList.contains('bu-site-header'))el.classList.add('bu-legacy-nav');});
+ function hideLegacyChrome(){
+  document.querySelectorAll('body > nav, .top, .bu-glass-nav, nav.nav, header.ap-nav, .ap-nav').forEach(el=>{
+   if(!el.classList.contains('bu-site-header')&&!el.closest('.bu-site-header'))el.classList.add('bu-legacy-nav');
+  });
+ }
+ hideLegacyChrome();
+ document.addEventListener('DOMContentLoaded',hideLegacyChrome);
+
  const legacyFooter=document.querySelector('body footer');
  let pageNote=null;
  if(legacyFooter){
@@ -32,6 +38,32 @@
  if(pageNote)footer.parentNode?.insertBefore(pageNote,footer);
  document.body.appendChild(footer);
  if(pageNote)footer.before(pageNote);
+ function enhanceSearchAndGrids(){
+  document.querySelectorAll('input[type="search"]').forEach(input=>{
+   const host=input.closest('form,.bu-glass-search,.searchbox,.search,.search-panel,.jh-search,.ap-search');
+   if(!host||host.querySelector('button'))return;
+   const button=document.createElement('button');button.type='button';button.className='bu-search-button';button.textContent='Search ↗';button.setAttribute('aria-label','Search destinations');
+   button.addEventListener('click',()=>{
+    input.focus();
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    if(input.form&&input.form.requestSubmit)input.form.requestSubmit();
+   });
+   if(host.tagName==='LABEL'){
+    const row=document.createElement('div');row.className='bu-search-row';
+    host.parentNode.insertBefore(row,host);row.append(host,button);
+   }else host.appendChild(button);
+  });
+  const cardSelector='.place-card,article.card,.destination-card,article.place';
+  const groups=new Map();
+  document.querySelectorAll(cardSelector).forEach(card=>{
+   const parent=card.parentElement;if(!parent)return;
+   groups.set(parent,(groups.get(parent)||0)+1);
+  });
+  groups.forEach((count,parent)=>{if(count>1)parent.classList.add('bu-destination-grid');});
+ }
+ enhanceSearchAndGrids();
+ document.addEventListener('DOMContentLoaded',enhanceSearchAndGrids);
+
  let soundOn=true;
  try{soundOn=localStorage.getItem('bu-ui-sound')!=='off';}catch(_){}
  const soundButton=header.querySelector('[data-sound-toggle]');
