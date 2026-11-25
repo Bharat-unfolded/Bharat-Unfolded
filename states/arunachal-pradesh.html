@@ -24,6 +24,7 @@
 .bu-glass-nav .mark{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#fff,#cde9d8);box-shadow:inset 0 1px 2px #fff,0 4px 12px #174b3020;font-size:17px}
 @media(max-width:520px){.bu-glass-nav{width:100%;padding:10px 12px;border-radius:17px}.bu-glass-nav a{font-size:10px;letter-spacing:.05em}.bu-glass-nav .mark{width:31px;height:31px;flex-basis:31px}}
 </style>
+<link rel="stylesheet" href="../assets/region-ui.css">
 </head><body>
 <header class="ap-nav"><a class="ap-brand" href="../index.html"><span class="ap-brandmark">भ</span><span>BHARAT UNFOLDED<small>DISCOVER THE INCREDIBLE</small></span></a><a href="../index.html">← Home</a></header>
 <section class="ap-hero"><div class="ap-hero-inner"><div class="eyebrow">Land of the Dawn-Lit Mountains · India</div><h1>Arunachal Pradesh</h1><p>From high Himalayan passes and ancient monasteries to deep rainforests, river valleys and sacred sites — explore 25 destinations across the state.</p><div class="ap-search-wrap"><nav class="bu-glass-nav" aria-label="Bharat Unfolded navigation"><a class="brand" href="../index.html"><span class="mark">भा</span><span>BHARAT UNFOLDED</span></a><a href="../index.html">← HOME</a></nav><form class="ap-search" id="apSearch"><input id="apQuery" type="search" placeholder="Search exact place name, e.g. Madhuri Lake" aria-label="Search Arunachal Pradesh destinations"><button type="submit">Find place ↗</button></form></div></div></section>
@@ -41,4 +42,5 @@ query.addEventListener('input',applyFilter);document.getElementById('apSearch').
 document.querySelectorAll('#apFilters button').forEach(b=>b.addEventListener('click',()=>{active=b.dataset.filter;document.querySelectorAll('#apFilters button').forEach(x=>x.classList.toggle('active',x===b));applyFilter()}));
 const requested=new URLSearchParams(location.search).get('place');if(requested){query.value=decodeURIComponentSafe(requested);applyFilter();const card=[...grid.children].find(x=>!x.hidden);if(card)setTimeout(()=>card.scrollIntoView({behavior:'instant',block:'start'}),120)}
 function decodeURIComponentSafe(s){try{return decodeURIComponent(s)}catch{return s}}
-</script></body></html>
+</script><script src="../assets/region-ui.js" defer></script>
+</body></html>
