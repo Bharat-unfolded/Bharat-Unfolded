@@ -54,3 +54,6 @@ input[type=search]:focus,input[type=text]:focus,.search input:focus,.searchbox i
 
 [class*="dialog"],[class*="modal"] .journey-dialog,[class*="lightbox"]>div{border:1px solid rgba(255,255,255,.42);border-radius:22px;box-shadow:0 22px 60px rgba(3,26,20,.24),inset 0 1px 0 rgba(255,255,255,.52)}
 .journey-dialog,[class*="dialog"]{background:rgba(255,255,255,.76)!important;-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
+
+.state-card,.state{border:1px solid rgba(255,255,255,.48)!important;border-radius:20px!important;background:rgba(255,255,255,.58)!important;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 9px 24px rgba(16,50,38,.10),inset 0 1px 0 rgba(255,255,255,.65)!important;transition:transform .2s,box-shadow .2s}
+.state-card:hover,.state:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,50,38,.15)!important}
