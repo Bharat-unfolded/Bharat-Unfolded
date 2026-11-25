@@ -141,7 +141,7 @@
  const used=new Set();
  const verifiedFiles={
   "Tungnath Temple & Chopta":"Temple and shrines at Tunganath 01.jpg",
-  "Rudranath Temple":"Rudra Nath Temple.jpg",
+  "Rudranath Temple":"Rudra Nath Temple, Rudraprayag, Uttarakhand.jpg",
   "Kalpeshwar Temple":"Kalpeshwar Mahadev, Kalpnath temple, Panch Kedar Uttarakhand.jpg",
   "Auli Ski Resort & Ropeway":"Auli hill station.jpg",
   "Naini Lake & Naina Devi Temple":"Naini Lake, Nainital, Uttarakhand, India.jpg",
@@ -167,9 +167,22 @@
    img.referrerPolicy='no-referrer';
    img.onload=()=>{img.dataset.imageState='done';img.closest('.place-image')?.classList.remove('image-failed')};
    img.onerror=async()=>{
+     if(img.dataset.didRetry){img.dataset.imageState='failed';img.closest('.place-image')?.classList.add('image-failed');return;}
+     img.dataset.didRetry='1';
      img.dataset.imageState='retrying';
-     const fallback=verifiedFiles[name];
-     if(fallback&&!img.dataset.directFallback){img.dataset.directFallback='1';img.src=fileUrl(fallback);return;}
+     const queries=[name.split('&')[0].split('/')[0].trim(),name.replace(/\\s*&\\s*/g,' '),city+' Uttarakhand'];
+     for(const query of queries){
+       try{
+         const results=await commonsSearch(query);
+         const target=words(name);
+         results.sort((a,b)=>{
+           const score=p=>{const title=words(p.title);return target.reduce((n,w)=>n+(title.includes(w)?1:0),0)};
+           return score(b)-score(a);
+         });
+         const chosen=results.find(p=>!used.has(p.title))||results[0];
+         if(chosen){used.add(chosen.title);img.src=chosen.imageinfo[0].thumburl;return;}
+       }catch(e){}
+     }
      img.dataset.imageState='failed';
      img.closest('.place-image')?.classList.add('image-failed');
    };
