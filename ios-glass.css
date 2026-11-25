@@ -203,3 +203,38 @@ img{backface-visibility:hidden}
 @media(prefers-reduced-motion:reduce){
  :where(.state,.explore,.news,.place,.place-card,.history-article,.journey-card){transition:none!important}
 }
+
+
+/* Bharat Unfolded — premium royal-gold navigation system */
+:root{--bu-gold:#e7c47b;--bu-gold-light:#fff0c8;--bu-emerald:#082c25;--bu-emerald-2:#124b3e}
+header.nav,.nav,.jh-nav{
+ background:linear-gradient(112deg,#061f1b 0%,#0b382f 48%,#153f35 100%)!important;
+ color:#fff6df!important;border:0!important;border-bottom:1px solid rgba(231,196,123,.72)!important;
+ box-shadow:0 12px 34px rgba(5,25,21,.28),0 2px 0 rgba(231,196,123,.22)!important;
+}
+header.nav,.nav{min-height:82px!important}
+.jh-nav{min-height:76px!important;padding:12px clamp(16px,5vw,64px)!important}
+.brand,.jh-brand,.brand b{color:#fff2cf!important}
+.brand small{color:#d9bd80!important}
+.brandmark,.jh-mark{
+ background:linear-gradient(145deg,#fff0c7 0%,#d6a84f 52%,#93651f 100%)!important;
+ color:#102d25!important;border:1px solid #ffe9b4!important;
+ box-shadow:0 0 0 4px rgba(231,196,123,.13),0 5px 18px rgba(0,0,0,.24)!important;
+}
+.navlink,.jh-home{color:#f8e8c2!important}
+.navlink:hover,.jh-home:hover{color:#fff!important}
+.hamb{background:linear-gradient(145deg,#fff0c7,#d5a34a)!important;border:1px solid #ffe6a8!important;box-shadow:0 5px 16px #0003!important}
+.hamb span{background:#12382e!important}
+.menu{background:#0b3028!important;border:1px solid rgba(231,196,123,.55)!important;box-shadow:0 18px 45px #061c18aa!important}
+.menu a{color:#fff0c8!important}
+.menu a:hover{background:rgba(231,196,123,.15)!important}
+.jh-home{border:1px solid rgba(244,215,157,.68)!important;border-radius:999px!important;padding:10px 17px!important;background:linear-gradient(120deg,rgba(255,255,255,.12),rgba(231,196,123,.13))!important}
+.top{width:100%!important;min-height:72px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;margin:0 0 22px!important;padding:12px clamp(16px,5vw,64px)!important;background:linear-gradient(112deg,#061f1b,#0b382f 55%,#153f35)!important;border-bottom:1px solid rgba(231,196,123,.72)!important;box-shadow:0 12px 34px rgba(5,25,21,.24)!important}
+.top .back,.top .top-back,.back,.top-back{
+ display:inline-flex!important;align-items:center!important;gap:9px!important;
+ padding:11px 19px!important;border:1px solid rgba(244,215,157,.78)!important;border-radius:999px!important;
+ color:#fff0c8!important;background:linear-gradient(120deg,rgba(255,255,255,.13),rgba(231,196,123,.17))!important;
+ box-shadow:inset 0 1px rgba(255,255,255,.15),0 5px 16px rgba(0,0,0,.16)!important;
+ font-weight:850!important;letter-spacing:.11em!important;text-decoration:none!important
+}
+@media(max-width:600px){header.nav,.nav{min-height:72px!important}.jh-nav{min-height:68px!important}.top{min-height:64px!important;padding:10px 14px!important}.brand{gap:9px!important}}
