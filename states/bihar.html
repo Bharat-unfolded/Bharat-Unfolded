@@ -1156,5 +1156,67 @@ input.addEventListener('input',update);update();
 </main>
 <footer><a class="footer-back" href="../index.html" aria-label="Back to Bharat Unfolded"><span aria-hidden="true">←</span><span>Back to Bharat Unfolded</span></a></footer>
 </div>
+
+<style id="bu-bihar-category-filters">
+.bu-category-filters{width:min(900px,100%);margin:-8px auto 24px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.bu-category-filters button{appearance:none;border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.58);color:#234b3b;font:700 12px/1.2 inherit;cursor:pointer;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 5px 16px rgba(26,68,48,.06)}
+.bu-category-filters button[aria-pressed="true"]{background:#174b3b;color:#fff;border-color:#d7b66d}
+.bu-bihar-subtitle{margin:-10px auto 18px;text-align:center;color:#526b60;font-size:13px;line-height:1.6}
+.bu-image-fallback{display:grid!important;place-items:center;min-height:180px;background:linear-gradient(135deg,#dce9df,#f4e7cf);color:#496657;font-size:13px;font-weight:700;text-align:center}
+@media(max-width:520px){.bu-category-filters{gap:6px}.bu-category-filters button{padding:8px 11px;font-size:11px}}
+</style>
+<script id="bu-bihar-category-filters">
+(function(){
+ function init(){
+  if(new URLSearchParams(location.search).has('place')||new URLSearchParams(location.search).has('city')) return;
+  const cards=[...document.querySelectorAll('article.place-card')];
+  const search=document.querySelector('.bu-glass-search input');
+  if(!cards.length||!search||document.querySelector('.bu-category-filters')) return;
+  const heading=document.querySelector('h1');
+  if(heading&&!document.querySelector('.bu-bihar-subtitle')){
+   const sub=document.createElement('p');sub.className='bu-bihar-subtitle';
+   sub.textContent='Discover Bihar’s heritage, sacred places, nature and local landmarks.';
+   heading.insertAdjacentElement('afterend',sub);
+  }
+  const groups=[
+   ['All',''],['Temples','temple|mandir|shrine|darshan'],['History & Forts','fort|mahal|museum|heritage|historical|nalanda|vikramshila|ruins'],['Nature & Waterfalls','waterfall|river|lake|dam|hill|forest|wildlife|sanctuary|park'],['Cities & Landmarks','city|town|ghat|bridge|market|memorial|landmark']
+  ];
+  let active='';
+  const bar=document.createElement('div');bar.className='bu-category-filters';bar.setAttribute('aria-label','Filter Bihar destinations');
+  groups.forEach(([label,value],index)=>{
+   const b=document.createElement('button');b.type='button';b.textContent=label;b.setAttribute('aria-pressed',index===0?'true':'false');
+   b.addEventListener('click',()=>{active=value;bar.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));update()});
+   bar.appendChild(b);
+  });
+  const searchBox=document.querySelector('.bu-glass-search');
+  searchBox.insertAdjacentElement('afterend',bar);
+  function update(){
+   const q=search.value.trim().toLocaleLowerCase();let shown=0;
+   cards.forEach(card=>{
+    const txt=card.innerText.toLocaleLowerCase();
+    const matchText=!q||txt.includes(q);
+    const matchGroup=!active||new RegExp(active,'i').test(txt);
+    card.hidden=!(matchText&&matchGroup);if(!card.hidden)shown++;
+   });
+   const count=document.querySelector('.bu-glass-search .count');
+   if(count)count.textContent=shown+' / '+cards.length+' places';
+  }
+  search.addEventListener('input',update);
+  update();
+  cards.forEach(card=>card.querySelectorAll('img').forEach(img=>{
+   img.addEventListener('error',function(){
+    if(this.dataset.fallbackApplied)return;
+    this.dataset.fallbackApplied='1';
+    this.alt='Image unavailable';
+    this.classList.add('bu-image-fallback');
+    this.removeAttribute('src');
+    const label=document.createElement('span');label.textContent='Image temporarily unavailable';
+    this.insertAdjacentElement('afterend',label);
+   },{once:true});
+  }));
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
 </body>
 </html>
