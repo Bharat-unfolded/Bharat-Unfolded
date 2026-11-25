@@ -62,7 +62,7 @@
    if(!q || img.dataset.resolved==='1') return;
    img.dataset.resolved='1';
    try{
-     const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent('filetype:bitmap '+q+' Chhattisgarh')+'&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
+     const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent('filetype:bitmap '+q+' Goa India')+'&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
      const response=await fetch(api,{headers:{Accept:'application/json'}});
      if(!response.ok) throw new Error('Commons API unavailable');
      const data=await response.json();
