@@ -780,7 +780,38 @@ body.single-place-view .place-card[data-selected-place]{display:grid!important;m
  setTimeout(()=>found.scrollIntoView({block:'start',behavior:'instant'}),80);
 })();
 </script>
-</body>
+<style id="jharkhand-interface-unify">
+:root{--bu-ink:#17324d;--bu-green:#16764a;--bu-gold:#a85d16}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","DM Sans",sans-serif!important;background:linear-gradient(125deg,rgba(242,140,40,.13),rgba(255,255,255,.78) 48%,rgba(25,128,75,.13)),#f5f3ec!important;color:var(--bu-ink)}
+.bu-glass-nav{position:sticky;top:10px;z-index:50;width:min(1240px,calc(100% - 24px));margin:0 auto 22px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.8);border-radius:22px;background:rgba(255,255,255,.58);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);box-shadow:0 10px 30px rgba(20,55,40,.09)}
+.bu-glass-nav a{color:#245743;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em}
+.bu-glass-nav .brand{display:flex;align-items:center;gap:10px}.bu-glass-nav .mark{width:34px;height:34px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#fff,#cde9d8);box-shadow:inset 0 1px 2px #fff,0 4px 12px #174b3020;font-size:17px}
+.bu-glass-search{width:min(760px,100%);margin:18px auto 26px;padding:7px 9px 7px 16px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.9);border-radius:18px;background:rgba(255,255,255,.62);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 10px 28px rgba(26,68,48,.08)}
+.bu-glass-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#17324d;font:inherit;font-size:15px;padding:10px 2px}.bu-glass-search span{font-size:21px;color:#39805e}
+.bu-glass-search .count{white-space:nowrap;color:#587566;font-size:11px;font-weight:700}
+.place-card{overflow:hidden;border:1px solid rgba(255,255,255,.9)!important;border-radius:24px!important;background:rgba(255,255,255,.64)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 12px 34px rgba(27,57,43,.09)!important;transition:transform .22s ease,box-shadow .22s ease}
+.place-card:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(27,57,43,.14)!important}
+.place-image,.place-photo{position:relative;overflow:hidden;background:linear-gradient(135deg,#dce9df,#f4e7cf)}
+.place-image img,.place-photo img{display:block;width:100%;height:250px;object-fit:cover}
+.place-copy{padding:22px!important}.number{color:#438064!important;font-size:11px!important;font-weight:800;letter-spacing:.1em}
+.place-copy h2{color:#173c2c;line-height:1.25}.place-copy p{line-height:1.7;color:#52665c}
+.facts span{border-radius:14px;background:rgba(232,242,234,.72);padding:12px!important}
+.fee-table-wrap{overflow-x:auto;border-radius:14px}.fee-table{width:100%;border-collapse:collapse}.fee-table th,.fee-table td{padding:10px;text-align:left;border-bottom:1px solid #dce8df}
+.hero,.history-hero{overflow:hidden;border-radius:26px!important;box-shadow:0 18px 42px rgba(24,57,42,.14)}
+@media(min-width:760px){.places,.jh-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.place-card{margin:0!important}}
+@media(max-width:759px){body{padding-left:12px!important;padding-right:12px!important}.bu-glass-nav{width:100%;top:6px}.place-image img,.place-photo img{height:220px}.place-copy{padding:17px!important}.bu-glass-search{margin:14px auto 20px}}
+</style><script id="bu-jharkhand-search">
+(()=>{const start=()=>{if(document.querySelector('.bu-glass-nav'))return;
+const main=document.querySelector('main.wrap,.wrap')||document.body;
+const nav=document.createElement('nav');nav.className='bu-glass-nav';nav.innerHTML='<a class="brand" href="../index.html"><span class="mark">भा</span><span>BHARAT UNFOLDED</span></a><a href="../index.html">← HOME</a>';main.insertBefore(nav,main.firstChild);
+const cards=[...document.querySelectorAll('.place-card')];if(!cards.length)return;
+const search=document.createElement('div');search.className='bu-glass-search';search.innerHTML='<span>⌕</span><input type="search" aria-label="Search destinations" placeholder="Search a temple, fort, waterfall, city or place…" autocomplete="off"><b class="count"></b>';
+const hero=main.querySelector('.hero,.history-section,.accent');(hero||nav).insertAdjacentElement('afterend',search);
+const input=search.querySelector('input'),count=search.querySelector('.count');
+const update=()=>{const q=input.value.trim().toLocaleLowerCase();let n=0;cards.forEach(card=>{const match=card.innerText.toLocaleLowerCase().includes(q);card.hidden=!match;if(match)n++});count.textContent=n+' / '+cards.length+' places'};
+input.addEventListener('input',update);update();
+};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();})();
+</script></body>
 </html</article>
 </section>
 
