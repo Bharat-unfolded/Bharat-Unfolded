@@ -638,7 +638,7 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
 \n<style id="dandi-photo-credit">.photo-credit{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:6px 9px;border-radius:8px;background:rgba(0,0,0,.62);color:#fff;font-size:10px;line-height:1.35;text-decoration:none;z-index:2}.photo-credit:hover{text-decoration:underline}</style>\n<script id="gujarat-image-loader">
 (function(){
  const stop=new Set(['the','and','for','with','from','near','into','india','gujarat','temple','place','view','photo','heritage','site']);
- function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w=>w.length>2&&!stop.has(w))}
+ function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!stop.has(w))}
  function score(file,query){const a=words(file),b=words(query);if(!a.length||!b.length)return 0;let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.min(b.length,6)}
  async function findPhoto(query){
   const q='filetype:bitmap '+query;
