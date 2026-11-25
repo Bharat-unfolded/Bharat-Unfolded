@@ -35,7 +35,6 @@
  footer.innerHTML='<div class="bu-footer-grid"><section><h2>Bharat Unfolded</h2><p>Discover the stories, landscapes, heritage and cultures of India — one destination at a time.</p><p><strong>Founder:</strong> Vikash Kumar</p></section><section><h3>Get in touch</h3><p><strong>Email</strong><br><a href="mailto:official@vezorex.shop">official@vezorex.shop</a></p><p><strong>Phone</strong><br><a href="tel:+919460411301">+91 94604 11301</a></p></section><section><h3>Explore & policies</h3><div class="bu-footer-links"><a href="'+home+'#updates">Latest updates</a><a href="'+home+'#states">All states</a><a href="'+home+'#union-territories">Union Territories</a><a href="'+home+'#places">Famous places</a><a href="../terms.html">Terms & Conditions</a><a href="../privacy-policy.html">Privacy Policy</a><a href="../disclaimer.html">Disclaimer</a></div></section></div><div class="bu-footer-bottom"><span>© <span data-bu-year></span> Bharat Unfolded. All rights reserved.</span><a href="'+home+'">Back to Bharat Unfolded ↗</a></div>';
  footer.querySelector('[data-bu-year]').textContent=new Date().getFullYear();
  document.body.insertBefore(header,document.body.firstChild);
- if(pageNote)footer.parentNode?.insertBefore(pageNote,footer);
  document.body.appendChild(footer);
  if(pageNote)footer.before(pageNote);
  function enhanceSearchAndGrids(){
@@ -90,7 +89,7 @@
  soundButton.addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('bu-ui-sound',soundOn?'on':'off');}catch(_){}renderSoundButton();});
  renderSoundButton();
  document.addEventListener('click',event=>{
-  const target=event.target.closest('a,button,[role="button"],summary,input,select,textarea,[onclick],[tabindex]:not([tabindex="-1"]),.journey-card,.place-card,.card,[data-click-sound]');
+  const target=event.target.closest('a,button,[role="button"],summary,input,select,textarea,[onclick],[tabindex]:not([tabindex="-1"]),.journey-card,.place-card,.card,.state-card,.state,.filter-chip,.search-chip,.filter,[data-click-sound]');
   if(!target)return;
   if(target.closest('[data-sound-toggle]')){tick();return;}
   tick();
