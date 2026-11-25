@@ -220,7 +220,7 @@ footer{margin-top:32px;text-align:center;padding:24px 18px 30px}
 (function(){
  const imgs=[...document.querySelectorAll('img[data-query]')].filter(img=>!img.getAttribute('src'));
  const stop=new Set(['the','and','for','with','from','near','into','india','haryana','view','photo','image','complex','site']);
- function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w=>w.length>2&&!stop.has(w))}
+ function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(' ').filter(w=>w.length>2&&!stop.has(w))}
  function score(title,query){const a=words(title),b=words(query);if(!a.length||!b.length)return 0;let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.min(b.length,5)}
  async function findPhoto(query){
   const endpoint='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=18&gsrsearch='+encodeURIComponent('filetype:bitmap '+query)+'&prop=imageinfo&iiprop=url&iiurlwidth=1000&format=json&origin=*';
