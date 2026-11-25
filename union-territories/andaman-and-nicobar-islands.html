@@ -117,6 +117,48 @@ body{margin:0;padding:0 0 60px;color:var(--ink);font-family:system-ui,-apple-sys
  .bu-glass-nav>a:last-child{min-height:36px!important;padding:0 11px!important;font-size:10px!important}
 }
 
+
+/* Andaman page — aligned premium navigation */
+.bu-glass-nav{
+ width:min(1310px,calc(100% - 48px))!important;
+ min-height:78px!important;
+ margin:14px auto 28px!important;
+ padding:11px 26px!important;
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:20px!important;
+ background:linear-gradient(112deg,#082e27 0%,#10483b 58%,#1b5d4b 100%)!important;
+ border:1px solid rgba(231,196,123,.62)!important;
+ border-radius:24px!important;
+ box-shadow:0 14px 34px rgba(5,38,29,.22),inset 0 1px 0 rgba(255,255,255,.16)!important;
+}
+.bu-glass-nav .brand{display:flex!important;align-items:center!important;gap:14px!important;text-decoration:none!important;color:#fff1c9!important}
+.bu-glass-nav .brand-copy{display:flex!important;flex-direction:column!important;gap:4px!important;line-height:1.12!important}
+.bu-glass-nav .brand-copy b{display:block!important;color:#fff0c8!important;font-size:14px!important;font-weight:900!important;letter-spacing:.13em!important;opacity:1!important}
+.bu-glass-nav .brand-copy small{display:block!important;color:#dfc58e!important;font-size:9px!important;font-weight:800!important;letter-spacing:.2em!important;opacity:1!important}
+.bu-glass-nav .mark{
+ width:44px!important;height:44px!important;flex:0 0 44px!important;display:grid!important;place-items:center!important;
+ border-radius:15px!important;background:linear-gradient(145deg,#fff0c7,#d6a84f)!important;
+ color:#10382d!important;font-size:20px!important;border:1px solid #ffe7ac!important;
+ box-shadow:0 0 0 4px rgba(231,196,123,.12),0 5px 16px rgba(0,0,0,.2)!important;
+}
+.bu-glass-nav>a:last-child{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-height:42px!important;padding:0 18px!important;border:1px solid rgba(244,215,157,.72)!important;
+ border-radius:999px!important;background:rgba(255,255,255,.10)!important;
+ color:#fff0c8!important;font-size:12px!important;font-weight:850!important;letter-spacing:.06em!important;
+ text-decoration:none!important;opacity:1!important;
+}
+.bu-glass-nav>a:last-child:hover{background:rgba(255,255,255,.2)!important}
+.topline{display:none!important}
+@media(max-width:600px){
+ .bu-glass-nav{width:calc(100% - 24px)!important;min-height:64px!important;margin:10px auto 18px!important;padding:8px 12px!important;border-radius:18px!important;gap:8px!important}
+ .bu-glass-nav .brand{gap:9px!important}
+ .bu-glass-nav .brand-copy b{font-size:10px!important;letter-spacing:.08em!important}
+ .bu-glass-nav .brand-copy small{font-size:7px!important;letter-spacing:.12em!important}
+ .bu-glass-nav .mark{width:35px!important;height:35px!important;flex-basis:35px!important;font-size:16px!important;border-radius:12px!important}
+ .bu-glass-nav>a:last-child{min-height:36px!important;padding:0 11px!important;font-size:10px!important}
+}
+
 </style>
 </head>
 <body>
