@@ -75,7 +75,7 @@ body{margin:0;padding:0 0 70px;color:var(--ink);font-family:system-ui,-apple-sys
           let loaded = false;
           await new Promise(resolve => {
             const probe = new Image();
-            const timer = setTimeout(() => { probe.src = ''; resolve(); }, 100);
+            const timer = setTimeout(() => { probe.src = ''; resolve(); }, 1000);
             probe.onload = () => { loaded = true; clearTimeout(timer); resolve(); };
             probe.onerror = () => { clearTimeout(timer); resolve(); };
             probe.src = url;
@@ -96,15 +96,7 @@ body{margin:0;padding:0 0 70px;color:var(--ink);font-family:system-ui,-apple-sys
     }
   }
   // Keep network traffic controlled while every card searches independently.
-  let next = 0, active = 0;
-  function pump() {
-    while (active < 3 && next < cards.length) {
-      const card = cards[next++];
-      active++;
-      loadPhoto(card).finally(() => { active--; pump(); });
-    }
-  }
-  pump();
+  cards.forEach(card => { loadPhoto(card); });
 })();
 </script>
 
