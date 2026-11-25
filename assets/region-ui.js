@@ -68,7 +68,7 @@
  try{soundOn=localStorage.getItem('bu-ui-sound')!=='off';}catch(_){}
  const soundButton=header.querySelector('[data-sound-toggle]');
  let audioContext=null;
- function renderSoundButton(){soundButton.innerHTML=(soundOn?'♪':'◌')+' <span>'+(soundOn?'Sound on':'Muted')+'</span>';soundButton.setAttribute('aria-pressed',String(soundOn));soundButton.setAttribute('aria-label',soundOn?'Mute click sounds':'Enable click sounds');soundButton.title=soundOn?'Mute click sounds':'Enable click sounds';}
+ function renderSoundButton(){soundButton.innerHTML=(soundOn?'🔊':'🔇')+' <span>'+(soundOn?'Sound on':'Muted')+'</span>';soundButton.setAttribute('aria-pressed',String(soundOn));soundButton.setAttribute('aria-label',soundOn?'Mute click sounds':'Enable click sounds');soundButton.title=soundOn?'Mute click sounds':'Enable click sounds';}
  function tick(){
   if(!soundOn)return;
   try{
@@ -90,7 +90,7 @@
  soundButton.addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('bu-ui-sound',soundOn?'on':'off');}catch(_){}renderSoundButton();});
  renderSoundButton();
  document.addEventListener('click',event=>{
-  const target=event.target.closest('a,button,[role="button"],summary,input[type="button"],input[type="submit"],input[type="search"],select,[data-click-sound]');
+  const target=event.target.closest('a,button,[role="button"],summary,input,select,textarea,[onclick],[tabindex]:not([tabindex="-1"]),.journey-card,[data-click-sound]');
   if(!target)return;
   if(target.closest('[data-sound-toggle]')){tick();return;}
   tick();
