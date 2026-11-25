@@ -78,6 +78,7 @@
        if(!candidates.length) continue;
        const preferred=candidates.find(p=>/\.(jpe?g|png|webp)$/i.test(p.title))||candidates[0];
        const imageUrl=preferred.imageinfo[0].thumburl;
+       img.loading='eager';
        await new Promise((resolve,reject)=>{
          img.onload=()=>{box?.classList.remove('photo-missing');resolve()};
          img.onerror=()=>reject(new Error('Image failed to load'));
