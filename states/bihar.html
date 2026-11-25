@@ -156,12 +156,24 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
 
 .top{width:100%;min-height:72px;align-items:center;justify-content:flex-start;padding:12px clamp(16px,5vw,64px);margin:0 0 22px;background:linear-gradient(112deg,#061f1b,#0b382f 55%,#153f35);border-bottom:1px solid #e7c47b;box-shadow:0 12px 34px #05191544}.top .top-back{color:#fff0c8;border:1px solid #e7c47baa;border-radius:999px;padding:11px 19px;background:linear-gradient(120deg,#ffffff20,#e7c47b22);text-decoration:none}
 </style>
+<style id="bu-bihar-header-cleanup">
+/* Bihar: one clear home link; keep destination cards untouched. */
+.top{background:linear-gradient(112deg,#061f1b 0%,#0b382f 55%,#153f35 100%)!important;border-bottom:1px solid #e7c47b!important}
+.top .top-back{
+ color:#fff0c8!important;
+ background:#174b3b!important;
+ border:1px solid #e7c47b!important;
+ box-shadow:0 5px 16px rgba(5,25,21,.24),inset 0 1px 0 rgba(255,255,255,.16)!important;
+ opacity:1!important;
+}
+.top .top-back:hover{background:#205d49!important}
+</style>
 </head>
 <body>
 <div class="wrap">
 <div class="top"><a class="top-back" href="../index.html" aria-label="Back to Bharat Unfolded home">← BHARAT UNFOLDED</a></div>
 <h1>47 Top Tourist Places &amp; Temples in Bihar</h1>
-<div class="accent"></div>
+
 
 
 <section class="history-section" id="bihar-history" aria-labelledby="history-title">
@@ -852,7 +864,7 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
 </div>
 </article>
 </main>
-<footer><a class="footer-back" href="../index.html" aria-label="Back to Bharat Unfolded"><span aria-hidden="true">←</span><span>Back to Bharat Unfolded</span></a></footer>
+
 </div>
 <script>
 (function(){
