@@ -51,3 +51,6 @@ input[type=search]:focus,input[type=text]:focus,.search input:focus,.searchbox i
 .bu-search-button:hover{box-shadow:0 10px 22px rgba(8,61,43,.28)!important}
 .bu-search-button:active{transform:scale(.96)}
 @media(max-width:560px){.bu-search-row{width:100%;gap:6px}.bu-search-button{padding:11px 13px!important;font-size:12px}}
+
+[class*="dialog"],[class*="modal"] .journey-dialog,[class*="lightbox"]>div{border:1px solid rgba(255,255,255,.42);border-radius:22px;box-shadow:0 22px 60px rgba(3,26,20,.24),inset 0 1px 0 rgba(255,255,255,.52)}
+.journey-dialog,[class*="dialog"]{background:rgba(255,255,255,.76)!important;-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
