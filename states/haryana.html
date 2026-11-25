@@ -218,24 +218,81 @@ footer{margin-top:32px;text-align:center;padding:24px 18px 30px}
 <script>(function(){const cards=[...document.querySelectorAll('.place-card')],input=document.querySelector('.bu-glass-search input'),count=document.querySelector('.bu-glass-search .count'),buttons=[...document.querySelectorAll('.bu-category-filters button')];let active='all';function category(card){const t=card.innerText.toLowerCase();if(/temple|mandir|shrine|dham|math|sarovar/.test(t))return'temple';if(/lake|hill|park|forest|wildlife|farm|taal|biodiversity/.test(t))return'nature';if(/museum|science|memorial|monument|archaeological|baoli|gumbad|palace|mahal|fort/.test(t))return'history';return'museum'}function update(){const q=input.value.trim().toLowerCase();let n=0;cards.forEach(card=>{const ok=card.innerText.toLowerCase().includes(q)&&(active==='all'||category(card)===active);card.hidden=!ok;if(ok)n++});count.textContent=n+' / '+cards.length+' places'}input.addEventListener('input',update);buttons.forEach(b=>b.addEventListener('click',()=>{active=b.dataset.filter;buttons.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));update()}));update()})();</script>
 <script id="haryana-commons-image-loader">
 (function(){
- const imgs=[...document.querySelectorAll('img[data-query]')];
- const clean=s=>s.toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!['the','and','for','with','india','haryana','view','photo','image'].includes(w));
- function score(title,query){const a=clean(title),b=clean(query);let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.max(1,Math.min(b.length,5))}
- async function search(query){
-  const endpoint='https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srlimit=15&srsearch='+encodeURIComponent('filetype:bitmap "'+query+'"')+'&format=json&origin=*';
-  const response=await fetch(endpoint,{mode:'cors',credentials:'omit'});if(!response.ok)throw new Error('search');
-  const data=await response.json(),files=(data.query?.search||[]).map(x=>x.title);if(!files.length)return[];
-  const info='https://commons.wikimedia.org/w/api.php?action=query&titles='+encodeURIComponent(files.join('|'))+'&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
-  const ir=await fetch(info,{mode:'cors',credentials:'omit'});if(!ir.ok)throw new Error('imageinfo');
-  const idata=await ir.json();return Object.values(idata.query?.pages||{}).map(p=>({title:p.title,info:p.imageinfo?.[0]})).filter(x=>x.info?.thumburl||x.info?.url);
+ const imgs=[...document.querySelectorAll('img[data-query]')].filter(img=>!img.getAttribute('src'));
+ const stop=new Set(['the','and','for','with','from','near','into','india','haryana','view','photo','image','complex','site']);
+ function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w=>w.length>2&&!stop.has(w))}
+ function score(title,query){const a=words(title),b=words(query);if(!a.length||!b.length)return 0;let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.min(b.length,5)}
+ async function findPhoto(query){
+  const endpoint='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=18&gsrsearch='+encodeURIComponent('filetype:bitmap '+query)+'&prop=imageinfo&iiprop=url&iiurlwidth=1000&format=json&origin=*';
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   const response=await fetch(endpoint,{signal:controller.signal,mode:'cors',credentials:'omit'});
+   if(!response.ok)throw Error('Commons search failed');
+   const pages=Object.values((await response.json()).query?.pages||{});
+   const ranked=pages.map(p=>({title:p.title,url:p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url,rank:score(p.title,query)})).filter(x=>x.url).sort((a,b)=>b.rank-a.rank);
+   return ranked[0]||null;
+  }finally{clearTimeout(timer)}
  }
  async function load(img){
-  const q=img.dataset.query,variants=[q,q.split(' ').slice(0,4).join(' '),q.split(' ').slice(0,3).join(' ')];
-  for(const term of [...new Set(variants)])try{const files=await search(term),ranked=files.map(x=>({...x,rank:score(x.title,q)})).sort((a,b)=>b.rank-a.rank),best=ranked.find(x=>x.rank>=.4);if(best){img.src=best.info.thumburl||best.info.url;img.dataset.commonsFile=best.title;img.classList.add('loaded');img.classList.remove('failed');return}}catch(e){}
-  img.classList.add('failed');const status=img.parentElement.querySelector('.photo-status');if(status)status.textContent='Verified photo not found';
+  const status=img.parentElement.querySelector('.photo-status');
+  try{
+   const match=await findPhoto(img.dataset.query||img.alt);
+   if(!match||match.rank<.18)throw Error('No relevant Commons result');
+   img.onload=()=>{img.classList.add('loaded');img.classList.remove('failed');if(status)status.remove()};
+   img.onerror=()=>{img.classList.add('failed');if(status)status.textContent='Photo temporarily unavailable'};
+   img.src=match.url;img.dataset.commonsFile=match.title;
+  }catch(e){img.classList.add('failed');if(status)status.textContent='Photo temporarily unavailable'}
  }
- let cursor=0;async function worker(){while(cursor<imgs.length){const img=imgs[cursor++];await load(img)}}
- Promise.all(Array.from({length:4},worker));
+ let cursor=0;
+ async function worker(){while(cursor<imgs.length){const img=imgs[cursor++];await load(img)}}
+ Promise.all(Array.from({length:8},worker));
 })();
 </script>
+<style id="haryana-responsive-image-layout">
+/* Desktop/tablet: two compact destination cards per row; phones: one card. */
+#haryana-places{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:22px;
+ align-items:stretch;
+}
+#haryana-places .place-card{
+ display:flex;
+ flex-direction:column;
+ min-width:0;
+ height:100%;
+ margin:0;
+}
+#haryana-places .place-image{
+ position:relative;
+ width:100%;
+ height:260px;
+ min-height:0;
+ overflow:hidden;
+}
+#haryana-places .place-image img{
+ display:block;
+ width:100%;
+ height:100%;
+ min-height:0;
+ object-fit:cover;
+}
+#haryana-places .place-copy{flex:1;padding:24px}
+#haryana-places .place-copy h2{font-size:clamp(20px,1.7vw,26px)}
+#haryana-places .place-copy p{font-size:14px;line-height:1.7}
+#haryana-places .facts span{min-width:0}
+.photo-status{
+ position:absolute;inset:auto 10px 10px;padding:7px 10px;
+ width:max-content;max-width:calc(100% - 20px);
+ border-radius:9px;background:rgba(255,255,255,.88);
+ color:#344b43;font-size:11px;font-weight:700;
+}
+.destination-photo.failed{display:none}
+@media(max-width:720px){
+ #haryana-places{grid-template-columns:minmax(0,1fr);gap:18px}
+ #haryana-places .place-image{height:245px}
+ #haryana-places .place-copy{padding:21px 18px}
+ #haryana-places .place-copy h2{font-size:23px}
+}
+</style>
 </body></html>
