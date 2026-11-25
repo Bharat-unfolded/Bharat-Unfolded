@@ -62,7 +62,30 @@ body{padding:0 0 90px!important;color:var(--jh-ink)!important;font-family:system
 .hero h2{max-width:700px!important;font-size:clamp(38px,5.8vw,66px)!important;line-height:1.02!important;letter-spacing:-.035em!important;text-wrap:balance}
 .hero p{font-size:16px!important;max-width:610px!important}
 @media(max-width:480px){.topline{padding:18px 4px 12px!important}.topline h1{font-size:9px!important;letter-spacing:.12em!important;padding:8px 11px!important}.hero{min-height:285px!important}.hero h2{font-size:39px!important}}
-</style></head><body><nav class="jh-nav"><a class="jh-brand" href="../index.html"><span class="jh-mark">भ</span><span><b>BHARAT UNFOLDED</b><small>DISCOVER THE INCREDIBLE</small></span></a><a class="jh-home" href="../index.html">← Home</a></nav><main class="wrap"><header class="topline"><h1>21 Top Tourist Places &amp; Temples in Jharkhand</h1><p>Discover sacred shrines, forest waterfalls, wildlife and scenic escapes across the Land of Forests.</p></header>
+</style><style id="bu-device-card-columns">
+/* One card on phones/tablets; two cards only on laptop/desktop widths. */
+.bu-two-card-grid,.jh-grid,#jhGrid,#places,.places{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ gap:16px!important;
+ width:100%!important;
+ min-width:0!important;
+ align-items:stretch!important;
+}
+.bu-two-card-grid>.place-card,.jh-grid>.place-card,#jhGrid>.place-card,#places>.place-card,.places>.place-card{
+ width:100%!important;
+ min-width:0!important;
+ max-width:none!important;
+ margin:0!important;
+}
+@media(min-width:1024px){
+ .bu-two-card-grid,.jh-grid,#jhGrid,#places,.places{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:20px!important;
+ }
+}
+</style>
+</head><body><nav class="jh-nav"><a class="jh-brand" href="../index.html"><span class="jh-mark">भ</span><span><b>BHARAT UNFOLDED</b><small>DISCOVER THE INCREDIBLE</small></span></a><a class="jh-home" href="../index.html">← Home</a></nav><main class="wrap"><header class="topline"><h1>21 Top Tourist Places &amp; Temples in Jharkhand</h1><p>Discover sacred shrines, forest waterfalls, wildlife and scenic escapes across the Land of Forests.</p></header>
 <section class="hero"><div class="hero-copy"><small>INDIA · JHARKHAND · 21 DESTINATIONS</small><h2>Discover the soul of Jharkhand.</h2><p>From sacred temples and forest waterfalls to quiet lakes, wild landscapes and hilltop views.</p><div class="jh-search"><span>⌕</span><input id="jhSearch" type="search" placeholder="Search a temple, waterfall, city or place…" autocomplete="off"></div></div></section>
 <section class="intro"><b>THE LAND OF FORESTS</b><br>Jharkhand is known for its sacred pilgrimage sites, forested plateaus, dramatic waterfalls, reservoirs and wildlife landscapes. This guide brings together 21 destinations across Deoghar, Dumka, Giridih, Ranchi, Ramgarh, Latehar, Jamshedpur and Dhanbad. Visitor hours and charges are indicative; always confirm local conditions before travel.</section>
 <div class="results-line"><span>EXPLORE ALL 21 PLACES</span><span id="jhCount">21 destinations</span></div>
