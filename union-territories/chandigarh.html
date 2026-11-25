@@ -23,6 +23,7 @@ body{margin:0;padding:0 0 50px;color:var(--ink);font-family:system-ui,-apple-sys
 .footer{text-align:center;margin-top:34px;padding:28px 12px}.footer a{background:#0d493c;color:white;text-decoration:none;border-radius:999px;padding:13px 22px;display:inline-block}.footer p{font-size:11px;color:#829087}
 @media(max-width:760px){.jh-grid{grid-template-columns:1fr}.place-photo{height:230px}}@media(max-width:600px){.bu-glass-nav{width:calc(100% - 24px);min-height:64px;margin:10px auto 18px;padding:8px 12px;border-radius:18px;gap:8px}.bu-glass-nav .brand{gap:9px}.brand-copy b{font-size:10px;letter-spacing:.08em}.brand-copy small{font-size:7px;letter-spacing:.12em}.mark{width:35px;height:35px;flex-basis:35px;font-size:16px}.bu-glass-nav>a:last-child{min-height:36px;padding:0 11px;font-size:10px}.hero{min-height:285px;padding:24px 20px}.hero h1{font-size:39px}.facts{grid-template-columns:1fr}.fee-table th{width:30%}}
 </style>
+<link rel="stylesheet" href="../assets/region-ui.css">
 </head>
 <body>
 <nav class="bu-glass-nav"><a class="brand" href="../index.html"><span class="mark">ভ</span><span class="brand-copy"><b>BHARAT UNFOLDED</b><small>DISCOVER THE INCREDIBLE</small></span></a><a href="../index.html">← Home</a></nav>
@@ -86,4 +87,5 @@ body{margin:0;padding:0 0 50px;color:var(--ink);font-family:system-ui,-apple-sys
  const place=new URLSearchParams(location.search).get('place');if(place){input.value=place;filter(place)}
 })();
 </script>
+<script src="../assets/region-ui.js" defer></script>
 </body></html>
