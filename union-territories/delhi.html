@@ -124,6 +124,73 @@ body:before,body:after{display:none!important}
  }
 }
 </style>
+<style id="bu-final-responsive-cards">
+/* Bharat Unfolded: phones/tablets always show one destination card per row. */
+@media screen and (max-width: 1023px) {
+  html body .jh-grid,
+  html body #jhGrid,
+  html body #places,
+  html body .places,
+  html body .bu-two-card-grid,
+  html body .destination-grid,
+  html body .places-grid,
+  html body .cards-grid,
+  html body .tourist-grid {
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-auto-flow:row!important;
+    width:100%!important;
+    gap:16px!important;
+  }
+  html body .jh-grid > .place-card,
+  html body #jhGrid > .place-card,
+  html body #places > .place-card,
+  html body .places > .place-card,
+  html body .bu-two-card-grid > .place-card,
+  html body .destination-grid > .place-card,
+  html body .places-grid > .place-card,
+  html body .cards-grid > .place-card,
+  html body .tourist-grid > .place-card {
+    grid-column:1 / -1!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+}
+/* Two cards per row only on laptop/desktop-sized viewports. */
+@media screen and (min-width: 1024px) {
+  html body .jh-grid,
+  html body #jhGrid,
+  html body #places,
+  html body .places,
+  html body .bu-two-card-grid,
+  html body .destination-grid,
+  html body .places-grid,
+  html body .cards-grid,
+  html body .tourist-grid {
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-auto-flow:row!important;
+    gap:20px!important;
+    width:100%!important;
+  }
+  html body .jh-grid > .place-card,
+  html body #jhGrid > .place-card,
+  html body #places > .place-card,
+  html body .places > .place-card,
+  html body .bu-two-card-grid > .place-card,
+  html body .destination-grid > .place-card,
+  html body .places-grid > .place-card,
+  html body .cards-grid > .place-card,
+  html body .tourist-grid > .place-card {
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+}
+</style>
 </head><body><div class="scroll-progress" aria-hidden="true"></div><main class="wrap">
 <div class="top"><a class="back" href="../index.html">← BHARAT UNFOLDED</a></div><h1>33 Incredible Tourist Places to Visit in Delhi</h1>
 <article class="hero glass"><img src="https://delhitourism.travel/images/places-to-visit/headers/humayun-s-tomb-delhi-entry-fee-timings-holidays-reviews-header.jpg" alt="Humayun's Tomb in Delhi"  fetchpriority="high"  loading="eager" decoding="async"><div class="copy"><div class="accent"></div>
