@@ -380,7 +380,7 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
 <div class="fee-table-wrap"><table class="fee-table"><tr><th>Opening Time</th><td>Kankaria Lakefront: Tue–Sun: 9:00 AM – 10:00 PM (<b>Closed on Mondays</b>); Sidi Saiyyed Mosque: Mon–Sun: 7:00 AM – 7:00 PM.</td></tr><tr><th>Ticket / Entry</th><td>Kankaria Lakefront entry: Around ₹10–₹25 per adult (rides/attractions extra); Sidi Saiyyed Mosque entry is <b>Free</b>.</td></tr></table></div>
 </div></article>
 <article class="place-card glass" id="gujarat-place-21">
-<div class="place-image"><img class="destination-photo" data-query="Lothal Archaeological Site (Ahmedabad) Ahmedabad Gujarat India" alt="Lothal Archaeological Site (Ahmedabad) in Ahmedabad, Gujarat, India" loading="lazy" decoding="async"><span class="image-fallback" hidden>Photo temporarily unavailable</span></div>
+<div class="place-image"><img class="destination-photo" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Dock_at_lothal.JPG" data-query="Lothal Archaeological Site (Ahmedabad) Ahmedabad Gujarat India" alt="Ancient brick-lined dockyard at the Lothal archaeological site, Gujarat, India" loading="lazy" decoding="async"><span class="image-fallback" hidden>Photo temporarily unavailable</span></div>
 <div class="place-copy">
 <div class="number">21 · GUJARAT</div>
 <h2>Lothal Archaeological Site (Ahmedabad)</h2>
@@ -665,7 +665,7 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
  }
  const imgs=[...document.querySelectorAll('img.destination-photo')];
  let next=0;
- async function worker(){while(next<imgs.length){const img=imgs[next++],box=img.parentElement.querySelector('.image-fallback');const url=await findPhoto(img.dataset.query||img.alt);if(url){img.src=url;img.hidden=false;if(box)box.hidden=true}else{img.hidden=true;if(box)box.hidden=false}}}
+ async function worker(){while(next<imgs.length){const img=imgs[next++],box=img.parentElement.querySelector('.image-fallback');if(img.getAttribute('src')){img.hidden=false;if(box)box.hidden=true;continue}const url=await findPhoto(img.dataset.query||img.alt);if(url){img.src=url;img.hidden=false;if(box)box.hidden=true}else{img.hidden=true;if(box)box.hidden=false}}}
  Promise.all(Array.from({length:4},worker));
 })();
 </script>
