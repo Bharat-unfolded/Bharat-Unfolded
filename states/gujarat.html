@@ -637,36 +637,36 @@ html,body{overflow-y:auto!important;overscroll-behavior-y:auto!important}
 </style>
 \n<style id="dandi-photo-credit">.photo-credit{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:6px 9px;border-radius:8px;background:rgba(0,0,0,.62);color:#fff;font-size:10px;line-height:1.35;text-decoration:none;z-index:2}.photo-credit:hover{text-decoration:underline}</style>\n<script id="gujarat-image-loader">
 (function(){
- const stop=new Set(['the','and','for','with','from','near','into','india','gujarat','temple','place','view','photo','heritage']);
- function words(s){return s.toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2&&!stop.has(w))}
+ const stop=new Set(['the','and','for','with','from','near','into','india','gujarat','temple','place','view','photo','heritage','site']);
+ function words(s){return (s||'').toLowerCase().replace(/&amp;/g,'and').replace(/[^a-z0-9 ]/g,' ').split(/\\s+/).filter(w=>w.length>2&&!stop.has(w))}
  function score(file,query){const a=words(file),b=words(query);if(!a.length||!b.length)return 0;let n=0;for(const w of b)if(a.includes(w))n++;return n/Math.min(b.length,6)}
- async function searchFiles(query){
-  const u='https://commons.wikimedia.org/w/api.php?action=query&list=search&srnamespace=6&srlimit=30&srsearch='+encodeURIComponent('filetype:bitmap '+query)+'&format=json&origin=*';
-  const r=await fetch(u);if(!r.ok)throw Error('Commons search failed');return (await r.json()).query?.search||[];
- }
- async function imageInfo(title){
-  const u='https://commons.wikimedia.org/w/api.php?action=query&titles='+encodeURIComponent(title)+'&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
-  const r=await fetch(u);if(!r.ok)return null;const pages=Object.values((await r.json()).query?.pages||{});return pages[0]?.imageinfo?.[0]?.thumburl||pages[0]?.imageinfo?.[0]?.url||null;
- }
- function probe(url){return new Promise(resolve=>{const im=new Image();im.onload=()=>resolve(true);im.onerror=()=>resolve(false);im.src=url})}
  async function findPhoto(query){
-  const terms=[query,query.split(/[&,(/]/)[0].trim(),query.split(' ').slice(0,3).join(' ')];
-  for(const term of [...new Set(terms)]){
-   try{
-    const files=await searchFiles(term);
-    const ranked=files.map(x=>({title:x.title,s:score(x.title,query)})).sort((a,b)=>b.s-a.s);
-    for(const f of ranked.slice(0,12)){
-     if(f.s<0.22)continue;
-     const url=await imageInfo(f.title);if(url&&await probe(url))return url;
-    }
-   }catch(e){}
-  }
-  return null;
+  const q='filetype:bitmap '+query;
+  const url='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch='+encodeURIComponent(q)+'&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
+  try{
+   const response=await fetch(url,{signal:controller.signal});
+   if(!response.ok)throw Error('Image search failed');
+   const pages=Object.values((await response.json()).query?.pages||{});
+   const ranked=pages.map(p=>({title:p.title,url:p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url,s:score(p.title,query)})).filter(x=>x.url).sort((a,b)=>b.s-a.s);
+   return ranked[0]?.url||null;
+  }finally{clearTimeout(timer)}
  }
- const imgs=[...document.querySelectorAll('img.destination-photo')];
+ const imgs=[...document.querySelectorAll('img.destination-photo')].filter(img=>!img.getAttribute('src'));
  let next=0;
- async function worker(){while(next<imgs.length){const img=imgs[next++],box=img.parentElement.querySelector('.image-fallback');if(img.getAttribute('src')){img.hidden=false;if(box)box.hidden=true;continue}const url=await findPhoto(img.dataset.query||img.alt);if(url){img.src=url;img.hidden=false;if(box)box.hidden=true}else{img.hidden=true;if(box)box.hidden=false}}}
- Promise.all(Array.from({length:4},worker));
+ async function worker(){
+  while(next<imgs.length){
+   const img=imgs[next++],box=img.parentElement.querySelector('.image-fallback');
+   try{
+    const url=await findPhoto(img.dataset.query||img.alt);
+    if(!url)throw Error('No matching image');
+    img.onload=()=>{img.hidden=false;if(box)box.hidden=true};
+    img.onerror=()=>{img.hidden=true;if(box)box.hidden=false};
+    img.src=url;
+   }catch(e){img.hidden=true;if(box)box.hidden=false}
+  }
+ }
+ Promise.all(Array.from({length:8},worker));
 })();
 </script>
 </body></html>
