@@ -55,29 +55,41 @@
  input.addEventListener('input',()=>filter(input.value));
  const p=new URLSearchParams(location.search).get('place');
  if(p){input.value=p;filter(p);const exact=cards.find(c=>norm(c.querySelector('h2').innerText)===norm(p));if(exact){cards.forEach(c=>c.hidden=c!==exact);count.textContent='Showing 1 place: '+p;exact.scrollIntoView({block:'start'})}}
- // Wikimedia Commons search fallback: each destination gets its own query and image.
- const used=new Set();
+ // Load original photographs from Wikimedia Commons, one destination at a time.
+ // Sequential requests avoid browser/API throttling and duplicate-image races.
  async function findPhoto(img){
-   const q=img.dataset.photoQuery;
+   const q=(img.dataset.photoQuery||'').replace(/&amp;/g,'&').trim();
    if(!q || img.dataset.resolved==='1') return;
    img.dataset.resolved='1';
-   try{
-     const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch='+encodeURIComponent('filetype:bitmap '+q+' Goa India')+'&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
-     const response=await fetch(api,{headers:{Accept:'application/json'}});
-     if(!response.ok) throw new Error('Commons API unavailable');
-     const data=await response.json();
-     const pages=Object.values(data.query?.pages||{});
-     const candidates=pages.filter(x=>x.imageinfo?.[0]?.thumburl && !used.has(x.title));
-     if(!candidates.length) throw new Error('No matching Commons image');
-     const best=candidates[0]; used.add(best.title);
-     img.onload=()=>{img.closest('.place-photo').classList.remove('photo-missing')};
-     img.onerror=()=>{img.closest('.place-photo').classList.add('photo-missing');img.remove()};
-     img.src=best.imageinfo[0].thumburl;
-   }catch(e){img.closest('.place-photo').classList.add('photo-missing');img.remove()}
+   const box=img.closest('.place-photo');
+   const searches=[q+' Goa India',q+' Goa coast India',q+' India'];
+   for(const term of searches){
+     try{
+       const params=new URLSearchParams({
+         action:'query',generator:'search',gsrsearch:term,gsrnamespace:'6',
+         gsrlimit:'10',prop:'imageinfo',iiprop:'url',iiurlwidth:'1400',
+         format:'json',origin:'*'
+       });
+       const response=await fetch('https://commons.wikimedia.org/w/api.php?'+params.toString(),{headers:{Accept:'application/json'}});
+       if(!response.ok) continue;
+       const data=await response.json();
+       const pages=Object.values(data.query?.pages||{});
+       const candidates=pages.filter(p=>p.imageinfo?.[0]?.thumburl);
+       if(!candidates.length) continue;
+       const preferred=candidates.find(p=>/\.(jpe?g|png|webp)$/i.test(p.title))||candidates[0];
+       const imageUrl=preferred.imageinfo[0].thumburl;
+       await new Promise((resolve,reject)=>{
+         img.onload=()=>{box?.classList.remove('photo-missing');resolve()};
+         img.onerror=()=>reject(new Error('Image failed to load'));
+         img.src=imageUrl;
+       });
+       return;
+     }catch(error){ /* Try the next search phrase. */ }
+   }
+   box?.classList.add('photo-missing');
+   img.remove();
  }
  const imgs=[...grid.querySelectorAll('img[data-photo-query]')];
- imgs.forEach(img=>{img.addEventListener('error',()=>findPhoto(img),{once:true});if(img.complete&&img.naturalWidth===0)findPhoto(img)});
- // Load blank placeholders directly through Commons search.
- imgs.filter(img=>img.src.startsWith('data:')).forEach(findPhoto);
+ for(const img of imgs) await findPhoto(img);
 })();
 </script></body></html>
