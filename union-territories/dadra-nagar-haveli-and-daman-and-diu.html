@@ -50,37 +50,49 @@ body{margin:0;padding:0 0 50px;color:var(--ink);font-family:system-ui,-apple-sys
  input.addEventListener('input',()=>filter(input.value));
  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
  async function loadPhoto(card){
-  const img=card.querySelector('.place-photo img'),status=card.querySelector('.photo-status'),title=card.querySelector('h2')?.textContent?.trim(),query=img?.dataset.search;
-  if(!img||!title||!query)return;
-  const pinned=img.dataset.photo;
-  if(pinned){
-   const ok=await new Promise(resolve=>{const probe=new Image();const timer=setTimeout(()=>resolve(false),12000);probe.onload=()=>{clearTimeout(timer);resolve(true)};probe.onerror=()=>{clearTimeout(timer);resolve(false)};probe.src=pinned});
-   if(ok){img.src=pinned;img.classList.add('is-ready');if(status)status.textContent='St. Paul Church · Wikimedia Commons';return}
-  }
-  const tried=new Set(),queries=[query, title+' '+(card.querySelector('.number')?.textContent||'')+' India',title+' India'];
+  const img=card.querySelector('.place-photo img'),status=card.querySelector('.photo-status');
+  const title=card.querySelector('h2')?.textContent?.trim(),base=img?.dataset.search;
+  if(!img||!title||!base)return;
+  const aliases={
+   'INS Khukri Memorial & Chakratirth Beach':['INS Khukri Memorial Diu','INS Khukri ship model Diu'],
+   'Sea Shell Museum & Zampa Gateway':['Zampa Gateway Diu','Sea Shell Museum Diu'],
+   'Devka Beach & Devka Amusement Park':['Devka Beach Daman','Devka seafront Daman'],
+   'Daman Lighthouse & Mirasol Lake Garden':['Mirasol Lake Garden Daman','Daman Lighthouse'],
+   'Dudhni Lake & Madhuban Dam':['Dudhani Lake Silvassa','Madhuban Dam Daman Ganga'],
+   'Satmaliya Deer Park':['Satmalia Deer Sanctuary Silvassa','Satmaliya Deer Park DNH'],
+   'Hirwa Van Garden':['Hirwavan Garden Silvassa','Hirwa Van Garden DNH'],
+   'Khanvel & Sakartod Riverfront':['Khanvel Silvassa river','Sakartod River Dadra Nagar Haveli']
+  };
+  const queries=[...(aliases[title]||[]),base,title+' India'];
+  const tried=new Set();
   while(!img.classList.contains('is-ready')){
-   try{
-    for(const q of queries){
-     const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=35&gsrsearch='+encodeURIComponent(q)+'&prop=imageinfo&iiprop=url&iiurlwidth=1400&format=json&origin=*';
-     const response=await fetch(api,{cache:'no-store'});if(!response.ok)continue;
-     const pages=Object.values((await response.json()).query?.pages||{});
-     const words=title.toLowerCase().replace(/[^a-z0-9]+/g,' ').split(' ').filter(x=>x.length>2&&!['the','and','park','garden','india'].includes(x));
-     const candidates=pages.map(p=>({name:(p.title||'').toLowerCase(),url:p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url})).filter(x=>x.url&&!tried.has(x.url)&&/\.(jpg|jpeg|png|webp)(\?|$)/i.test(x.url));
-     candidates.sort((a,b)=>words.filter(w=>b.name.includes(w)).length-words.filter(w=>a.name.includes(w)).length);
+   let found=false;
+   for(const q of queries){
+    try{
+     const api='https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=50&gsrsearch='+encodeURIComponent(q)+'&prop=imageinfo&iiprop=url&iiurlwidth=1200&format=json&origin=*';
+     const response=await fetch(api);
+     if(!response.ok)continue;
+     const data=await response.json();
+     const pages=Object.values(data.query?.pages||{});
+     const terms=q.toLowerCase().replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(w=>w.length>2);
+     const candidates=pages.map(p=>({name:(p.title||'').toLowerCase(),url:p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url}))
+      .filter(x=>x.url&&!tried.has(x.url)&&/\.(jpg|jpeg|png|webp)(\?|$)/i.test(x.url));
+     candidates.sort((x,y)=>terms.filter(w=>y.name.includes(w)).length-terms.filter(w=>x.name.includes(w)).length);
      for(const item of candidates){
       tried.add(item.url);
-      const loaded=await new Promise(resolve=>{const probe=new Image(),timer=setTimeout(()=>{probe.src='';resolve(false)},10000);probe.onload=()=>{clearTimeout(timer);resolve(true)};probe.onerror=()=>{clearTimeout(timer);resolve(false)};probe.src=item.url});
-      if(!loaded)continue;
-      img.onload=()=>{img.classList.add('is-ready');if(status)status.textContent='Original photo · Wikimedia Commons'};
-      img.onerror=()=>{img.classList.remove('is-ready');img.removeAttribute('src')};
-      img.src=item.url;
-      await new Promise(resolve=>{if(img.complete&&img.naturalWidth>0){img.classList.add('is-ready');resolve()}else{img.addEventListener('load',resolve,{once:true});img.addEventListener('error',resolve,{once:true})}});
-      if(img.naturalWidth>0){if(status)status.textContent='Original photo · Wikimedia Commons';return}
+      const ok=await new Promise(resolve=>{const probe=new Image();const timer=setTimeout(()=>{probe.src='';resolve(false)},8000);probe.onload=()=>{clearTimeout(timer);resolve(true)};probe.onerror=()=>{clearTimeout(timer);resolve(false)};probe.src=item.url});
+      if(!ok)continue;
+      img.src=item.url;img.classList.add('is-ready');
+      if(status)status.textContent='Original destination photo · Wikimedia Commons';
+      found=true;break;
      }
-    }
-   }catch(error){console.warn('Photo search retry:',title,error)}
-   if(status)status.textContent='Searching for a matching original photo…';
-   await sleep(1800);
+     if(found)break;
+    }catch(e){console.warn('Photo lookup failed',title,q,e)}
+   }
+   if(!found){
+    if(status)status.textContent='Photo source unavailable — retrying…';
+    await sleep(5000);
+   }
   }
  }
  cards.forEach(card=>loadPhoto(card));
