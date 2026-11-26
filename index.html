@@ -60,14 +60,9 @@ footer{padding:65px 0 25px;border-top:1px solid var(--line);background:rgba(0,0,
 .surprise-feature h3{color:#ffe3a1}
 .surprise-feature .read{font-size:10px;letter-spacing:.05em}
 @media(max-width:600px){
- .surprise-feature{width:248px;min-width:248px;aspect-ratio:0.82/1;justify-self:start;border-radius:21px;box-shadow:0 14px 38px rgba(0,0,0,.34),0 0 0 1px rgba(231,190,103,.12)}
- .surprise-feature img{height:56%!important;min-height:0;object-position:center 42%}
- .surprise-feature .feature-body{padding:13px 14px 15px;gap:2px}
- .surprise-feature .tag{font-size:8px;padding:5px 9px}
- .surprise-feature h3{font-size:19px;margin:9px 0 6px;line-height:1.15}
- .surprise-feature p{font-size:11px;line-height:1.5}
- .surprise-feature .read{font-size:10px;padding-top:10px}
- .surprise-image-label{top:12px;left:12px;font-size:8px;padding:8px 11px}
+ /* Match the exact mobile card dimensions used by the other feature cards. */
+ .surprise-feature{width:auto;min-width:0;aspect-ratio:1/1;justify-self:stretch}
+ .surprise-feature img{height:205px!important;min-height:0;object-position:center 42%}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
