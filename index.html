@@ -29,6 +29,22 @@ footer{padding:65px 0 25px;border-top:1px solid var(--line);background:rgba(0,0,
 @media(max-width:600px){.feature-grid{grid-template-columns:repeat(4,minmax(210px,1fr));overflow-x:auto}.feature{scroll-snap-align:start}.topline{font-size:8px;letter-spacing:.15em}.nav{height:68px}.brandmark{width:38px;height:38px}.brandname{font-size:10px}.nav-actions .pill-btn{display:none}.hero{min-height:650px;padding:75px 0 80px}.hero-bg{background-position:58% center}.hero h1{font-size:54px}.hero-copy{font-size:13px}.hero-search{border-radius:18px;flex-direction:column;padding:9px}.hero-search input{padding:12px 10px}.hero-search button{padding:13px}.hero-meta{gap:18px}.hero-meta strong{font-size:22px}.stats{grid-template-columns:repeat(2,1fr);margin-top:-24px;gap:9px}.stat{padding:16px 10px}.stat strong{font-size:25px}.stat span{font-size:8px}.section{padding:68px 0}.section-head{align-items:start;flex-direction:column}.feature-grid,.places-grid{grid-template-columns:1fr}.feature:first-child{grid-column:auto}.feature img,.feature:first-child img{height:205px}.statesgrid,.ut-grid{grid-template-columns:repeat(2,1fr);gap:8px}.state{font-size:11px;padding:12px 10px}.directory-panel{padding:17px}.directory-top h3{font-size:20px}.topics{grid-template-columns:1fr 1fr;gap:9px}.topic{padding:16px;min-height:190px}.topic h3{font-size:17px}.topic p{font-size:11px}.connect{padding:38px 20px}.footer-grid{grid-template-columns:1fr 1fr;gap:28px}.footer-grid>div:first-child{grid-column:span 2}.footer-grid>div:last-child{grid-column:auto}.copyright{flex-direction:column}.place img{height:220px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
+
+<style id="surprise-destination-modal-style">
+#surpriseDestinationModal{display:none;position:fixed;inset:0;z-index:99999}
+#surpriseDestinationModal.show{display:block}
+.surprise-modal-backdrop{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:rgba(5,12,10,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.surprise-modal{position:relative;width:min(480px,100%);padding:38px 28px 27px;text-align:center;border:1px solid rgba(226,195,123,.65);border-radius:26px;background:linear-gradient(145deg,rgba(34,48,39,.97),rgba(13,25,21,.98));box-shadow:0 28px 90px rgba(0,0,0,.48);color:#fff7e5;animation:surprisePopIn .24s ease-out}
+@keyframes surprisePopIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.surprise-modal-close{position:absolute;right:15px;top:12px;width:34px;height:34px;border:1px solid #e3c47b66;border-radius:50%;background:#ffffff12;color:#fff4d6;font-size:24px;line-height:1;cursor:pointer}
+.surprise-modal-kicker{color:#e5c47b;font-size:10px;font-weight:800;letter-spacing:.2em}
+.surprise-modal h2{margin:16px 0 12px;font:500 23px Georgia,serif;color:#fff4dc}
+.surprise-modal-place{font:600 clamp(27px,6vw,39px) Georgia,serif;color:#e9c979;line-height:1.15}
+.surprise-modal-city{margin:10px 0;color:#f3ead7;font-size:13px;font-weight:700}
+.surprise-modal-note{margin:15px auto 22px;max-width:350px;color:#d7d7cc;font-size:13px;line-height:1.65}
+.surprise-modal-map{display:inline-block;padding:12px 19px;border-radius:30px;background:linear-gradient(110deg,#d7b568,#f1dfaa);color:#1a261f;text-decoration:none;font-size:11px;font-weight:800}
+.surprise-modal-bottom{margin-top:20px;color:#aaa997;font-size:10px}
+</style>
 </head>
 <body>
 <div class="topline">A living guide to the places, people & stories of India</div>
@@ -127,23 +143,37 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
  const card=document.querySelector('.surprise-feature');
  if(!card)return;
  const places=[
-  ['Taj Mahal · Agra, Uttar Pradesh','destination.html?place=Taj%20Mahal'],
-  ['Mahavir Mandir · Patna, Bihar','destination.html?place=Mahavir%20Mandir%20%28Patna%29'],
-  ['Hawa Mahal · Jaipur, Rajasthan','destination.html?place=Hawa%20Mahal'],
-  ['Konark Sun Temple · Odisha','destination.html?place=Konark%20Sun%20Temple'],
-  ['Meenakshi Amman Temple · Madurai, Tamil Nadu','destination.html?place=Meenakshi%20Amman%20Temple'],
-  ['Golden Temple · Amritsar, Punjab','destination.html?place=Sri%20Harmandir%20Sahib%20%2F%20Golden%20Temple'],
-  ['Charminar · Hyderabad, Telangana','destination.html?place=Charminar'],
-  ['Victoria Memorial · Kolkata, West Bengal','destination.html?place=Victoria%20Memorial']
+  {name:'Taj Mahal',city:'Agra, Uttar Pradesh',note:'A world-famous white-marble monument and UNESCO World Heritage Site.'},
+  {name:'Mahavir Mandir',city:'Patna, Bihar',note:'A much-visited Hanuman temple beside Patna Junction.'},
+  {name:'Hawa Mahal',city:'Jaipur, Rajasthan',note:'The iconic Palace of Winds, known for its pink façade and honeycomb windows.'},
+  {name:'Konark Sun Temple',city:'Konark, Odisha',note:'A UNESCO-listed stone temple designed as the grand chariot of the Sun God.'},
+  {name:'Meenakshi Amman Temple',city:'Madurai, Tamil Nadu',note:'A celebrated temple known for its colourful gopurams and intricate sculptures.'},
+  {name:'Golden Temple',city:'Amritsar, Punjab',note:'The serene Sikh shrine beside the sacred Amrit Sarovar.'},
+  {name:'Charminar',city:'Hyderabad, Telangana',note:'The historic four-minaret landmark at the heart of Hyderabad.'},
+  {name:'Victoria Memorial',city:'Kolkata, West Bengal',note:'A grand white-marble landmark surrounded by gardens and museum galleries.'}
  ];
  let last=-1;
+ let modal=document.getElementById('surpriseDestinationModal');
+ if(!modal){
+  modal=document.createElement('div');
+  modal.id='surpriseDestinationModal';
+  modal.innerHTML='<div class="surprise-modal-backdrop" data-close="true"><section class="surprise-modal glass" role="dialog" aria-modal="true" aria-labelledby="surpriseModalTitle"><button class="surprise-modal-close" type="button" aria-label="Close">×</button><div class="surprise-modal-kicker">✦ BHARAT UNFOLDED PICK ✦</div><h2 id="surpriseModalTitle">Your next destination is…</h2><div class="surprise-modal-place" id="surprisePlaceName"></div><p class="surprise-modal-city" id="surprisePlaceCity"></p><p class="surprise-modal-note" id="surprisePlaceNote"></p><a class="surprise-modal-map" id="surprisePlaceMap" target="_blank" rel="noopener">Explore on Google Maps ↗</a><div class="surprise-modal-bottom">No state page opened. Just your next travel idea ✨</div></section></div>';
+  document.body.appendChild(modal);
+  modal.addEventListener('click',function(e){if(e.target.dataset.close==='true'||e.target.closest('.surprise-modal-close'))modal.classList.remove('show')});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')modal.classList.remove('show')});
+ }
  card.addEventListener('click',function(e){
   e.preventDefault();
   let i=Math.floor(Math.random()*places.length);
   if(i===last)i=(i+1)%places.length;
   last=i;
-  window.location.href=places[i][1];
+  const p=places[i];
+  document.getElementById('surprisePlaceName').textContent=p.name;
+  document.getElementById('surprisePlaceCity').textContent=p.city;
+  document.getElementById('surprisePlaceNote').textContent=p.note;
+  document.getElementById('surprisePlaceMap').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.name+' '+p.city);
+  modal.classList.add('show');
+  modal.querySelector('.surprise-modal-close').focus();
  });
-})();
-</script></body>
+})();</script></body>
 </html>
