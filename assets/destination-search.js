@@ -16,21 +16,21 @@ function readPage(html,state,slug){
  const seen=new Set();
  for(const card of cards){
   const heading=card.querySelector('h2,h3,[data-place-name]');
-  const name=(card.dataset.name||card.dataset.placeName||heading?.textContent||'').replace(/\\s+/g,' ').trim();
+  const name=(card.dataset.name||card.dataset.placeName||heading?.textContent||'').replace(/\s+/g,' ').trim();
   if(!name)continue;
   const id=card.id||'',key=norm(name)+'|'+id;
   if(seen.has(key))continue;seen.add(key);
   let city=card.dataset.city||'',district=card.dataset.district||'';
   const loc=card.querySelector('.loc,.location,.ap-loc,[data-location],.meta,.kicker');
   if(loc){
-   let txt=loc.textContent.replace(/^\\s*(location|⌖)\\s*/i,'').replace(/^DESTINATION\\s+\\d+\\s*[·.-]\\s*/i,'').trim();
+   let txt=loc.textContent.replace(/^\s*(location|⌖)\s*/i,'').replace(/^DESTINATION\s+\d+\s*[·.-]\s*/i,'').trim();
    txt=txt.split('·').pop().trim();
    if(!city)city=txt.split(',')[0].trim();
    if(!district&&txt.includes(','))district=txt.split(',').slice(1).join(',').trim();
   }
   if(!city){
    const number=card.querySelector('.number,.ap-num')?.textContent||'';
-   city=number.replace(/^\\s*\\d+\\s*(?:[·./-].*)?/,'').replace(new RegExp(state,'i'),'').trim();
+   city=number.replace(/^\s*\d+\s*(?:[·./-].*)?/,'').replace(new RegExp(state,'i'),'').trim();
   }
   if(!city)city=state;
   const meta=card.querySelector('.meta,.kicker,.category,.type,.ap-category')?.textContent||'';
@@ -42,7 +42,7 @@ function readPage(html,state,slug){
  // Arunachal Pradesh builds its 25 destination cards from an embedded data array.
  if(!out.length&&slug==='arunachal-pradesh'){
   for(const script of doc.scripts){
-   const match=script.textContent.match(/const\\s+places\\s*=\\s*(\\[[\\s\\S]*?\\])\\s*;/);
+   const match=script.textContent.match(/const\s+places\s*=\s*(\[[\s\S]*?\])\s*;/);
    if(!match)continue;
    try{const places=JSON.parse(match[1]);for(const p of places){
     const name=String(p.n||p.name||'').trim();if(!name)continue;
@@ -57,7 +57,7 @@ function readPage(html,state,slug){
 async function load(){const jobs=states.map(async([state,slug])=>{try{const res=await fetch('states/'+slug+'.html',{cache:'force-cache'});if(!res.ok)return[];return readPage(await res.text(),state,slug);}catch(_){return[];}});destinations=(await Promise.all(jobs)).flat();ready=true;if(input.value.trim().length>=2)render(input.value.trim());}
 function matchScore(query,value){const q=norm(query),v=norm(value);if(!q||!v)return 0;if(q===v)return 100;if(v.startsWith(q))return 88;if(v.includes(q))return 78;if(close(q,v))return 60;return 0;}
 function render(raw){const q=norm(raw);if(q.length<2){panel.hidden=true;panel.innerHTML='';return;}if(!ready){panel.hidden=false;panel.innerHTML='<div class="bu-search-empty">Loading destinations from all state guides…</div>';return;}
-const templeQuery=/(^|\\s)(temple|mandir|mandirs|temples)(\\s|$)/.test(q);const filtered=templeQuery?destinations.filter(d=>d.isTemple):destinations;const placeHits=[],cityHits=[],stateHits=[];for(const d of filtered){const nameScore=Math.max(matchScore(q,d.name),matchScore(q,d.name.replace(/\\b(temple|mandir)\\b/g,'').trim()));const tagScore=matchScore(q,d.tags)*0.72;const p=Math.max(nameScore,tagScore),c=Math.max(norm(d.city)!==norm(d.state)?matchScore(q,d.city):0,matchScore(q,d.district)),s=matchScore(q,d.state);if(p)placeHits.push({d,score:p,kind:0});else if(c)cityHits.push({d,score:c,kind:1});else if(s)stateHits.push({d,score:s,kind:2});}
+const templeQuery=/(^|\s)(temple|mandir|mandirs|temples)(\s|$)/.test(q);const filtered=templeQuery?destinations.filter(d=>d.isTemple):destinations;const placeHits=[],cityHits=[],stateHits=[];for(const d of filtered){const nameScore=Math.max(matchScore(q,d.name),matchScore(q,d.name.replace(/\b(temple|mandir)\b/g,'').trim()));const tagScore=matchScore(q,d.tags)*0.72;const p=Math.max(nameScore,tagScore),c=Math.max(norm(d.city)!==norm(d.state)?matchScore(q,d.city):0,matchScore(q,d.district)),s=matchScore(q,d.state);if(p)placeHits.push({d,score:p,kind:0});else if(c)cityHits.push({d,score:c,kind:1});else if(s)stateHits.push({d,score:s,kind:2});}
 let hits=placeHits.length?placeHits:cityHits.length?cityHits:stateHits;hits.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name));const unique=new Map();for(const h of hits)if(!unique.has(h.d.href))unique.set(h.d.href,h.d);hits=[...unique.values()];panel.hidden=false;
 if(!hits.length){panel.innerHTML='<div class="bu-search-empty">No places found for “'+escapeHtml(raw)+'”. Try searching by state, city, or temple name. <button type="button" data-clear>Clear search</button></div>';panel.querySelector('[data-clear]').addEventListener('click',clear);return;}
 const label=templeQuery?'Matching temples':placeHits.length?'Matching places':cityHits.length?'Places in matching city/district':'Places in matching state';panel.innerHTML='<div class="bu-search-results-head"><span>'+label+' · '+hits.length+'</span><button class="bu-search-clear" type="button" data-clear>Clear ×</button></div><div class="bu-search-list">'+hits.slice(0,100).map(d=>'<a class="bu-search-card" href="'+d.href+'"><strong>'+escapeHtml(d.name)+'</strong><span>'+escapeHtml(d.city)+(d.district&&norm(d.district)!==norm(d.city)?' · '+escapeHtml(d.district):'')+' · '+escapeHtml(d.state)+'</span></a>').join('')+'</div>';panel.querySelector('[data-clear]').addEventListener('click',clear);}
