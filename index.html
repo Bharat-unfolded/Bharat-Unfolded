@@ -115,10 +115,9 @@ const uts=[["Andaman and Nicobar Islands","andaman-and-nicobar-islands"],["Chand
 const stateGrid=document.getElementById("stateGrid"),utGrid=document.getElementById("utGrid");
 function addRegion(list,grid,prefix){list.forEach(([name,slug],i)=>{const a=document.createElement("a");a.className="state";a.href=prefix+"/"+slug+".html";a.dataset.name=name.toLowerCase();a.innerHTML="<span>"+String(i+1).padStart(2,"0")+"</span><b>"+name+"</b><span>↗</span>";grid.appendChild(a)})}
 addRegion(states,stateGrid,"states");addRegion(uts,utGrid,"union-territories");
-function searchRegions(q){let sc=0,uc=0;stateGrid.querySelectorAll(".state").forEach(a=>{const show=a.dataset.name.includes(q);a.classList.toggle("hidden-by-search",!show);if(show)sc++});utGrid.querySelectorAll(".state").forEach(a=>{const show=a.dataset.name.includes(q);a.classList.toggle("hidden-by-search",!show);if(show)uc++});document.getElementById("stateEmpty").style.display=sc?"none":"block";document.getElementById("utEmpty").style.display=uc?"none":"block"}
-document.getElementById("siteSearch").addEventListener("submit",e=>{e.preventDefault();const q=document.getElementById("searchInput").value.trim().toLowerCase();searchRegions(q);document.getElementById("states").scrollIntoView({behavior:"smooth"})});
-document.getElementById("searchInput").addEventListener("input",e=>{if(!e.target.value.trim()){searchRegions("");return}searchRegions(e.target.value.trim().toLowerCase())});
+
 const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementById("mobileMenu");menuBtn.addEventListener("click",()=>{const open=mobileMenu.classList.toggle("open");menuBtn.setAttribute("aria-expanded",String(open));menuBtn.textContent=open?"×":"☰"});mobileMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{mobileMenu.classList.remove("open");menuBtn.setAttribute("aria-expanded","false");menuBtn.textContent="☰"}));
 </script>
+<script src="assets/destination-search.js" defer></script>
 </body>
 </html>
