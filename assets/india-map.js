@@ -121,24 +121,69 @@
     root.classList.add('map-ready');
   }
   function showFallback(message) {
-    status.textContent = message + ' Use the complete region directory below.';
+    const loading = svgHost.querySelector('.india-map-loading');
+    if (loading) loading.remove();
+    svgHost.innerHTML = '<div class="india-map-error"><span aria-hidden="true">✦</span><b>Map could not be loaded</b><small>' +
+      'The region directory is ready below. You can still open all 36 state and UT guides.' +
+      '</small><button type="button" id="indiaMapRetry">Try loading the map again</button></div>';
+    status.textContent = message + ' The complete region directory is available.';
     root.classList.add('map-fallback');
+    const retry = document.getElementById('indiaMapRetry');
+    if (retry) retry.addEventListener('click', () => {
+      root.classList.remove('map-fallback');
+      svgHost.innerHTML = '<div class="india-map-loading"><span class="india-map-loader"></span><b>Preparing the India map…</b><small>Loading state and Union Territory boundaries</small></div>';
+      status.textContent = 'Trying to load the map…';
+      loadMap();
+    });
+  }
+  function loadScript(urls) {
+    if (window.d3 && window.d3.geoMercator && window.d3.geoPath) return Promise.resolve();
+    return urls.reduce((chain, url) => chain.catch(() => new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.onload = () => window.d3 && window.d3.geoMercator
+        ? resolve() : reject(new Error('Map library loaded without the required functions.'));
+      script.onerror = () => reject(new Error('Could not load ' + url));
+      document.head.appendChild(script);
+    })), Promise.reject());
+  }
+  async function fetchMapData() {
+    const urls = [
+      'https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@2884453/geojson/india.geojson',
+      'https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@main/geojson/india.geojson',
+      'https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/india.geojson'
+    ];
+    let lastError;
+    for (const url of urls) {
+      try {
+        const response = await fetch(url, {mode:'cors', cache:'no-cache'});
+        if (!response.ok) throw new Error('HTTP ' + response.status + ' from map data source.');
+        const data = await response.json();
+        if (data && Array.isArray(data.features) && data.features.length) return data;
+        throw new Error('The map data source returned an empty boundary file.');
+      } catch (error) {
+        lastError = error;
+        console.warn('[Bharat Unfolded map source]', url, error);
+      }
+    }
+    throw lastError || new Error('All map data sources failed.');
+  }
+  async function loadMap() {
+    try {
+      await loadScript([
+        'https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js',
+        'https://unpkg.com/d3-geo@3/dist/d3-geo.min.js'
+      ]);
+      const data = await fetchMapData();
+      draw(data);
+      root.classList.remove('map-fallback');
+    } catch (err) {
+      console.warn('[Bharat Unfolded map]', err);
+      showFallback('The map service could not be reached.');
+    }
   }
   renderList();
   search.addEventListener('input',()=>renderList(search.value));
   if (select) select.addEventListener('change',()=>choose(regions.find(r=>r[1]===select.value)));
-  const mapDataUrl = 'https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@2884453/geojson/india.geojson';
-  Promise.all([
-    new Promise((resolve,reject)=>{
-      if (window.d3) return resolve();
-      const s=document.createElement('script');
-      s.src='https://cdn.jsdelivr.net/npm/d3-geo@3/dist/d3-geo.min.js';
-      s.onload=resolve; s.onerror=()=>reject(new Error('Map drawing library could not be loaded.'));
-      document.head.appendChild(s);
-    }),
-    fetch(mapDataUrl,{mode:'cors',cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error('Map boundary data could not be loaded.');return r.json();})
-  ]).then(([,data])=>draw(data)).catch(err=>{
-    console.warn('[Bharat Unfolded map]',err);
-    showFallback('The interactive map is temporarily unavailable.');
-  });
+  loadMap();
 })();
