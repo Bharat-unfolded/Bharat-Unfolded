@@ -10,7 +10,47 @@ const norm=s=>(s||'').toLocaleLowerCase('en').normalize('NFD').replace(/[\u0300-
 function distance(a,b){if(a===b)return 0;if(!a||!b)return 99;let prev=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let row=[i];for(let j=1;j<=b.length;j++)row[j]=Math.min(row[j-1]+1,prev[j]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));prev=row;}return prev[b.length];}
 function close(a,b){if(!a||!b)return false;if(a.includes(b)||b.includes(a))return true;const aa=a.split(' '),bb=b.split(' ');return aa.some(x=>bb.some(y=>Math.min(x.length,y.length)>=4&&distance(x,y)<= (Math.max(x.length,y.length)>7?2:1)));}
 let destinations=[],ready=false;
-function readPage(html,state,slug){const doc=new DOMParser().parseFromString(html,'text/html');const cards=[...doc.querySelectorAll('.place-card, [data-place-name]')];const out=[];for(const card of cards){const heading=card.querySelector('h2,h3,[data-place-name]');const name=(card.dataset.name||card.dataset.placeName||heading?.textContent||'').trim();if(!name)continue;let city=card.dataset.city||card.dataset.district||'';let district=card.dataset.district||'';const location=card.querySelector('.facts span, [data-location]');if(!city&&location){const txt=location.textContent.replace(/^Location/i,'').trim();city=txt.split(',')[0].trim();}if(!city){const number=card.querySelector('.number')?.textContent||'';city=number.replace(/^\s*\d+\s*[·.-]?\s*/,'').replace(new RegExp(state,'i'),'').replace(/[·,]/g,' ').trim();}const id=card.id||'';const tags=[card.dataset.search,card.dataset.tags,card.dataset.keywords,card.textContent].filter(Boolean).join(' ');out.push({name,city:city||state,district,state,slug,id,tags,href:'states/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});}return out;}
+function readPage(html,state,slug){
+ const doc=new DOMParser().parseFromString(html,'text/html'),out=[];
+ const cards=[...doc.querySelectorAll('article, .place-card, [data-place-name]')];
+ const seen=new Set();
+ for(const card of cards){
+  const heading=card.querySelector('h2,h3,[data-place-name]');
+  const name=(card.dataset.name||card.dataset.placeName||heading?.textContent||'').replace(/\\s+/g,' ').trim();
+  if(!name)continue;
+  const id=card.id||'',key=norm(name)+'|'+id;
+  if(seen.has(key))continue;seen.add(key);
+  let city=card.dataset.city||'',district=card.dataset.district||'';
+  const loc=card.querySelector('.loc,.location,.ap-loc,[data-location],.meta,.kicker');
+  if(loc){
+   let txt=loc.textContent.replace(/^\\s*(location|⌖)\\s*/i,'').replace(/^DESTINATION\\s+\\d+\\s*[·.-]\\s*/i,'').trim();
+   txt=txt.split('·').pop().trim();
+   if(!city)city=txt.split(',')[0].trim();
+   if(!district&&txt.includes(','))district=txt.split(',').slice(1).join(',').trim();
+  }
+  if(!city){
+   const number=card.querySelector('.number,.ap-num')?.textContent||'';
+   city=number.replace(/^\\s*\\d+\\s*(?:[·./-].*)?/,'').replace(new RegExp(state,'i'),'').trim();
+  }
+  if(!city)city=state;
+  const tags=[card.dataset.search,card.dataset.tags,card.dataset.keywords,card.querySelector('.desc,.description')?.textContent,card.textContent].filter(Boolean).join(' ');
+  out.push({name,city,district,state,slug,id,tags,href:'states/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});
+ }
+ // Arunachal Pradesh builds its 25 destination cards from an embedded data array.
+ if(!out.length&&slug==='arunachal-pradesh'){
+  for(const script of doc.scripts){
+   const match=script.textContent.match(/const\\s+places\\s*=\\s*(\\[[\\s\\S]*?\\])\\s*;/);
+   if(!match)continue;
+   try{const places=JSON.parse(match[1]);for(const p of places){
+    const name=String(p.n||p.name||'').trim();if(!name)continue;
+    const loc=String(p.loc||p.city||state),parts=loc.split(',');
+    out.push({name,city:parts[0].trim(),district:parts.slice(1).join(',').trim(),state,slug,id:'',tags:[p.category,p.desc,p.hours,p.fee].filter(Boolean).join(' '),href:'states/'+slug+'.html'});
+   }}catch(_){}
+   break;
+  }
+ }
+ return out;
+}
 async function load(){const jobs=states.map(async([state,slug])=>{try{const res=await fetch('states/'+slug+'.html',{cache:'force-cache'});if(!res.ok)return[];return readPage(await res.text(),state,slug);}catch(_){return[];}});destinations=(await Promise.all(jobs)).flat();ready=true;if(input.value.trim().length>=2)render(input.value.trim());}
 function matchScore(query,value){const q=norm(query),v=norm(value);if(!q||!v)return 0;if(q===v)return 100;if(v.startsWith(q))return 88;if(v.includes(q))return 78;if(close(q,v))return 60;return 0;}
 function render(raw){const q=norm(raw);if(q.length<2){panel.hidden=true;panel.innerHTML='';return;}if(!ready){panel.hidden=false;panel.innerHTML='<div class="bu-search-empty">Loading destinations from all state guides…</div>';return;}
