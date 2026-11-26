@@ -3,7 +3,7 @@
  'use strict';
  if(window.__bharatUnfoldedRegionUI)return;
  window.__bharatUnfoldedRegionUI=true;
- const home='../index.html';
+ const home=(location.pathname.includes('/states/')||location.pathname.includes('/union-territories/'))?'../index.html':'index.html';
  const navItems=[
   ['Latest updates',home+'#updates'],['All states',home+'#states'],['Union Territories',home+'#union-territories'],
   ['Famous places',home+'#places'],['Explore more',home+'#discover'],['Contact',home+'#contact'],['Policies',home+'#policies']
