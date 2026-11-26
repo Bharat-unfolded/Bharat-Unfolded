@@ -50,6 +50,25 @@ footer{padding:65px 0 25px;border-top:1px solid var(--line);background:rgba(0,0,
 }
 @media(max-width:900px){.feature-grid{grid-template-columns:repeat(4,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.feature{scroll-snap-align:start}.navlinks{display:none}.hamb{display:block}.feature-grid{grid-template-columns:1fr 1fr}.feature:first-child{grid-column:auto}.statesgrid,.ut-grid{grid-template-columns:repeat(3,1fr)}.topics{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1.3fr 1fr 1fr}.footer-grid>div:last-child{grid-column:2/4}}
 @media(max-width:600px){.feature-grid{grid-template-columns:repeat(4,minmax(210px,1fr));overflow-x:auto}.feature{scroll-snap-align:start}.topline{font-size:8px;letter-spacing:.15em}.nav{height:68px}.brandmark{width:38px;height:38px}.brandname{font-size:10px}.nav-actions .pill-btn{display:none}.hero{min-height:650px;padding:75px 0 80px}.hero-bg{background-position:58% center}.hero h1{font-size:54px}.hero-copy{font-size:13px}.hero-search{border-radius:18px;flex-direction:column;padding:9px}.hero-search input{padding:12px 10px}.hero-search button{padding:13px}.hero-meta{gap:18px}.hero-meta strong{font-size:22px}.stats{grid-template-columns:repeat(2,1fr);margin-top:-24px;gap:9px}.stat{padding:16px 10px}.stat strong{font-size:25px}.stat span{font-size:8px}.section{padding:68px 0}.section-head{align-items:start;flex-direction:column}.feature-grid,.places-grid{grid-template-columns:1fr}.feature:first-child{grid-column:auto}.feature img,.feature:first-child img{height:205px}.statesgrid,.ut-grid{grid-template-columns:repeat(2,1fr);gap:8px}.state{font-size:11px;padding:12px 10px}.directory-panel{padding:17px}.directory-top h3{font-size:20px}.topics{grid-template-columns:1fr 1fr;gap:9px}.topic{padding:16px;min-height:190px}.topic h3{font-size:17px}.topic p{font-size:11px}.connect{padding:38px 20px}.footer-grid{grid-template-columns:1fr 1fr;gap:28px}.footer-grid>div:first-child{grid-column:span 2}.footer-grid>div:last-child{grid-column:auto}.copyright{flex-direction:column}.place img{height:220px}}
+
+/* Make the Surprise Me card feel like a featured destination, especially on phones. */
+.surprise-feature{position:relative;border:1px solid rgba(238,199,112,.58);background:linear-gradient(145deg,rgba(255,226,164,.16),rgba(20,25,20,.88));box-shadow:0 10px 32px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.18)}
+.surprise-feature img{filter:saturate(1.08) contrast(1.04);transition:transform .45s ease,filter .45s ease}
+.surprise-feature:hover img{transform:scale(1.045);filter:saturate(1.18) contrast(1.05)}
+.surprise-image-label{position:absolute;top:11px;left:11px;z-index:2;padding:7px 10px;border:1px solid rgba(255,236,187,.55);border-radius:30px;background:rgba(20,24,20,.68);backdrop-filter:blur(10px);color:#ffe5a5;font-size:8px;font-weight:800;letter-spacing:.14em}
+.surprise-feature .tag{background:linear-gradient(110deg,#fff0bd,#d5a34f);box-shadow:0 3px 12px rgba(213,163,79,.18)}
+.surprise-feature h3{color:#ffe3a1}
+.surprise-feature .read{font-size:10px;letter-spacing:.05em}
+@media(max-width:600px){
+ .surprise-feature{width:248px;min-width:248px;aspect-ratio:0.82/1;justify-self:start;border-radius:21px;box-shadow:0 14px 38px rgba(0,0,0,.34),0 0 0 1px rgba(231,190,103,.12)}
+ .surprise-feature img{height:56%!important;min-height:0;object-position:center 42%}
+ .surprise-feature .feature-body{padding:13px 14px 15px;gap:2px}
+ .surprise-feature .tag{font-size:8px;padding:5px 9px}
+ .surprise-feature h3{font-size:19px;margin:9px 0 6px;line-height:1.15}
+ .surprise-feature p{font-size:11px;line-height:1.5}
+ .surprise-feature .read{font-size:10px;padding-top:10px}
+ .surprise-image-label{top:12px;left:12px;font-size:8px;padding:8px 11px}
+}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
 
@@ -96,7 +115,7 @@ footer{padding:65px 0 25px;border-top:1px solid var(--line);background:rgba(0,0,
   <div class="feature-grid">
    <a class="feature glass" href="https://viratramaayanmandir.com//wordpress/" target="_blank" rel="noopener"><img src="https://static.punjabkesari.in/multimedia/2026_1image_11_36_073840726viratramayanmandsirshiv-ll.jpg" alt="Virat Ramayan Mandir Shivling" loading="lazy"><div class="feature-body"><span class="tag">Latest Update · Bihar</span><h3>Virat Ramayan Mandir: 33-Foot Shivling</h3><p>A major update from the temple complex taking shape in East Champaran, Bihar.</p><span class="read">Read the update ↗</span></div></a>
    <a class="feature glass" href="states/bihar.html?place=Nirmal%20Baba%20Mandir"><img src="assets/nirmal-baba-mandir.webp" alt="Nirmal Baba Mandir in Nirmali" loading="lazy"><div class="feature-body"><span class="tag">Featured place · Bihar</span><h3>Nirmal Baba Mandir, Nirmali</h3><p>A neighborhood shrine at Nirmal Baba Chowk, Nirmali, Supaul district.</p><span class="read">View temple details ↗</span></div></a>
-   <a class="feature glass surprise-feature" href="#stories" aria-label="Surprise me with a destination"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=82" alt="Scenic travel landscape in India" loading="lazy"><div class="feature-body"><span class="tag">Surprise destination</span><h3>Find your next journey</h3><p>Let Bharat Unfolded pick a destination for your next discovery.</p><span class="read">Surprise me ↗</span></div></a>
+   <a class="feature glass surprise-feature" href="#stories" aria-label="Surprise me with a destination"><img src="https://images.unsplash.com/photo-1524229321985-1e1989075d9b?auto=format&fit=crop&w=1000&q=88" alt="Hawa Mahal in Jaipur, a pink sandstone palace with ornate windows" loading="lazy"><span class="surprise-image-label">✦ DESTINATION DRAW</span><div class="feature-body"><span class="tag">Surprise destination</span><h3>Find your next journey</h3><p>Let Bharat Unfolded pick a destination for your next discovery.</p><span class="read">Surprise me ↗</span></div></a>
    <a class="feature glass" href="culture-of-india.html"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=900&q=82" alt="Taj Mahal and Indian cultural heritage" loading="lazy"><div class="feature-body"><span class="tag">India · Culture & History</span><h3>Many cultures, one incredible India</h3><p>Explore India's people, history, languages, festivals, food, arts and traditions.</p><span class="read">Explore India's culture ↗</span></div></a>
   </div>
  </div>
