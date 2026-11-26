@@ -35,12 +35,12 @@ header{position:sticky;top:0;z-index:5;background:rgba(16,15,12,.76);border-bott
 <div class="fields">
 <div class="field"><label for="going">Going ticket (₹)</label><input id="going" type="number" min="0" value="1500"></div>
 <div class="field"><label for="return">Return ticket (₹)</label><input id="return" type="number" min="0" value="1500"></div>
-<div class="field"><label for="hotel">Hotel per night (₹)</label><input id="hotel" type="number" min="0" value="1200"></div>
+<div class="field"><label for="hotel">Hotel stay per night (₹)</label><input id="hotel" type="number" min="0" value="1200"></div>
 <div class="field"><label for="food">Food per day (₹)</label><input id="food" type="number" min="0" value="600"></div>
 <div class="field"><label for="local">Local transport per day (₹)</label><input id="local" type="number" min="0" value="300"></div>
 <div class="field full"><label for="extras">Other expenses per person (₹)</label><input id="extras" type="number" min="0" value="500"></div>
 </div>
-<div class="estimate-note">All amounts are estimates that you can edit. Actual ticket and hotel prices depend on travel dates, availability and booking provider. Hotel cost is calculated for (days − 1) nights.</div>
+<div class="estimate-note">All amounts are estimates that you can edit. Actual ticket and hotel prices depend on travel dates, availability and booking provider. Hotel cost is calculated as one night per trip day.</div>
 </section>
 <aside class="panel glass summary" aria-live="polite">
 <div class="section-label">CALCULATED BUDGET</div>
@@ -71,7 +71,7 @@ header{position:sticky;top:0;z-index:5;background:rgba(16,15,12,.76);border-bott
   const going=num('going');
   const returning=num('return');
   const travel=going+returning;
-  const hotel=num('hotel')*Math.max(0,days-1);
+  const hotel=num('hotel')*days;
   const food=num('food')*days;
   const local=num('local')*days;
   const extra=num('extras');
