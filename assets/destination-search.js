@@ -33,8 +33,11 @@ function readPage(html,state,slug){
    city=number.replace(/^\\s*\\d+\\s*(?:[·./-].*)?/,'').replace(new RegExp(state,'i'),'').trim();
   }
   if(!city)city=state;
-  const tags=[card.dataset.search,card.dataset.tags,card.dataset.keywords,card.querySelector('.desc,.description')?.textContent,card.textContent].filter(Boolean).join(' ');
-  out.push({name,city,district,state,slug,id,tags,href:'states/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});
+  const meta=card.querySelector('.meta,.kicker,.category,.type,.ap-category')?.textContent||'';
+  const tags=[card.dataset.search,card.dataset.tags,card.dataset.keywords,meta,card.querySelector('.desc,.description')?.textContent,card.textContent].filter(Boolean).join(' ');
+  const templeText=norm([name,meta,card.dataset.category,card.dataset.type].filter(Boolean).join(' '));
+  const isTemple=/(temple|mandir|devalaya|devasthan|jyotirlinga|shrine|matha|math|gurudwara|gurdwara|harmandir|jagannath|amarnath|vaishno|badrinath|kedarnath|somnath|meenakshi|brihadeeswarar|lingaraj|kamakhya|mahakaleshwar|omkareshwar|tirupati|venkateswara|rameswaram|ramanathaswamy|kashi vishwanath|golden temple)/.test(templeText);
+  out.push({name,city,district,state,slug,id,tags,isTemple,href:'states/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});
  }
  // Arunachal Pradesh builds its 25 destination cards from an embedded data array.
  if(!out.length&&slug==='arunachal-pradesh'){
@@ -44,7 +47,7 @@ function readPage(html,state,slug){
    try{const places=JSON.parse(match[1]);for(const p of places){
     const name=String(p.n||p.name||'').trim();if(!name)continue;
     const loc=String(p.loc||p.city||state),parts=loc.split(',');
-    out.push({name,city:parts[0].trim(),district:parts.slice(1).join(',').trim(),state,slug,id:'',tags:[p.category,p.desc,p.hours,p.fee].filter(Boolean).join(' '),href:'states/'+slug+'.html'});
+    out.push({name,city:parts[0].trim(),district:parts.slice(1).join(',').trim(),state,slug,id:'',tags:[p.category,p.desc,p.hours,p.fee].filter(Boolean).join(' '),isTemple:/temple|mandir|devalaya|jyotirlinga|shrine/i.test([p.n,p.category].join(' ')),href:'states/'+slug+'.html'});
    }}catch(_){}
    break;
   }
@@ -54,10 +57,10 @@ function readPage(html,state,slug){
 async function load(){const jobs=states.map(async([state,slug])=>{try{const res=await fetch('states/'+slug+'.html',{cache:'force-cache'});if(!res.ok)return[];return readPage(await res.text(),state,slug);}catch(_){return[];}});destinations=(await Promise.all(jobs)).flat();ready=true;if(input.value.trim().length>=2)render(input.value.trim());}
 function matchScore(query,value){const q=norm(query),v=norm(value);if(!q||!v)return 0;if(q===v)return 100;if(v.startsWith(q))return 88;if(v.includes(q))return 78;if(close(q,v))return 60;return 0;}
 function render(raw){const q=norm(raw);if(q.length<2){panel.hidden=true;panel.innerHTML='';return;}if(!ready){panel.hidden=false;panel.innerHTML='<div class="bu-search-empty">Loading destinations from all state guides…</div>';return;}
-const placeHits=[],cityHits=[],stateHits=[];for(const d of destinations){const p=matchScore(q,d.name),c=Math.max(norm(d.city)!==norm(d.state)?matchScore(q,d.city):0,matchScore(q,d.district)),s=matchScore(q,d.state);if(p)placeHits.push({d,score:p,kind:0});else if(c)cityHits.push({d,score:c,kind:1});else if(s)stateHits.push({d,score:s,kind:2});}
+const templeQuery=/(^|\\s)(temple|mandir|mandirs|temples)(\\s|$)/.test(q);const filtered=templeQuery?destinations.filter(d=>d.isTemple):destinations;const placeHits=[],cityHits=[],stateHits=[];for(const d of filtered){const p=matchScore(q,d.name.replace(/\\b(temple|mandir)\\b/g,'').trim(),d.name),c=Math.max(norm(d.city)!==norm(d.state)?matchScore(q,d.city):0,matchScore(q,d.district)),s=matchScore(q,d.state);if(p)placeHits.push({d,score:p,kind:0});else if(c)cityHits.push({d,score:c,kind:1});else if(s)stateHits.push({d,score:s,kind:2});}
 let hits=placeHits.length?placeHits:cityHits.length?cityHits:stateHits;hits.sort((a,b)=>b.score-a.score||a.d.name.localeCompare(b.d.name));const unique=new Map();for(const h of hits)if(!unique.has(h.d.href))unique.set(h.d.href,h.d);hits=[...unique.values()];panel.hidden=false;
 if(!hits.length){panel.innerHTML='<div class="bu-search-empty">No places found for “'+escapeHtml(raw)+'”. Try searching by state, city, or temple name. <button type="button" data-clear>Clear search</button></div>';panel.querySelector('[data-clear]').addEventListener('click',clear);return;}
-const label=placeHits.length?'Matching places':cityHits.length?'Places in matching city/district':'Places in matching state';panel.innerHTML='<div class="bu-search-results-head"><span>'+label+' · '+hits.length+'</span><button class="bu-search-clear" type="button" data-clear>Clear ×</button></div><div class="bu-search-list">'+hits.slice(0,100).map(d=>'<a class="bu-search-card" href="'+d.href+'"><strong>'+escapeHtml(d.name)+'</strong><span>'+escapeHtml(d.city)+(d.district&&norm(d.district)!==norm(d.city)?' · '+escapeHtml(d.district):'')+' · '+escapeHtml(d.state)+'</span></a>').join('')+'</div>';panel.querySelector('[data-clear]').addEventListener('click',clear);}
+const label=templeQuery?'Matching temples':placeHits.length?'Matching places':cityHits.length?'Places in matching city/district':'Places in matching state';panel.innerHTML='<div class="bu-search-results-head"><span>'+label+' · '+hits.length+'</span><button class="bu-search-clear" type="button" data-clear>Clear ×</button></div><div class="bu-search-list">'+hits.slice(0,100).map(d=>'<a class="bu-search-card" href="'+d.href+'"><strong>'+escapeHtml(d.name)+'</strong><span>'+escapeHtml(d.city)+(d.district&&norm(d.district)!==norm(d.city)?' · '+escapeHtml(d.district):'')+' · '+escapeHtml(d.state)+'</span></a>').join('')+'</div>';panel.querySelector('[data-clear]').addEventListener('click',clear);}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function clear(){input.value='';panel.hidden=true;panel.innerHTML='';input.focus();}
 input.addEventListener('input',()=>render(input.value));form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q.length)render(q);else{panel.hidden=true;}});
