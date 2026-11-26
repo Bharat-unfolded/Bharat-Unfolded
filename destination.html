@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10251f">
+<title>Destination | Bharat Unfolded</title>
+<link rel="stylesheet" href="ios-glass.css">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#f8f2e5;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","DM Sans",sans-serif;background:radial-gradient(ellipse at 15% 5%,rgba(197,151,72,.22),transparent 42%),radial-gradient(ellipse at 90% 85%,rgba(31,108,78,.2),transparent 45%),#101b18;padding:24px}
+.wrap{width:min(900px,100%);margin:auto}.back{display:inline-block;color:#e9d6a7;text-decoration:none;font-size:11px;font-weight:800;letter-spacing:.13em;padding:12px 16px;border:1px solid #d6b66a55;border-radius:30px;background:#ffffff0b}
+.card{margin:28px 0;padding:clamp(24px,5vw,52px);border:1px solid #e6c77b55;border-radius:28px;background:linear-gradient(145deg,#ffffff14,#ffffff06);box-shadow:0 24px 80px #0005;backdrop-filter:blur(24px)}
+.kicker{color:#d8b66b;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1{font-family:Georgia,serif;font-size:clamp(34px,7vw,62px);line-height:1.08;margin:15px 0}
+p{font-size:15px;line-height:1.8;color:#e1dfd5;max-width:720px}
+.rule{height:2px;width:68px;background:linear-gradient(90deg,#d9b96e,#fff0c7);margin:24px 0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.action{display:inline-block;text-decoration:none;padding:13px 18px;border-radius:30px;font-size:12px;font-weight:800;background:#d7b66a;color:#17231d}.action.secondary{background:#ffffff10;color:#f7e7bf;border:1px solid #d7b66a66}
+.note{font-size:11px;color:#bcb8a9;margin-top:26px}
+</style>
+</head>
+<body><main class="wrap">
+<a class="back" href="index.html">← BHARAT UNFOLDED</a>
+<section class="card" aria-live="polite">
+<div class="kicker" id="state">A destination picked for you</div>
+<h1 id="name">Your surprise destination</h1>
+<div class="rule"></div>
+<p id="description">Discover a special place in India, with its own story, architecture and local character.</p>
+<div class="actions"><a class="action" id="map" target="_blank" rel="noopener">Explore location ↗</a><a class="action secondary" id="guide">Open state guide</a></div>
+<div class="note">A little surprise from Bharat Unfolded. ✨</div>
+</section></main>
+<script>
+(function(){
+ const places={
+ "Taj Mahal":{state:"Uttar Pradesh · Agra",guide:"states/uttar-pradesh.html",description:"A UNESCO World Heritage Site in Agra, the Taj Mahal is a white-marble mausoleum built by Mughal emperor Shah Jahan in memory of Mumtaz Mahal. Its gardens, symmetry and intricate marble inlay make it one of India's best-known landmarks."},
+ "Mahavir Mandir (Patna)":{state:"Bihar · Patna",guide:"states/bihar.html",description:"Located beside Patna Junction, Mahavir Mandir is one of the most visited temples dedicated to Lord Hanuman in Bihar. It is known for its distinctive pair of Hanuman idols and its Naivedyam prasad."},
+ "Hawa Mahal":{state:"Rajasthan · Jaipur",guide:"states/rajasthan.html",description:"Jaipur's Hawa Mahal, or Palace of Winds, is famous for its honeycomb façade, 953 small windows and pink sandstone architecture. It was built so royal women could observe city life while remaining out of public view."},
+ "Konark Sun Temple":{state:"Odisha · Konark",guide:"states/odisha.html",description:"The 13th-century Konark Sun Temple is designed as the monumental stone chariot of the Sun God, with carved wheels and horses. This UNESCO World Heritage Site is celebrated for its Kalinga architecture and detailed stone sculpture."},
+ "Meenakshi Amman Temple":{state:"Tamil Nadu · Madurai",guide:"states/tamil-nadu.html",description:"Dedicated to Goddess Meenakshi and Lord Sundareswarar, this celebrated Madurai temple is known for its colourful gopurams, Golden Lotus Tank and thousand-pillared hall."},
+ "Sri Harmandir Sahib / Golden Temple":{state:"Punjab · Amritsar",guide:"states/punjab.html",description:"Sri Harmandir Sahib, popularly known as the Golden Temple, is the spiritual center of Sikhism. Set beside the sacred Amrit Sarovar, it welcomes visitors for prayer, kirtan and the community langar."},
+ "Charminar":{state:"Telangana · Hyderabad",guide:"states/telangana.html",description:"Built in 1591, Hyderabad's Charminar is a landmark monument with four grand arches and minarets. The surrounding lanes are known for historic markets, bangles and the city's distinctive food culture."},
+ "Victoria Memorial":{state:"West Bengal · Kolkata",guide:"states/west-bengal.html",description:"Opened in 1921, Kolkata's white-marble Victoria Memorial is a major city landmark. Its museum galleries cover colonial-era history, while landscaped grounds surround the monument."}
+ };
+ const params=new URLSearchParams(location.search),key=params.get("place"),item=places[key];
+ if(item){document.title=key+" | Bharat Unfolded";document.getElementById("name").textContent=key;document.getElementById("state").textContent=item.state;document.getElementById("description").textContent=item.description;document.getElementById("guide").href=item.guide;document.getElementById("map").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(key+" "+item.state);}
+ else{document.getElementById("description").textContent="This destination link could not be found. Please return to the homepage and try Surprise Me again.";document.getElementById("guide").href="index.html";document.getElementById("map").hidden=true;}
+})();
+</script></body></html>
