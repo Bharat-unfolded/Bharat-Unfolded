@@ -1,6 +1,8 @@
 /* Bharat Unfolded — reliable homepage destination search */
 (()=>{'use strict';
-const regions=[["Andhra Pradesh","andhra-pradesh"],["Arunachal Pradesh","arunachal-pradesh"],["Assam","assam"],["Bihar","bihar"],["Chhattisgarh","chhattisgarh"],["Goa","goa"],["Gujarat","gujarat"],["Haryana","haryana"],["Himachal Pradesh","himachal-pradesh"],["Jharkhand","jharkhand"],["Karnataka","karnataka"],["Kerala","kerala"],["Madhya Pradesh","madhya-pradesh"],["Maharashtra","maharashtra"],["Manipur","manipur"],["Meghalaya","meghalaya"],["Mizoram","mizoram"],["Nagaland","nagaland"],["Odisha","odisha"],["Punjab","punjab"],["Rajasthan","rajasthan"],["Sikkim","sikkim"],["Tamil Nadu","tamil-nadu"],["Telangana","telangana"],["Tripura","tripura"],["Uttar Pradesh","uttar-pradesh"],["Uttarakhand","uttarakhand"],["West Bengal","west-bengal"]];
+const regions=[
+["Andhra Pradesh","andhra-pradesh","states"],["Arunachal Pradesh","arunachal-pradesh","states"],["Assam","assam","states"],["Bihar","bihar","states"],["Chhattisgarh","chhattisgarh","states"],["Goa","goa","states"],["Gujarat","gujarat","states"],["Haryana","haryana","states"],["Himachal Pradesh","himachal-pradesh","states"],["Jharkhand","jharkhand","states"],["Karnataka","karnataka","states"],["Kerala","kerala","states"],["Madhya Pradesh","madhya-pradesh","states"],["Maharashtra","maharashtra","states"],["Manipur","manipur","states"],["Meghalaya","meghalaya","states"],["Mizoram","mizoram","states"],["Nagaland","nagaland","states"],["Odisha","odisha","states"],["Punjab","punjab","states"],["Rajasthan","rajasthan","states"],["Sikkim","sikkim","states"],["Tamil Nadu","tamil-nadu","states"],["Telangana","telangana","states"],["Tripura","tripura","states"],["Uttar Pradesh","uttar-pradesh","states"],["Uttarakhand","uttarakhand","states"],["West Bengal","west-bengal","states"],
+["Andaman and Nicobar Islands","andaman-and-nicobar-islands","union-territories"],["Chandigarh","chandigarh","union-territories"],["Dadra and Nagar Haveli and Daman and Diu","dadra-nagar-haveli-and-daman-and-diu","union-territories"],["Delhi","delhi","union-territories"],["Jammu and Kashmir","jammu-and-kashmir","union-territories"],["Ladakh","ladakh","union-territories"],["Lakshadweep","lakshadweep","union-territories"],["Puducherry","puducherry","union-territories"]];
 const form=document.getElementById('siteSearch'),input=document.getElementById('searchInput');
 if(!form||!input)return;
 const panel=document.createElement('section');panel.id='buSearchResults';panel.className='bu-search-results';panel.hidden=true;panel.setAttribute('aria-live','polite');panel.setAttribute('aria-label','Search results');form.insertAdjacentElement('afterend',panel);
@@ -11,7 +13,7 @@ const escapeHtml=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>'
 function score(q,v){q=norm(q);v=norm(v);if(!q||!v)return 0;if(q===v)return 100;if(v.startsWith(q))return 90;if(v.includes(q))return 80;const words=v.split(' '),parts=q.split(' ');if(parts.every(p=>words.some(w=>w.startsWith(p)||w.includes(p))))return 65;return 0;}
 const templeWords=/temple|mandir|devalaya|devasthan|jyotirlinga|shrine|matha|math|gurudwara|gurdwara|harmandir|jagannath|amarnath|vaishno|badrinath|kedarnath|somnath|meenakshi|brihadeeswarar|lingaraj|kamakhya|mahakaleshwar|omkareshwar|tirupati|venkateswara|rameswaram|ramanathaswamy|kashi vishwanath|golden temple|akshardham|ram janmabhoomi|bodh gaya|mahavir mandir/i;
 let destinations=[],loaded=false,loadError=false;
-function parsePage(html,state,slug){
+function parsePage(html,state,slug,prefix){
  const doc=new DOMParser().parseFromString(html,'text/html'),cards=[...doc.querySelectorAll('.place-card,article,[data-place-name]')],out=[],seen=new Set();
  for(const card of cards){
   const heading=card.querySelector('.place-copy h2,h2,h3,[data-place-name]');
@@ -22,17 +24,17 @@ function parsePage(html,state,slug){
   const desc=card.querySelector('.place-copy p,.description,.desc,p')?.textContent||'';
   const tags=[card.dataset.search,card.dataset.tags,card.dataset.keywords,card.dataset.category,card.dataset.type,loc,desc,card.textContent].filter(Boolean).join(' ');
   const parts=loc.split(/[·,]/).map(x=>x.trim()).filter(Boolean);
-  out.push({name,state,city:parts[0]||state,slug,id,tags,isTemple:templeWords.test(name+' '+tags),href:'states/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});
+  out.push({name,state,city:parts[0]||state,slug,id,tags,isTemple:templeWords.test(name+' '+tags),href:prefix+'/'+slug+'.html'+(id?'#'+encodeURIComponent(id):'')});
  }
  return out;
 }
 async function fetchRegion(region){
- const [state,slug]=region;
+ const [state,slug,prefix]=region;
  try{
-  const url=new URL('states/'+slug+'.html',document.baseURI);
+  const url=new URL(prefix+'/'+slug+'.html',document.baseURI);
   const res=await fetch(url.href,{cache:'no-cache'});
   if(!res.ok)throw new Error('HTTP '+res.status);
-  return parsePage(await res.text(),state,slug);
+  return parsePage(await res.text(),state,slug,prefix);
  }catch(err){console.warn('[Bharat Unfolded search] Could not load '+state,err);return[];}
 }
 async function loadAll(){
@@ -50,7 +52,7 @@ function render(raw){
  const templeQuery=/(^|\s)(temple|mandir|mandirs|temples)(\s|$)/.test(q);
  let source=templeQuery?destinations.filter(d=>d.isTemple):destinations;
  let hits=source.map(d=>({d,s:Math.max(score(q,d.name),score(q,d.tags)*.72,score(q,d.city)*.8,score(q,d.state)*.72)})).filter(x=>x.s>0);
- if(!hits.length&&!templeQuery)hits=regions.map(([state,slug])=>({d:{name:state,state,city:'',slug,href:'states/'+slug+'.html',tags:'state region'},s:score(q,state)})).filter(x=>x.s>0);
+ if(!hits.length&&!templeQuery)hits=regions.map(([state,slug,prefix])=>({d:{name:state,state,city:'',slug,href:prefix+'/'+slug+'.html',tags:prefix==='states'?'state region':'union territory UT region'},s:score(q,state)})).filter(x=>x.s>0);
  hits.sort((a,b)=>b.s-a.s||a.d.name.localeCompare(b.d.name));
  const unique=new Map();for(const h of hits)if(!unique.has(h.d.href))unique.set(h.d.href,h.d);
  const results=[...unique.values()].slice(0,100);
