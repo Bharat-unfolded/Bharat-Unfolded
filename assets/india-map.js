@@ -30,11 +30,6 @@
   const svgHost = document.getElementById('indiaMapSvg');
   const search = document.getElementById('indiaMapSearch');
   const list = document.getElementById('indiaMapList');
-  const detail = document.getElementById('indiaMapDetail');
-  const nameNode = document.getElementById('indiaMapSelectedName');
-  const typeNode = document.getElementById('indiaMapSelectedType');
-  const openNode = document.getElementById('indiaMapOpen');
-  let selected = null;
   function renderList(query='') {
     const q = norm(query);
     const matches = regions.filter(r => !q || norm(r[0]).includes(q));
@@ -43,21 +38,9 @@
     document.getElementById('indiaMapNoResults').hidden = matches.length !== 0;
     if (select) select.innerHTML = '<option value="">Choose a state or UT</option>' + matches.map(r=>'<option value="'+r[1]+'">'+r[0]+'</option>').join('');
   }
-  function choose(region) {
+  function openRegion(region) {
     if (!region) return;
-    selected = region;
-    nameNode.textContent = region[0];
-    typeNode.textContent = region[2] === 'ut' ? 'UNION TERRITORY' : 'STATE';
-    openNode.href = href(region);
-    detail.hidden = false;
-    svgHost.querySelectorAll('.map-region').forEach(el => {
-      const active = el.dataset.slug === region[1];
-      el.classList.toggle('is-selected', active);
-      if (active) el.setAttribute('aria-current','true');
-      else el.removeAttribute('aria-current');
-    });
-    if (select) select.value = region[1];
-    status.textContent = region[0] + ' selected. Click “Open destination guide” to visit its page.';
+    window.location.href = href(region);
   }
   function showFallback() {
     svgHost.innerHTML = '<div class="india-map-error"><b>India map is temporarily unavailable</b><small>The complete state and UT directory is ready beside the map.</small></div>';
@@ -80,9 +63,9 @@
         el.setAttribute('aria-label','Select ' + region[0]);
         el.setAttribute('tabindex','0');
         el.setAttribute('role','link');
-        el.addEventListener('click', () => choose(region));
+        el.addEventListener('click', () => openRegion(region));
         el.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(region); }
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRegion(region); }
         });
       });
       svgHost.replaceChildren(svg);
@@ -96,6 +79,6 @@
   }
   renderList();
   search.addEventListener('input', () => renderList(search.value));
-  if (select) select.addEventListener('change', () => choose(regions.find(r => r[1] === select.value)));
+  if (select) select.addEventListener('change', () => openRegion(regions.find(r => r[1] === select.value)));
   loadLocalMap();
 })();
