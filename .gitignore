@@ -1,0 +1,4 @@
+# Local payment credentials and customer payment database
+api/config.local.php
+storage/*.sqlite
+storage/*.sqlite-*
