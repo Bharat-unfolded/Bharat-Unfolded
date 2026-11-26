@@ -23,72 +23,70 @@ header{position:sticky;top:0;z-index:5;background:rgba(16,15,12,.76);border-bott
 <body>
 <header><div class="wrap nav"><a class="brand" href="/"><b>✦</b> BHARAT UNFOLDED</a><a class="back" href="/">← Back to homepage</a></div></header>
 <main class="wrap">
-<section class="hero"><div class="eyebrow">✦ SMART TRIP PLANNER</div><h1>Plan your trip.<br><em>Know your budget.</em></h1><p>Tell us where you want to go, where you will start, and how many days you have. Get an instant trip-cost estimate for travel, hotel, food and local transport.</p></section>
+<section class="hero"><div class="eyebrow">✦ SMART TRIP BUDGET</div><h1>Know your trip's<br><em>estimated cost.</em></h1><p>Enter the per-person prices below. Your total updates automatically, with a clear breakdown for the whole group.</p></section>
 <div class="layout">
 <section class="panel glass">
-<h2>Your trip details</h2><p class="sub">Add your route and travel preferences. You can change the estimated prices to match the options you find.</p>
+<h2>Cost per person</h2><p class="sub">Only add the prices you want included. No route or state selectors.</p>
 <div class="fields">
-<div class="field"><label for="origin">Where will you start from?</label><input id="origin" placeholder="e.g. Jaipur" autocomplete="address-level2"></div>
-<div class="field"><label for="destination">Where do you want to go?</label><input id="destination" placeholder="e.g. Manali, Bihar, Goa"></div>
-<div class="field"><label for="mode">How will you travel?</label><select id="mode"><option value="train">Train</option><option value="bus">Bus</option><option value="flight">Flight</option><option value="car">Own car / taxi</option></select></div>
-<div class="field"><label for="people">Number of travellers</label><input id="people" type="number" min="1" max="30" value="2"></div>
-<div class="field"><label for="days">Trip duration (days)</label><input id="days" type="number" min="1" max="60" value="3"></div>
-<div class="field"><label for="rooms">Hotel rooms</label><input id="rooms" type="number" min="1" max="15" value="1"></div>
+<div class="field"><label for="people">Number of people</label><input id="people" type="number" min="1" max="30" value="1"></div>
+<div class="field"><label for="days">Number of days</label><input id="days" type="number" min="1" max="60" value="3"></div>
 </div>
-<div class="divider"></div><div class="section-label">ESTIMATED COSTS — EDIT ANY PRICE</div>
+<div class="divider"></div><div class="section-label">ESTIMATED COSTS — PER PERSON</div>
 <div class="fields">
-<div class="field"><label for="ticket">Travel ticket per person (₹, return)</label><input id="ticket" type="number" min="0" value="1200"><span class="hint">Round-trip estimate for your selected travel mode</span></div>
-<div class="field"><label for="hotel">Hotel price per room / night (₹)</label><input id="hotel" type="number" min="0" value="1800"></div>
-<div class="field"><label for="food">Food per person / day (₹)</label><input id="food" type="number" min="0" value="500"></div>
-<div class="field"><label for="local">Local travel per person / day (₹)</label><input id="local" type="number" min="0" value="300"></div>
-<div class="field full"><label for="extras">Other expenses for the whole group (₹)</label><input id="extras" type="number" min="0" value="500"><span class="hint">Entry tickets, activities, shopping or emergency buffer</span></div>
+<div class="field"><label for="ticket">Return ticket (₹)</label><input id="ticket" type="number" min="0" value="2500"></div>
+<div class="field"><label for="hotel">Hotel per night (₹)</label><input id="hotel" type="number" min="0" value="1200"></div>
+<div class="field"><label for="food">Food per day (₹)</label><input id="food" type="number" min="0" value="600"></div>
+<div class="field"><label for="local">Local transport per day (₹)</label><input id="local" type="number" min="0" value="300"></div>
+<div class="field full"><label for="extras">Other expenses per person (₹)</label><input id="extras" type="number" min="0" value="500"></div>
 </div>
-<div class="estimate-note">Prices are planning estimates, not live railway, airline or hotel quotes. Actual fares depend on route, dates, availability, class and hotel choice. Enter the prices you see while booking for a more accurate total.</div>
+<div class="estimate-note">All amounts are estimates that you can edit. Actual ticket and hotel prices depend on travel dates, availability and booking provider. Hotel cost is calculated for (days − 1) nights.</div>
 </section>
 <aside class="panel glass summary" aria-live="polite">
-<div class="section-label">YOUR TRIP ESTIMATE</div><div id="tripTitle" style="font:600 18px 'Playfair Display',serif">Your trip summary</div>
-<div class="total" id="total">₹8,900</div><div class="perperson" id="perperson">₹4,450 per person · 2 travellers</div>
-<div class="costline"><span>Travel tickets</span><strong id="travelCost">₹2,400</strong></div>
-<div class="costline"><span>Hotel stay</span><strong id="hotelCost">₹3,600</strong></div>
-<div class="costline"><span>Food &amp; meals</span><strong id="foodCost">₹3,000</strong></div>
-<div class="costline"><span>Local transport</span><strong id="localCost">₹1,800</strong></div>
+<div class="section-label">CALCULATED BUDGET</div>
+<div class="total" id="total">₹8,500 <small>INR</small></div>
+<div class="perperson" id="perperson">₹8,500 per person · 1 person</div>
+<div class="costline"><span>Return ticket</span><strong id="travelCost">₹2,500</strong></div>
+<div class="costline"><span>Hotel stay</span><strong id="hotelCost">₹2,400</strong></div>
+<div class="costline"><span>Food</span><strong id="foodCost">₹1,800</strong></div>
+<div class="costline"><span>Local transport</span><strong id="localCost">₹900</strong></div>
 <div class="costline"><span>Other expenses</span><strong id="extraCost">₹500</strong></div>
-<div class="costline grand"><span>Total trip budget</span><strong id="grandCost">₹11,300</strong></div>
-<button class="btn" id="shareBtn" type="button">Share my trip estimate ↗</button><button class="btn share" id="printBtn" type="button">Save / Print budget</button>
-<p class="disclaimer">The total updates automatically when you change any detail or price. Ticket and hotel prices are not fetched live from booking providers.</p>
+<div class="costline grand"><span>Total for everyone</span><strong id="grandCost">₹8,100</strong></div>
+<button class="btn" id="shareBtn" type="button">Share budget ↗</button><button class="btn share" id="printBtn" type="button">Save / Print budget</button>
+<p class="disclaimer">Per-person total × number of people. All five cost categories are included in the total.</p>
 </aside>
 </div>
 </main>
 <script>
 (function(){
- const ids=['origin','destination','mode','people','days','rooms','ticket','hotel','food','local','extras'];
+ const ids=['people','days','ticket','hotel','food','local','extras'];
  const el=id=>document.getElementById(id);
  const money=n=>'₹'+Math.round(n).toLocaleString('en-IN');
  const num=id=>Math.max(0,Number(el(id).value)||0);
  function calculate(){
   const people=Math.max(1,Math.min(30,Math.floor(num('people'))));
   const days=Math.max(1,Math.min(60,Math.floor(num('days'))));
-  const rooms=Math.max(1,Math.min(15,Math.floor(num('rooms'))));
-  el('people').value=people;el('days').value=days;el('rooms').value=rooms;
-  const travel=num('ticket')*people;
-  const hotel=num('hotel')*rooms*Math.max(0,days-1);
-  const food=num('food')*people*days;
-  const local=num('local')*people*days;
+  el('people').value=people;el('days').value=days;
+  const travel=num('ticket');
+  const hotel=num('hotel')*Math.max(0,days-1);
+  const food=num('food')*days;
+  const local=num('local')*days;
   const extra=num('extras');
-  const total=travel+hotel+food+local+extra;
-  el('travelCost').textContent=money(travel);el('hotelCost').textContent=money(hotel);
-  el('foodCost').textContent=money(food);el('localCost').textContent=money(local);
-  el('extraCost').textContent=money(extra);el('grandCost').textContent=money(total);
+  const perPerson=travel+hotel+food+local+extra;
+  const total=perPerson*people;
+  el('travelCost').textContent=money(travel*people);
+  el('hotelCost').textContent=money(hotel*people);
+  el('foodCost').textContent=money(food*people);
+  el('localCost').textContent=money(local*people);
+  el('extraCost').textContent=money(extra*people);
+  el('grandCost').textContent=money(total);
   el('total').innerHTML=money(total)+' <small>INR</small>';
-  el('perperson').textContent=money(total/people)+' per person · '+people+' travellers · '+days+' days';
-  const from=el('origin').value.trim(),to=el('destination').value.trim();
-  el('tripTitle').textContent=(from||to)?(from||'Your city')+' → '+(to||'Your destination'):'Your trip summary';
-  return {from,to,mode:el('mode').selectedOptions[0].text,people,days,rooms,travel,hotel,food,local,extra,total};
+  el('perperson').textContent=money(perPerson)+' per person · '+people+' '+(people===1?'person':'people');
+  return {people,days,travel:travel*people,hotel:hotel*people,food:food*people,local:local*people,extra:extra*people,total};
  }
  ids.forEach(id=>el(id).addEventListener('input',calculate));
  el('shareBtn').addEventListener('click',async()=>{
   const d=calculate();
-  const message='My Bharat Unfolded trip budget\n'+(d.from||'Start')+' → '+(d.to||'Destination')+'\nTravel: '+money(d.travel)+'\nHotel: '+money(d.hotel)+'\nFood: '+money(d.food)+'\nLocal transport: '+money(d.local)+'\nOther: '+money(d.extra)+'\nTOTAL: '+money(d.total)+' for '+d.people+' travellers / '+d.days+' days.';
+  const message='My Bharat Unfolded trip budget\\nReturn ticket: '+money(d.travel)+'\\nHotel: '+money(d.hotel)+'\\nFood: '+money(d.food)+'\\nLocal transport: '+money(d.local)+'\\nOther: '+money(d.extra)+'\\nTOTAL: '+money(d.total)+' for '+d.people+' people / '+d.days+' days.';
   if(navigator.share){try{await navigator.share({title:'My trip budget',text:message});}catch(e){}}
   else if(navigator.clipboard){await navigator.clipboard.writeText(message);el('shareBtn').textContent='Budget copied ✓';}
  });
