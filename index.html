@@ -25,6 +25,29 @@ header{position:sticky;top:0;z-index:50;background:rgba(16,15,12,.72);border-bot
 .connect{padding:55px;text-align:center;background:radial-gradient(ellipse at 50% 0%,rgba(229,196,119,.16),transparent 65%),linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.035))}.connect h2{font:600 clamp(30px,5vw,52px) "Playfair Display",serif;margin:14px auto;max-width:700px}.connect p{color:var(--muted);font-size:13px;line-height:1.8;max-width:570px;margin:0 auto 24px}.connect .pill-btn{display:inline-block;padding:14px 23px}
 footer{padding:65px 0 25px;border-top:1px solid var(--line);background:rgba(0,0,0,.18)}.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:35px}.footer-grid p{font-size:12px;color:var(--muted);line-height:1.8;max-width:280px;margin-top:18px}.footer-grid h4{font-size:10px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin:0 0 16px}.footer-links{display:grid;gap:12px}.footer-links a{font-size:12px;color:#cfc3a8}.footer-links a:hover{color:var(--gold)}.copyright{display:flex;justify-content:space-between;gap:15px;border-top:1px solid rgba(229,196,119,.14);padding-top:20px;margin-top:42px;color:#9e927a;font-size:10px}
 .no-results{display:none;color:var(--gold);font-size:12px;padding:15px}.hidden-by-search{display:none!important}
+/* Desktop and laptop header tuning — mobile styles remain unchanged */
+@media(min-width:901px){
+ .wrap{width:min(1360px,94%)}
+ header .nav{height:82px;gap:clamp(12px,1.6vw,26px)}
+ .brand{gap:10px}
+ .brandmark{width:44px;height:44px;flex:0 0 44px}
+ .brandname{font-size:clamp(10px,.88vw,12px);letter-spacing:.12em;white-space:nowrap}
+ .brandname small{font-size:8px}
+ .navlinks{flex:1;justify-content:center;gap:clamp(11px,1.55vw,24px);white-space:nowrap}
+ .navlinks a{font-size:clamp(10px,.82vw,12px)}
+ .nav-actions{flex:0 0 auto}
+ .nav-actions .pill-btn{white-space:nowrap;padding:11px clamp(12px,1.25vw,18px);font-size:clamp(10px,.78vw,11px)}
+}
+@media(min-width:901px) and (max-width:1100px){
+ header .nav{gap:12px}
+ .brand{gap:8px}
+ .brandmark{width:39px;height:39px;flex-basis:39px}
+ .brandname{font-size:10px;letter-spacing:.08em}
+ .brandname small{font-size:7px;letter-spacing:.16em}
+ .navlinks{gap:11px}
+ .navlinks a{font-size:10px}
+ .nav-actions .pill-btn{padding:10px 11px;font-size:10px}
+}
 @media(max-width:900px){.feature-grid{grid-template-columns:repeat(4,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.feature{scroll-snap-align:start}.navlinks{display:none}.hamb{display:block}.feature-grid{grid-template-columns:1fr 1fr}.feature:first-child{grid-column:auto}.statesgrid,.ut-grid{grid-template-columns:repeat(3,1fr)}.topics{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1.3fr 1fr 1fr}.footer-grid>div:last-child{grid-column:2/4}}
 @media(max-width:600px){.feature-grid{grid-template-columns:repeat(4,minmax(210px,1fr));overflow-x:auto}.feature{scroll-snap-align:start}.topline{font-size:8px;letter-spacing:.15em}.nav{height:68px}.brandmark{width:38px;height:38px}.brandname{font-size:10px}.nav-actions .pill-btn{display:none}.hero{min-height:650px;padding:75px 0 80px}.hero-bg{background-position:58% center}.hero h1{font-size:54px}.hero-copy{font-size:13px}.hero-search{border-radius:18px;flex-direction:column;padding:9px}.hero-search input{padding:12px 10px}.hero-search button{padding:13px}.hero-meta{gap:18px}.hero-meta strong{font-size:22px}.stats{grid-template-columns:repeat(2,1fr);margin-top:-24px;gap:9px}.stat{padding:16px 10px}.stat strong{font-size:25px}.stat span{font-size:8px}.section{padding:68px 0}.section-head{align-items:start;flex-direction:column}.feature-grid,.places-grid{grid-template-columns:1fr}.feature:first-child{grid-column:auto}.feature img,.feature:first-child img{height:205px}.statesgrid,.ut-grid{grid-template-columns:repeat(2,1fr);gap:8px}.state{font-size:11px;padding:12px 10px}.directory-panel{padding:17px}.directory-top h3{font-size:20px}.topics{grid-template-columns:1fr 1fr;gap:9px}.topic{padding:16px;min-height:190px}.topic h3{font-size:17px}.topic p{font-size:11px}.connect{padding:38px 20px}.footer-grid{grid-template-columns:1fr 1fr;gap:28px}.footer-grid>div:first-child{grid-column:span 2}.footer-grid>div:last-child{grid-column:auto}.copyright{flex-direction:column}.place img{height:220px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
