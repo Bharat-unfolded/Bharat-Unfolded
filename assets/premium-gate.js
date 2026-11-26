@@ -15,17 +15,24 @@
     #premiumGate button{width:100%;border:0;border-radius:99px;padding:15px;background:linear-gradient(135deg,#f5dfa0,#bd8c3e);color:#20180b;font-weight:800;font-size:13px;cursor:pointer}
     #premiumGate button:disabled{opacity:.65;cursor:wait}
     #premiumGate .gate-status{min-height:22px;margin-top:12px;font-size:11px;color:#f0dba9}
+    #premiumGate .gate-divider{display:flex;align-items:center;gap:12px;margin:17px 0;color:#a99d83;font-size:10px}
+    #premiumGate .gate-divider:before,#premiumGate .gate-divider:after{content:'';height:1px;flex:1;background:rgba(229,196,119,.22)}
+    #premiumGate .gate-code-row{display:flex;gap:8px}
+    #premiumGate .gate-code-row input{min-width:0;flex:1;border:1px solid rgba(229,196,119,.35);border-radius:99px;padding:13px 16px;background:rgba(0,0,0,.25);color:#fff7e5;text-align:center;letter-spacing:.25em;font-size:14px;outline:none}
+    #premiumGate .gate-code-row button{width:auto;min-width:112px;padding:13px 17px}
     #premiumGate .gate-foot{font-size:10px;color:#a99d83;margin-top:17px}
   `;
   document.head.appendChild(style);
 
   const gate=document.createElement('div');
   gate.id='premiumGate';
-  gate.innerHTML='<section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="premiumGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · PREMIUM</div><h2 id="premiumGateTitle">Unlock your trip planner</h2><p>Pay once to unlock the trip budget calculator in this browser.</p><div class="gate-price">₹5 <small style="font:500 12px DM Sans,sans-serif">one-time</small></div><button type="button" id="premiumPayButton">Pay ₹5 securely with Razorpay ↗</button><div class="gate-status" id="premiumGateStatus" aria-live="polite">Connecting to secure payment…</div><div class="gate-foot">Access opens only after Razorpay confirms the full payment.</div></section>';
+  gate.innerHTML='<section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="premiumGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · PREMIUM</div><h2 id="premiumGateTitle">Unlock your trip planner</h2><p>Pay once to unlock the trip budget calculator in this browser.</p><div class="gate-price">₹5 <small style="font:500 12px DM Sans,sans-serif">one-time</small></div><button type="button" id="premiumPayButton">Pay ₹5 securely with Razorpay ↗</button><div class="gate-status" id="premiumGateStatus" aria-live="polite">Connecting to secure payment…</div><div class="gate-divider">OR USE ACCESS CODE</div><div class="gate-code-row"><input id="premiumAccessCode" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter code" aria-label="Access code"><button type="button" id="premiumCodeButton">Unlock</button></div><div class="gate-foot">Enter your access code, or unlock securely with Razorpay.</div></section>';
   document.body.appendChild(gate);
 
   const statusEl=gate.querySelector('#premiumGateStatus');
   const payBtn=gate.querySelector('#premiumPayButton');
+  const codeInput=gate.querySelector('#premiumAccessCode');
+  const codeBtn=gate.querySelector('#premiumCodeButton');
   let token=localStorage.getItem(TOKEN_KEY)||'';
   let connected=false;
 
@@ -59,7 +66,21 @@
     return false;
   }
 
+  codeBtn.addEventListener('click',()=>{
+    if(codeInput.value.trim()==='4545'){
+      localStorage.setItem('bu_premium_code_access_v1','1');
+      statusEl.textContent='Access code accepted. Enjoy planning your trip!';
+      unlock();
+    }else{
+      statusEl.textContent='Incorrect code. Please try again.';
+      codeInput.value='';
+      codeInput.focus();
+    }
+  });
+  codeInput.addEventListener('keydown',event=>{if(event.key==='Enter')codeBtn.click();});
+
   async function initialize(){
+    if(localStorage.getItem('bu_premium_code_access_v1')==='1'){unlock();return;}
     try{
       statusEl.textContent='Connecting to secure payment…';
       const paid=await connect();
