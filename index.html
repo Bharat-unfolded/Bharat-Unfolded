@@ -154,7 +154,9 @@ html,body{width:100%;max-width:100%;overflow-x:clip}
 .search-reset{margin-left:8px;border:1px solid #d9b56a;background:#fff;color:#244438;border-radius:20px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .noresult{display:none;max-width:640px;margin-top:10px;padding:14px 16px;border:1px solid #ffffff55;border-radius:14px;background:rgba(255,255,255,.94);color:#34483f;font-size:13px;line-height:1.55}
 </style><link rel="stylesheet" href="assets/region-ui.css">
-</head>
+<style id="famous-places-rotator">
+.famous-feature{position:relative;max-width:1200px;margin:0 auto}.famous-feature-link{display:block;position:relative;min-height:430px;overflow:hidden;border-radius:22px;background:#18372d;color:#fff;box-shadow:0 18px 48px #10251f22}.famous-feature-link img{position:absolute;inset:0;width:100%;height:100%;min-height:430px;object-fit:cover;transition:opacity .35s,transform 1s}.famous-feature-link:hover img{transform:scale(1.025)}.famous-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,24,18,.88),rgba(5,24,18,.54) 48%,rgba(5,24,18,.06)),linear-gradient(0deg,rgba(5,24,18,.35),transparent 60%)}.famous-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:430px;max-width:700px;padding:55px 6%}.famous-kicker{color:#f2cf89;font-size:11px;letter-spacing:.18em;font-weight:800}.famous-copy strong{font:800 clamp(36px,6vw,64px)/1.08 'Playfair Display',serif;margin:13px 0}.famous-copy>span:nth-child(3){font-size:16px;line-height:1.8;color:#f0f3ef;max-width:590px}.famous-cta{margin-top:24px;padding:12px 18px;border-radius:30px;background:#e0b65e;color:#172b22;font-size:13px;font-weight:800}.famous-controls{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px 4px;color:#68756e;font-size:12px;font-weight:700}.famous-dots{display:flex;align-items:center;gap:9px}.famous-dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:#c6cec7;cursor:pointer}.famous-dot.active{width:25px;border-radius:8px;background:#1c5541}.famous-feature-link:focus-visible,.famous-dot:focus-visible{outline:3px solid #d7a94b;outline-offset:4px}@media(max-width:600px){.famous-feature-link,.famous-feature-link img,.famous-copy{min-height:390px}.famous-copy{padding:35px 24px}.famous-copy>span:nth-child(3){font-size:14px}.famous-controls{font-size:10px}.famous-shade{background:linear-gradient(90deg,rgba(5,24,18,.82),rgba(5,24,18,.24)),linear-gradient(0deg,rgba(5,24,18,.45),transparent 70%)}}
+</style></head>
 <body>
 <a class="skip-link" href="#main-content">Skip to content</a>
 
@@ -175,10 +177,15 @@ html,body{width:100%;max-width:100%;overflow-x:clip}
 </div><p class="empty-note">Latest stories and destination updates from across India. Check each linked report for more details.</p></section>
 <section class="section states-wrap" id="states"><div class="section-head"><div><div class="kicker">Explore by region</div><h2>All 28 states of India</h2><p class="sub">Choose a state to open its page. Open a state to explore its temples, heritage sites, nature escapes and local stories.</p></div><span class="textlink">28 STATES ↗</span></div><div class="statesgrid" id="stateGrid"></div></section>
 <section class="section states-wrap" id="union-territories"><div class="section-head"><div><div class="kicker">Explore union territories</div><h2>8 Union Territories of India</h2><p class="sub">Explore island escapes, historic cities, Himalayan landscapes and the distinct stories of all eight Union Territories.</p></div><span class="textlink">8 UNION TERRITORIES ↗</span></div><div class="statesgrid" id="utGrid"></div></section>
-<section class="section" id="places"><div class="section-head"><div><div class="kicker">Must-see destinations</div><h2>Famous places</h2><p class="sub">A few unforgettable places to begin your journey across India.</p></div><a class="textlink" href="#discover">Explore more ↗</a></div><div class="placesgrid">
-<a class="place" href="states/uttar-pradesh.html#place-1"><img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=900&q=85" alt="Taj Mahal" loading="lazy" decoding="async"><div class="placeinfo"><small>Agra · Uttar Pradesh</small><h3>Taj Mahal</h3></div></a>
-<a class="place" href="states/rajasthan.html?place=Pink%20City"><img src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=900&q=85" alt="Hawa Mahal Jaipur" loading="lazy" decoding="async"><div class="placeinfo"><small>Jaipur · Rajasthan</small><h3>Pink City</h3></div></a>
-<a class="place" href="states/uttar-pradesh.html#place-7"><img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=900&q=85" alt="Varanasi ghats" loading="lazy" decoding="async"><div class="placeinfo"><small>Varanasi · Uttar Pradesh</small><h3>Ghats of Varanasi</h3></div></a>
+<section class="section" id="places">
+<div class="section-head"><div><div class="kicker">Must-see destinations</div><h2>Famous places</h2><p class="sub">Discover a new highlight from India every few hours. Open any feature to explore its full guide on Bharat Unfolded.</p></div><a class="textlink" href="#discover">Explore more ↗</a></div>
+<div class="famous-feature" id="famousFeature" aria-live="polite">
+<a class="famous-feature-link" id="famousFeatureLink" href="states/uttar-pradesh.html#place-1">
+<img id="famousFeatureImage" src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1800&q=90" alt="Taj Mahal, Agra" loading="lazy" decoding="async">
+<span class="famous-shade"></span>
+<span class="famous-copy"><span class="famous-kicker" id="famousFeatureLocation">AGRA · UTTAR PRADESH</span><strong id="famousFeatureTitle">Taj Mahal</strong><span id="famousFeatureDescription">An ivory-white marble mausoleum built by Emperor Shah Jahan in memory of Mumtaz Mahal. Explore its architecture, gardens and full visitor guide.</span><span class="famous-cta">Explore full place guide ↗</span></span>
+</a>
+<div class="famous-controls"><span id="famousFeatureCount">01 / 03</span><div class="famous-dots" aria-label="Choose a famous place"><button type="button" class="famous-dot active" data-famous-index="0" aria-label="Show Taj Mahal"></button><button type="button" class="famous-dot" data-famous-index="1" aria-label="Show Pink City"></button><button type="button" class="famous-dot" data-famous-index="2" aria-label="Show Varanasi Ghats"></button></div><span>Changes every 3 hours</span></div>
 </div></section>
 <section class="section" id="discover"><div class="section-head"><div><div class="kicker">More to discover</div><h2>Explore India your way</h2><p class="sub">More sections will grow as Bharat Unfolded grows.</p></div></div><div class="exploregrid">
 <a class="explore" href="#states"><div class="symbol">🧭</div><h3>Travel guides</h3><p>Routes, trip ideas and helpful travel notes.</p></a>
@@ -592,4 +599,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeJourney()});
 })();
 </script>
 <script src="assets/region-ui.js" defer></script>
-</body></html>
+<script id="famous-places-rotation">
+(()=>{const link=document.getElementById('famousFeatureLink');if(!link)return;
+const places=[
+{title:'Taj Mahal',location:'AGRA · UTTAR PRADESH',description:'An ivory-white marble mausoleum built by Emperor Shah Jahan in memory of Mumtaz Mahal. Explore its architecture, gardens and full visitor guide.',image:'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1800&q=90',alt:'Taj Mahal in Agra',url:'states/uttar-pradesh.html#place-1'},
+{title:'Pink City',location:'JAIPUR · RAJASTHAN',description:'Discover Jaipur’s rose-coloured old city, Hawa Mahal, historic gates, royal streets, markets and the complete Rajasthan destination guide.',image:'https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=1800&q=90',alt:'Hawa Mahal in Jaipur Pink City',url:'states/rajasthan.html?place=Pink%20City'},
+{title:'Ghats of Varanasi',location:'VARANASI · UTTAR PRADESH',description:'Explore the Ganga riverfront, Dashashwamedh Ghat, evening Ganga Aarti, boat views and the heritage of one of India’s oldest living cities.',image:'https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=1800&q=90',alt:'Ghats along the Ganga in Varanasi',url:'states/uttar-pradesh.html#place-7'}
+];
+const title=document.getElementById('famousFeatureTitle'),location=document.getElementById('famousFeatureLocation'),description=document.getElementById('famousFeatureDescription'),img=document.getElementById('famousFeatureImage'),count=document.getElementById('famousFeatureCount'),dots=[...document.querySelectorAll('.famous-dot')];
+const interval=3*60*60*1000,key='bu-famous-place-rotation-v1';
+let state={index:0,changedAt:Date.now()};
+try{const saved=JSON.parse(localStorage.getItem(key)||'null');if(saved&&Number.isInteger(saved.index)&&saved.index>=0&&saved.index<places.length&&Number.isFinite(saved.changedAt)){state=saved;const elapsed=Date.now()-state.changedAt;if(elapsed>=interval){const steps=Math.floor(elapsed/interval);state.index=(state.index+steps)%places.length;state.changedAt+=steps*interval;}}}catch(e){}
+function render(){const p=places[state.index];link.href=p.url;title.textContent=p.title;location.textContent=p.location;description.textContent=p.description;img.src=p.image;img.alt=p.alt;count.textContent=String(state.index+1).padStart(2,'0')+' / 03';dots.forEach((dot,i)=>{dot.classList.toggle('active',i===state.index);dot.setAttribute('aria-pressed',String(i===state.index));});try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}}
+function next(){state.index=(state.index+1)%places.length;state.changedAt=Date.now();render();}
+dots.forEach((dot,i)=>dot.addEventListener('click',()=>{state.index=i;state.changedAt=Date.now();render();}));
+render();const elapsed=Date.now()-state.changedAt;window.setTimeout(()=>{next();window.setInterval(next,interval);},Math.max(1000,interval-elapsed));
+})();
+</script></body></html>
