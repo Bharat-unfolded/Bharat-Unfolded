@@ -177,8 +177,13 @@ footer{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.32))}
 @media(prefers-reduced-motion:reduce){.pill-btn,.hero-search button,.feature,.place,.topic,.state{transition:none}}
 
 
+/* Self-contained India road-trip artwork: no external image host required */
+.budget-feature{background-image:radial-gradient(ellipse at 78% 22%,rgba(224,184,104,.30),transparent 30%),radial-gradient(ellipse at 18% 88%,rgba(40,112,103,.42),transparent 42%),linear-gradient(135deg,#101d1b 0%,#243c35 48%,#101715 100%)!important}
+.budget-feature-glow{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 76% 25%,rgba(244,211,143,.23),transparent 20%),linear-gradient(145deg,transparent 48%,rgba(6,12,12,.3) 49%,transparent 51%)}
+.budget-feature-glow:before{content:"";position:absolute;width:145%;height:72%;left:5%;top:3%;border:2px dashed rgba(255,224,157,.48);border-color:rgba(255,224,157,.48) transparent transparent rgba(255,224,157,.48);border-radius:50%;transform:rotate(-24deg)}
+.budget-feature-glow:after{content:"INDIA ROAD TRIP  •  ✦  •  EXPLORE";position:absolute;right:14px;top:18px;color:rgba(255,232,184,.78);font-size:8px;font-weight:800;letter-spacing:2px;text-shadow:0 2px 8px #000}
 /* Featured trip budget card — cinematic image background with bold, readable copy */
-.budget-feature{position:relative;isolation:isolate;overflow:hidden;min-height:0;aspect-ratio:1/1;border:1px solid rgba(246,213,146,.72);background:#171b19 url("https://mumbaicabsrental.com/images/blog/scenic-aare-ware-coastal-road-droneshot.webp") center 48%/cover no-repeat;box-shadow:0 16px 42px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.25);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
+.budget-feature{position:relative;isolation:isolate;overflow:hidden;min-height:0;aspect-ratio:1/1;border:1px solid rgba(246,213,146,.72);background:radial-gradient(ellipse at 78% 22%,rgba(224,184,104,.30),transparent 30%),radial-gradient(ellipse at 18% 88%,rgba(40,112,103,.42),transparent 42%),linear-gradient(135deg,#101d1b 0%,#243c35 48%,#101715 100%);box-shadow:0 16px 42px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.25);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
 .budget-feature:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,13,14,.16) 0%,rgba(7,12,13,.56) 35%,rgba(5,9,10,.94) 100%),linear-gradient(115deg,rgba(18,30,29,.28),transparent 70%)}
 .budget-feature:after{content:"";position:absolute;inset:8px;border:1px solid rgba(255,232,184,.27);border-radius:11px;pointer-events:none}
 .budget-feature:hover{transform:translateY(-6px);border-color:#ffe4a5;box-shadow:0 25px 55px rgba(0,0,0,.43),0 0 28px rgba(229,196,119,.16)}
