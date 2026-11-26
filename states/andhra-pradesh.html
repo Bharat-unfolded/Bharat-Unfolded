@@ -32,6 +32,37 @@ h1{text-align:center;font-size:clamp(23px,3vw,34px);line-height:1.25;margin:16px
 @media(max-width:520px){.bu-glass-nav{width:100%;padding:10px 12px;border-radius:17px}.bu-glass-nav a{font-size:10px;letter-spacing:.05em}.bu-glass-nav .mark{width:31px;height:31px;flex-basis:31px}}
 </style>
 <link rel="stylesheet" href="../assets/region-ui.css">
+
+<style id="andhra-golden-glass">
+:root{--ink:#f7edcf;--gold:#e5c477;--green:#e5c477}
+body{color:#f7edcf;background:radial-gradient(ellipse at 12% 5%,rgba(193,145,60,.22),transparent 40%),radial-gradient(ellipse at 88% 86%,rgba(229,196,119,.13),transparent 38%),linear-gradient(145deg,#100f0c,#1a1710 58%,#0d0d0b);background-attachment:fixed}
+h1{color:#f6e6bf}
+.accent{background:linear-gradient(90deg,#f2c66f,#fff0c8,#a97730)}
+.back{color:#f7edcf;border-color:rgba(229,196,119,.38);background:rgba(255,248,226,.08);backdrop-filter:blur(20px)}
+.hero{border:1px solid rgba(229,196,119,.32);box-shadow:0 22px 60px rgba(0,0,0,.38)}
+.hero:after{background:linear-gradient(90deg,rgba(13,12,9,.9),rgba(13,12,9,.35) 88%),linear-gradient(0deg,rgba(13,12,9,.62),transparent 75%)}
+.eyebrow,.number,.facts b,.place-location{color:#e5c477}
+.intro,.toolbar{color:#e9dfc8;border:1px solid rgba(229,196,119,.24);background:rgba(255,248,226,.075);box-shadow:inset 0 1px rgba(255,255,255,.08),0 16px 44px rgba(0,0,0,.18);backdrop-filter:blur(24px) saturate(150%)}
+.search{color:#fff5dd;border-color:rgba(229,196,119,.32);background:rgba(255,248,226,.09)}
+.search::placeholder{color:#c9b995}.search:focus{border-color:#e5c477;box-shadow:0 0 0 3px rgba(229,196,119,.15)}
+.count{color:#dfcfaa}
+.filters button{color:#e9dfc8;border-color:rgba(229,196,119,.25);background:rgba(255,248,226,.07)}
+.filters button.active{color:#20180b;border-color:#e5c477;background:linear-gradient(135deg,#f3dfa6,#b98a3c)}
+.place-card{border-color:rgba(229,196,119,.24);background:rgba(255,248,226,.065);box-shadow:0 18px 48px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.08)}
+.place-copy h2{color:#f7edcf}.location{color:#d5c49f}.place-copy p{color:#d4c9b1}
+.facts span{color:#e4d9c1;border-color:rgba(229,196,119,.18);background:rgba(255,248,226,.065)}
+.photo-credit,.image-link{color:#e5c477}
+.image-search{background:rgba(16,15,12,.82);border:1px solid rgba(229,196,119,.28);color:#f7edcf}
+.empty,.footer{color:#cabb9a}
+.bu-site-header{border-color:rgba(229,196,119,.3)!important;background:rgba(18,16,12,.82)!important;box-shadow:0 12px 38px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.08)!important}
+.bu-site-header a,.bu-site-header .bu-brand{color:#f7edcf!important;-webkit-text-fill-color:#f7edcf!important}
+.bu-site-header .bu-brand small{color:#dfc17d!important;-webkit-text-fill-color:#dfc17d!important}
+.bu-site-header .bu-brand-mark{background:linear-gradient(145deg,#f8e7ae,#b98939)!important;color:#21190d!important}
+.bu-site-header .bu-sound-toggle,.bu-site-header .bu-menu-toggle{border-color:rgba(229,196,119,.35)!important;background:rgba(255,248,226,.08)!important;color:#f7edcf!important}
+.bu-site-footer,.bu-page-note{border-color:rgba(229,196,119,.25)!important;background:rgba(22,19,13,.88)!important;color:#e8dcc0!important;box-shadow:0 16px 42px rgba(0,0,0,.24)!important}
+.bu-site-footer h2,.bu-site-footer h3{color:#e5c477!important}.bu-site-footer p,.bu-footer-bottom{color:#cbbd9e!important}.bu-site-footer a{color:#f1d99f!important}
+@media(max-width:760px){.place-card{background:rgba(255,248,226,.07)}}
+</style>
 </head><body><main class="wrap"><nav class="bu-glass-nav" aria-label="Bharat Unfolded navigation"><a class="brand" href="../index.html"><span class="mark">भा</span><span>BHARAT UNFOLDED</span></a><a href="../index.html">← HOME</a></nav><h1>40 Top Tourist Places &amp; Temples in Andhra Pradesh</h1><div class="accent"></div>
 <section class="hero"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Araku%20Valley.jpg" alt="Eastern Ghats landscape in Andhra Pradesh" fetchpriority="high"><div class="hero-copy"><div class="eyebrow">Bharat Unfolded · Southern India</div><h2>Discover Andhra Pradesh</h2><p>From Tirumala's sacred hills and the ancient Buddhist sites of Amaravati to the Eastern Ghats, Godavari river country and the Bay of Bengal coast.</p></div></section>
 <p class="intro">Andhra Pradesh brings together celebrated pilgrimage centres, historic forts, Buddhist heritage, long beaches, forest waterfalls and hill landscapes. Explore these 40 destinations by region, and use the photo-search links on each card to find more images. <strong>Visitor timings and fees below are indicative only</strong>; temple rituals, festivals, forest permissions, ferry services and local rules can change. Confirm with the official site or local authority before travelling.</p>
@@ -79,9 +110,9 @@ h1{text-align:center;font-size:clamp(23px,3vw,34px);line-height:1.25;margin:16px
 <footer class="footer">Bharat Unfolded · Andhra Pradesh<br>Destination photo previews load from the image feed, with a secondary photo fallback so image panels do not remain empty. Use “Search photos” to open exact-place image results.<br><a href="../index.html">← Back to explore India</a></footer></main>
 <script>
 const cards=[...document.querySelectorAll('.place-card')],input=document.getElementById('placeSearch'),count=document.getElementById('resultCount'),empty=document.getElementById('empty'),buttons=[...document.querySelectorAll('.filters button')];
-const types={temple:[1,2,3,13,15,19,20,22,23,26,33,34,35,36,37],nature:[4,6,7,8,9,10,11,12,21,28,29,30,31,32,38,39,40],heritage:[5,14,17,18,19,24,25,26,40]};
+const types={temple:[1,2,3,14,16,20,21,23,24,33,34,35,36,37],nature:[4,5,6,7,8,9,10,11,12,17,22,25,28,29,30,31,32,38,39,40],heritage:[15,18,19,20,25,26,27,40]};
 let filter='all';
-const normalize=s=>(s||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/&amp;/g,' and ').replace(/[^\\p{L}\\p{N}]+/gu,' ').trim().replace(/\\s+/g,' ');
+const normalize=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&amp;/g,' and ').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');
 function update(){const q=normalize(input.value),words=q.split(' ').filter(w=>w.length>1);let shown=0;cards.forEach((card,i)=>{const number=i+1,haystack=normalize([card.innerText,card.dataset.search].join(' ')),okText=!words.length||words.every(w=>haystack.includes(w)),okType=filter==='all'||(types[filter]||[]).includes(number);card.hidden=!(okText&&okType);if(!card.hidden)shown++});count.textContent='Showing '+shown+' of 40 places';empty.style.display=shown?'none':'block'}
 input.addEventListener('input',update);buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;update()}));
 const requestedPlace=new URLSearchParams(location.search).get('place');
