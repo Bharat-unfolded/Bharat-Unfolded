@@ -176,6 +176,23 @@ footer{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.32))}
 @media(max-width:600px){.hero{min-height:620px}.india-map-layout-direct .india-map-svg{min-height:350px}.india-map-hint{font-size:10px;line-height:1.6}.glass{backdrop-filter:blur(20px) saturate(135%);-webkit-backdrop-filter:blur(20px) saturate(135%)}}
 @media(prefers-reduced-motion:reduce){.pill-btn,.hero-search button,.feature,.place,.topic,.state{transition:none}}
 
+
+/* Featured trip budget card — cinematic image background with bold, readable copy */
+.budget-feature{position:relative;isolation:isolate;overflow:hidden;min-height:0;aspect-ratio:1/1;border:1px solid rgba(246,213,146,.72);background:#171b19 url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=90") center 48%/cover no-repeat;box-shadow:0 16px 42px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.25);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
+.budget-feature:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,13,14,.16) 0%,rgba(7,12,13,.56) 35%,rgba(5,9,10,.94) 100%),linear-gradient(115deg,rgba(18,30,29,.28),transparent 70%)}
+.budget-feature:after{content:"";position:absolute;inset:8px;border:1px solid rgba(255,232,184,.27);border-radius:11px;pointer-events:none}
+.budget-feature:hover{transform:translateY(-6px);border-color:#ffe4a5;box-shadow:0 25px 55px rgba(0,0,0,.43),0 0 28px rgba(229,196,119,.16)}
+.budget-feature .feature-body{position:relative;z-index:1;justify-content:flex-end;padding:17px 15px 15px;gap:0}
+.budget-feature .tag{font-size:8px;letter-spacing:.13em;padding:6px 9px;background:linear-gradient(120deg,#fff0bf,#d2a04d);color:#251b0b}
+.budget-feature h3{font:600 clamp(19px,2vw,27px)/1.12 "Playfair Display",serif;color:#fff8e8;margin:12px 0 8px;text-shadow:0 3px 18px rgba(0,0,0,.55)}
+.budget-feature h3 strong{font-weight:800;color:#ffdf98}
+.budget-feature p{font-size:10px;line-height:1.55;color:#fff2d8;text-shadow:0 2px 10px rgba(0,0,0,.8);max-width:280px}
+.budget-feature .read{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px;padding:10px 11px;border:1px solid rgba(255,231,184,.55);border-radius:10px;background:rgba(255,239,205,.13);backdrop-filter:blur(10px);color:#ffe7b2;font-size:9px;font-weight:900;letter-spacing:.08em}
+.budget-feature .read b{font-size:15px}
+.budget-feature-stamp{position:absolute;z-index:1;right:20px;top:20px;width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(255,232,184,.7);border-radius:50%;background:rgba(12,22,19,.54);backdrop-filter:blur(9px);color:#ffe5a5;font:700 23px "Playfair Display",serif;box-shadow:0 5px 18px rgba(0,0,0,.2)}
+@media(max-width:900px){.budget-feature{min-width:210px;scroll-snap-align:start}}
+@media(max-width:600px){.budget-feature{min-width:210px;aspect-ratio:1/1}.budget-feature .feature-body{padding:15px 13px}.budget-feature h3{font-size:20px}.budget-feature p{font-size:10px}}
+
 </style>
 
 <style id="surprise-destination-modal-style">
@@ -222,7 +239,7 @@ footer{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.32))}
    <a class="feature glass" href="https://viratramaayanmandir.com//wordpress/" target="_blank" rel="noopener"><img src="https://static.punjabkesari.in/multimedia/2026_1image_11_36_073840726viratramayanmandsirshiv-ll.jpg" alt="Virat Ramayan Mandir Shivling" loading="lazy"><div class="feature-body"><span class="tag">Latest Update · Bihar</span><h3>Virat Ramayan Mandir: 33-Foot Shivling</h3><p>A major update from the temple complex taking shape in East Champaran, Bihar.</p><span class="read">Read the update ↗</span></div></a>
    <a class="feature glass" href="states/bihar.html?place=Nirmal%20Baba%20Mandir"><img src="assets/nirmal-baba-mandir.webp" alt="Nirmal Baba Mandir in Nirmali" loading="lazy"><div class="feature-body"><span class="tag">Featured place · Bihar</span><h3>Nirmal Baba Mandir, Nirmali</h3><p>A neighborhood shrine at Nirmal Baba Chowk, Nirmali, Supaul district.</p><span class="read">View temple details ↗</span></div></a>
    <a class="feature glass surprise-feature" href="#stories" aria-label="Surprise me with a destination"><img src="https://images.unsplash.com/photo-1524229321985-1e1989075d9b?auto=format&fit=crop&w=1000&q=88" alt="Hawa Mahal in Jaipur, a pink sandstone palace with ornate windows" loading="lazy"><span class="surprise-image-label">✦ DESTINATION DRAW</span><div class="feature-body"><span class="tag">Surprise destination</span><h3>Find your next journey</h3><p>Let Bharat Unfolded pick a destination for your next discovery.</p><span class="read">Surprise me ↗</span></div></a>
-   <a class="feature glass" href="trip-budget.html" aria-label="Open trip budget calculator"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=88" alt="Scenic mountain travel destination" loading="lazy"><div class="feature-body"><span class="tag">Free trip planner</span><h3>Calculate your trip budget</h3><p>Choose your destination, starting city and travel style. Estimate tickets, hotel, food and total trip cost.</p><span class="read">Plan my trip budget ↗</span></div></a>
+   <a class="feature glass budget-feature" href="trip-budget.html" aria-label="Open per-person trip budget calculator"><span class="budget-feature-glow" aria-hidden="true"></span><div class="feature-body"><span class="tag">✦ FREE TRIP BUDGET</span><h3>Plan your trip.<br><strong>Know the cost.</strong></h3><p>Ticket, hotel, food and local travel — calculate your estimated budget per person in seconds.</p><span class="read">CALCULATE MY BUDGET <b>↗</b></span></div><span class="budget-feature-stamp" aria-hidden="true">₹</span></a>
    <a class="feature glass" href="culture-of-india.html"><img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=900&q=82" alt="Taj Mahal and Indian cultural heritage" loading="lazy"><div class="feature-body"><span class="tag">India · Culture & History</span><h3>Many cultures, one incredible India</h3><p>Explore India's people, history, languages, festivals, food, arts and traditions.</p><span class="read">Explore India's culture ↗</span></div></a>
   </div>
  </div>
