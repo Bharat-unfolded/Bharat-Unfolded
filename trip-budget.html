@@ -91,7 +91,7 @@ header{position:sticky;top:0;z-index:5;background:rgba(16,15,12,.76);border-bott
  ids.forEach(id=>el(id).addEventListener('input',calculate));
  el('shareBtn').addEventListener('click',async()=>{
   const d=calculate();
-  const message='My Bharat Unfolded trip budget\\nReturn ticket: '+money(d.travel)+'\\nHotel: '+money(d.hotel)+'\\nFood: '+money(d.food)+'\\nLocal transport: '+money(d.local)+'\\nOther: '+money(d.extra)+'\\nTOTAL: '+money(d.total)+' for '+d.people+' people / '+d.days+' days.';
+  const message='BHARAT UNFOLDED — TRIP BUDGET\\nPeople: '+d.people+' | Days: '+d.days+'\\nGoing ticket: '+money(d.going)+'\\nReturn ticket: '+money(d.returning)+'\\nHotel stay: '+money(d.hotel)+'\\nFood: '+money(d.food)+'\\nLocal transport: '+money(d.local)+'\\nOther expenses: '+money(d.extra)+'\\nTOTAL: '+money(d.total);
   if(navigator.share){try{await navigator.share({title:'My trip budget',text:message});}catch(e){}}
   else if(navigator.clipboard){await navigator.clipboard.writeText(message);el('shareBtn').textContent='Budget copied ✓';}
  });
