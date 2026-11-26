@@ -136,19 +136,13 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
   ['Charminar · Hyderabad, Telangana','states/telangana.html?place=Charminar'],
   ['Victoria Memorial · Kolkata, West Bengal','states/west-bengal.html?place=Victoria%20Memorial']
  ];
- let chosen=null,last=-1;
+ let last=-1;
  card.addEventListener('click',function(e){
-  if(!chosen){
-   e.preventDefault();
-   let i=Math.floor(Math.random()*places.length);
-   if(i===last)i=(i+1)%places.length;
-   last=i;chosen=places[i];
-   card.querySelector('h3').textContent=chosen[0];
-   card.querySelector('p').textContent='Your surprise place is ready. Tap once more to open its guide.';
-   card.querySelector('.read').textContent='Open destination ↗';
-   card.setAttribute('aria-label','Open '+chosen[0]);
-   card.href=chosen[1];
-  }
+  e.preventDefault();
+  let i=Math.floor(Math.random()*places.length);
+  if(i===last)i=(i+1)%places.length;
+  last=i;
+  window.location.href=places[i][1];
  });
 })();
 </script></body>
