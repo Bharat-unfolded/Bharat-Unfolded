@@ -439,8 +439,14 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
  progressEl.style.strokeDasharray=String(circumference);
  function unlockAudio(){
   hasInteracted=true;
-  if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC();}
-  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
+  if(!audioCtx){
+   const AC=window.AudioContext||window.webkitAudioContext;
+   if(AC)audioCtx=new AC();
+  }
+  if(audioCtx&&audioCtx.state!=='running'){
+   return audioCtx.resume().catch(()=>{}).then(()=>audioCtx);
+  }
+  return Promise.resolve(audioCtx);
  }
  ['pointerdown','keydown','touchstart'].forEach(evt=>document.addEventListener(evt,unlockAudio,{once:true,passive:true}));
  function birdNote(start,frequency,duration,volume){
@@ -481,15 +487,14 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
  textEl.textContent=stories[0];secondsEl.textContent='60';progressEl.style.strokeDashoffset='0';
  soundBtn.textContent='🔊';soundBtn.title='Story-change sound on';soundBtn.setAttribute('aria-label','Turn story-change sound off');
  soundBtn.addEventListener('click',()=>{
-  unlockAudio();soundOn=!soundOn;
+  soundOn=!soundOn;
   soundBtn.textContent=soundOn?'🔊':'🔇';
   soundBtn.title=soundOn?'Story-change sound on':'Story-change sound off';
   soundBtn.setAttribute('aria-label',soundOn?'Turn story-change sound off':'Turn story-change sound on');
-  if(soundOn)parrotSound();
+  if(soundOn)unlockAudio().then(()=>parrotSound());
  });
  window.setInterval(tick,1000);
 })();
-</script>)();
 </script>
 </body>
 </html>
