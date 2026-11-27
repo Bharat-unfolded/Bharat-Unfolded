@@ -29,7 +29,19 @@
   gate.innerHTML='<section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="premiumGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · PREMIUM</div><h2 id="premiumGateTitle">Unlock your trip planner</h2><p>Pay once to unlock the trip budget calculator in this browser.</p><div class="gate-price">₹5 <small style="font:500 12px DM Sans,sans-serif">one-time</small></div><button type="button" id="premiumPayButton">Pay ₹5 securely with Razorpay ↗</button><div class="gate-status" id="premiumGateStatus" aria-live="polite">Connecting to secure payment…</div><div class="gate-divider">OR USE ACCESS CODE</div><div class="gate-code-row"><input id="premiumAccessCode" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter code" aria-label="Access code"><button type="button" id="premiumCodeButton">Unlock</button></div><div class="gate-foot">Enter your access code, or unlock securely with Razorpay.</div></section>';
   document.body.appendChild(gate);
 
-  const statusEl=gate.querySelector('#premiumGateStatus');
+  function showReceipt(title,amount,description){
+    const params=new URLSearchParams(location.search);
+    const ref=params.get('razorpay_payment_id')||params.get('payment_id')||params.get('razorpay_payment_link_id')||'Payment verified by Bharat Unfolded';
+    const receipt={title,amount,description,reference:ref,date:new Date().toLocaleString('en-IN'),status:'Payment verified'};
+    try{localStorage.setItem('bu_last_payment_receipt',JSON.stringify(receipt));}catch(e){}
+    const old=document.getElementById('buPaymentReceipt');if(old)old.remove();
+    const box=document.createElement('section');box.id='buPaymentReceipt';
+    box.style.cssText='position:fixed;z-index:100001;right:18px;bottom:18px;width:min(390px,calc(100% - 36px));padding:20px;border:1px solid #d7b76c;border-radius:18px;background:#17251f;color:#fff7e5;box-shadow:0 18px 60px #0009;font:13px/1.6 Arial,sans-serif';
+    box.innerHTML='<div style="color:#e5c477;font-size:10px;letter-spacing:.16em;font-weight:800">BHARAT UNFOLDED · PAYMENT RECEIPT</div><h3 style="margin:8px 0;color:#fff;font:600 22px Georgia">Payment successful ✓</h3><div style="font-size:12px;color:#d8cfbd">'+title+'</div><div style="font:700 30px Georgia;color:#ffdf98;margin:8px 0">₹'+amount+'</div><div style="color:#e8dec9">'+description+'</div><div style="border-top:1px solid #ffffff2b;margin-top:12px;padding-top:10px;font-size:11px;color:#c8bea8">Status: Payment verified<br>Reference: '+ref.replace(/[&<>"]/g,'')+'<br>Date: '+receipt.date+'</div><button type="button" id="buReceiptClose" style="margin-top:12px;padding:9px 15px;border:0;border-radius:30px;background:#e5c477;color:#21190c;font-weight:700;cursor:pointer">Close receipt</button>';
+    document.body.appendChild(box);box.querySelector('#buReceiptClose').addEventListener('click',()=>box.remove());
+    history.replaceState({},'',location.pathname);
+  }
+\n  const statusEl=gate.querySelector('#premiumGateStatus');
   const payBtn=gate.querySelector('#premiumPayButton');
   const codeInput=gate.querySelector('#premiumAccessCode');
   const codeBtn=gate.querySelector('#premiumCodeButton');
@@ -62,7 +74,7 @@
     if(!token)throw new Error('Secure session could not be created. Please try again.');
     const status=await request('/api/premium-status');
     connected=true;
-    if(status.paid){unlock();return true;}
+    if(status.paid){const p=new URLSearchParams(location.search);if(p.has('payment'))showReceipt('Trip Budget Calculator premium access','5','One-time payment to unlock the Trip Budget Calculator.');unlock();return true;}
     return false;
   }
 
