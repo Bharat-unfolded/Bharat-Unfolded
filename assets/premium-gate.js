@@ -26,7 +26,7 @@
 
   const gate=document.createElement('div');
   gate.id='premiumGate';
-  gate.innerHTML='<section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="premiumGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · PREMIUM</div><h2 id="premiumGateTitle">Unlock your trip planner</h2><p>Pay once to unlock the trip budget calculator in this browser.</p><div class="gate-price">₹5 <small style="font:500 12px DM Sans,sans-serif">one-time</small></div><button type="button" id="premiumPayButton">Pay ₹5 securely with Razorpay ↗</button><div class="gate-status" id="premiumGateStatus" aria-live="polite">Connecting to secure payment…</div><div class="gate-foot">Access is granted only after server-side Razorpay payment verification.</div></section>';
+  gate.innerHTML='<section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="premiumGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · PREMIUM</div><h2 id="premiumGateTitle">Unlock your trip planner</h2><p>Pay once to unlock the trip budget calculator in this browser.</p><div class="gate-price">₹5 <small style="font:500 12px DM Sans,sans-serif">one-time</small></div><button type="button" id="premiumPayButton">Pay ₹5 securely with Razorpay ↗</button><div class="gate-status" id="premiumGateStatus" aria-live="polite">Connecting to secure payment…</div><div class="gate-divider">OR USE ACCESS CODE</div><div class="gate-code-row"><input id="premiumAccessCode" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter code" aria-label="Access code"><button type="button" id="premiumCodeButton">Unlock</button></div><div class="gate-foot">Enter your access code, or unlock securely with Razorpay.</div></section>';
   document.body.appendChild(gate);
 
   function showReceipt(title,amount,description){
@@ -43,6 +43,8 @@
   }
 \n  const statusEl=gate.querySelector('#premiumGateStatus');
   const payBtn=gate.querySelector('#premiumPayButton');
+  const codeInput=gate.querySelector('#premiumAccessCode');
+  const codeBtn=gate.querySelector('#premiumCodeButton');
   let token=localStorage.getItem(TOKEN_KEY)||'';
   let connected=false;
 
@@ -125,6 +127,15 @@
       payBtn.textContent='Try again · ₹5';
     }
   });
+
+
+  codeBtn.addEventListener('click',async()=>{
+    codeBtn.disabled=true;statusEl.textContent='Checking access code securely…';
+    try{if(!connected)await connect();await request('/api/redeem-code',{method:'POST',body:JSON.stringify({product:'budget'})});statusEl.textContent='Access code accepted. Enjoy planning your trip!';unlock();}
+    catch(error){statusEl.textContent=error.message||'Code could not be verified.';codeInput.value='';codeInput.focus();}
+    finally{codeBtn.disabled=false;}
+  });
+  codeInput.addEventListener('keydown',event=>{if(event.key==='Enter')codeBtn.click();});
 
   initialize();
 })();
