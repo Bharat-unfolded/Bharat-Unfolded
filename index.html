@@ -264,7 +264,7 @@ footer{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.32))}
 </head>
 <body>
 <div class="topline" id="dailyMotivation" aria-live="polite">
- <span class="motivation-text" id="motivationText">A living guide to the places, people &amp; stories of India</span>
+ <span class="motivation-text" id="motivationText">A young traveller once took the first step — and found a whole new world.</span>
  <span class="motivation-timer" id="motivationTimer" role="timer" aria-label="Next quote in 60 seconds"><svg viewBox="0 0 36 36" aria-hidden="true"><circle class="timer-track" cx="18" cy="18" r="15.5"></circle><circle class="timer-progress" id="motivationProgress" cx="18" cy="18" r="15.5"></circle></svg><span id="motivationSeconds">60</span></span>
  <button class="motivation-sound" id="motivationSound" type="button" aria-label="Turn parrot sound off" title="Parrot sound on">🔊</button>
 </div>
@@ -411,50 +411,85 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
   modal.classList.add('show');
   modal.querySelector('.surprise-modal-close').focus();
  });
-})();</script>
-<script>
+}<script>
 (function(){
  const textEl=document.getElementById('motivationText');
  const secondsEl=document.getElementById('motivationSeconds');
  const progressEl=document.getElementById('motivationProgress');
  const soundBtn=document.getElementById('motivationSound');
  if(!textEl||!secondsEl||!progressEl||!soundBtn)return;
- const quotes=[
-  'A journey of a thousand miles begins with one step.',
-  'India is not just a place to visit; it is a story to feel.',
-  'Collect moments, discover India, and keep your spirit curious.',
-  ' हर रास्ता एक नई कहानी तक ले जाता है।',
-  'Travel far enough to meet a new version of yourself.',
-  'जहाँ जिज्ञासा है, वहीं से नई खोज शुरू होती है।',
-  'Let the colours of India brighten your everyday.',
-  'Small steps today can lead to beautiful journeys tomorrow.',
-  'हर मंज़िल से पहले एक कदम उठाना पड़ता है।',
-  'The world is wide, and your next story is waiting.',
-  'Dream boldly. Explore kindly. Leave only good memories.',
-  'भारत की खूबसूरती उसके हर कोने में छिपी है।'
+ const stories=[
+  'A young traveller took one small step beyond his village. That single journey gave him the courage to dream bigger.',
+  'A little bird kept trying to fly after every fall. One morning, it finally crossed the valley — never give up on your next try.',
+  'A student studied beneath a streetlight when the power went out. Years later, that same determination lit up his future.',
+  'A traveller got lost on a mountain path, but discovered a beautiful village. Sometimes an unexpected turn becomes your best story.',
+  'A small shopkeeper welcomed every visitor with a smile. Soon, people travelled from far away just to meet him — kindness travels far.',
+  'A seed waited quietly beneath the soil through the rain. When the time was right, it became a tree — keep growing at your own pace.',
+  'One person started cleaning a tiny corner of a riverbank. Neighbours joined in, and the whole place began to change — start where you are.',
+  'A young artist kept drawing even when nobody noticed. One day, her work inspired a thousand people — keep creating.',
+  'A train left the station before sunrise, carrying people toward new beginnings. Your journey can begin with one brave decision.',
+  'A climber looked at the tall mountain and chose one step at a time. The summit came closer with every step — stay consistent.',
+  'एक छोटे से गाँव का लड़का बड़े सपने देखता था। उसने रोज़ थोड़ा सीखा और एक दिन अपनी मंज़िल तक पहुँच गया।',
+  'एक मुसाफ़िर रास्ता भटक गया, लेकिन उसे एक खूबसूरत जगह मिल गई। कभी-कभी नई राहें ही सबसे अच्छी कहानी बनाती हैं।',
+  'एक नन्हा पौधा तेज़ बारिश में भी झुका, टूटा नहीं। धैर्य रखो — तुम्हारी मेहनत भी एक दिन रंग लाएगी।',
+  'एक चिड़िया ने कई बार कोशिश की, फिर उड़ना सीख लिया। हार मत मानो, अगली कोशिश तुम्हारी हो सकती है।'
  ];
- let quoteIndex=-1,remaining=60,audioCtx=null,soundOn=true,hasInteracted=false;
+ let storyIndex=0,remaining=60,audioCtx=null,soundOn=true,hasInteracted=false;
  const circumference=2*Math.PI*15.5;
  progressEl.style.strokeDasharray=String(circumference);
- function unlockAudio(){hasInteracted=true;if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC()}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();}
- ['pointerdown','keydown','touchstart'].forEach(evt=>document.addEventListener(evt,unlockAudio,{once:true,passive:true}));
- function chirp(start,frequency,duration){
-  if(!audioCtx||!soundOn||!hasInteracted)return;
-  const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
-  osc.type='sine';osc.frequency.setValueAtTime(frequency,audioCtx.currentTime+start);
-  osc.frequency.exponentialRampToValueAtTime(frequency*1.55,audioCtx.currentTime+start+duration*.45);
-  osc.frequency.exponentialRampToValueAtTime(frequency*.82,audioCtx.currentTime+start+duration);
-  gain.gain.setValueAtTime(.0001,audioCtx.currentTime+start);
-  gain.gain.exponentialRampToValueAtTime(.075,audioCtx.currentTime+start+.025);
-  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+start+duration);
-  osc.connect(gain);gain.connect(audioCtx.destination);osc.start(audioCtx.currentTime+start);osc.stop(audioCtx.currentTime+start+duration+.02);
+ function unlockAudio(){
+  hasInteracted=true;
+  if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC();}
+  if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume().catch(()=>{});
  }
- function parrotSound(){chirp(0,.0+1250,.13);chirp(.17,1650,.12);chirp(.34,1350,.18);chirp(.58,1900,.12)}
- function showNextQuote(){let next;do{next=Math.floor(Math.random()*quotes.length)}while(next===quoteIndex&&quotes.length>1);quoteIndex=next;textEl.classList.add('is-changing');window.setTimeout(()=>{textEl.textContent=quotes[quoteIndex];textEl.classList.remove('is-changing');},300);parrotSound();}
- function tick(){remaining--;if(remaining<=0){showNextQuote();remaining=60;}secondsEl.textContent=String(remaining);progressEl.style.strokeDashoffset=String(circumference*(1-remaining/60));}
- soundBtn.addEventListener('click',()=>{unlockAudio();soundOn=!soundOn;soundBtn.textContent=soundOn?'🔊':'🔇';soundBtn.title=soundOn?'Parrot sound on':'Parrot sound off';soundBtn.setAttribute('aria-label',soundOn?'Turn parrot sound off':'Turn parrot sound on');if(soundOn)parrotSound();});
- secondsEl.textContent='60';progressEl.style.strokeDashoffset='0';window.setInterval(tick,1000);
+ ['pointerdown','keydown','touchstart'].forEach(evt=>document.addEventListener(evt,unlockAudio,{once:true,passive:true}));
+ function birdNote(start,frequency,duration,volume){
+  if(!audioCtx||!soundOn||!hasInteracted||audioCtx.state!=='running')return;
+  const now=audioCtx.currentTime+start;
+  const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+  const vibrato=audioCtx.createOscillator(),vibratoGain=audioCtx.createGain();
+  osc.type='triangle';
+  osc.frequency.setValueAtTime(frequency,now);
+  osc.frequency.exponentialRampToValueAtTime(frequency*1.42,now+duration*.28);
+  osc.frequency.exponentialRampToValueAtTime(frequency*.88,now+duration);
+  vibrato.frequency.setValueAtTime(24,now);vibratoGain.gain.setValueAtTime(13,now);
+  vibrato.connect(vibratoGain);vibratoGain.connect(osc.frequency);
+  gain.gain.setValueAtTime(.0001,now);
+  gain.gain.exponentialRampToValueAtTime(volume,now+.018);
+  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  osc.connect(gain);gain.connect(audioCtx.destination);
+  vibrato.start(now);osc.start(now);osc.stop(now+duration+.02);vibrato.stop(now+duration+.02);
+ }
+ function parrotSound(){
+  if(!audioCtx||!soundOn||!hasInteracted)return;
+  birdNote(0,1650,.16,.095);birdNote(.13,2250,.13,.085);
+  birdNote(.29,1850,.18,.10);birdNote(.52,2500,.12,.08);
+  birdNote(.66,2050,.20,.10);birdNote(.91,2750,.16,.085);
+ }
+ function showNextStory(){
+  storyIndex=(storyIndex+1)%stories.length;
+  textEl.classList.add('is-changing');
+  window.setTimeout(()=>{textEl.textContent=stories[storyIndex];textEl.classList.remove('is-changing');},250);
+  parrotSound();
+ }
+ function tick(){
+  remaining--;
+  if(remaining<=0){showNextStory();remaining=60;}
+  secondsEl.textContent=String(remaining);
+  progressEl.style.strokeDashoffset=String(circumference*(1-remaining/60));
+ }
+ textEl.textContent=stories[0];secondsEl.textContent='60';progressEl.style.strokeDashoffset='0';
+ soundBtn.textContent='🔊';soundBtn.title='Story-change sound on';soundBtn.setAttribute('aria-label','Turn story-change sound off');
+ soundBtn.addEventListener('click',()=>{
+  unlockAudio();soundOn=!soundOn;
+  soundBtn.textContent=soundOn?'🔊':'🔇';
+  soundBtn.title=soundOn?'Story-change sound on':'Story-change sound off';
+  soundBtn.setAttribute('aria-label',soundOn?'Turn story-change sound off':'Turn story-change sound on');
+  if(soundOn)parrotSound();
+ });
+ window.setInterval(tick,1000);
 })();
+</script>)();
 </script>
 </body>
 </html>
