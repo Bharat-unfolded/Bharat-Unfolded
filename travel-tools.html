@@ -46,7 +46,7 @@ body:not(.planner-ready) .grid{visibility:hidden}#plannerGate{position:fixed;ins
 </div><p class="note">Packing needs vary by season, activity and destination. Check local weather and any special permit requirements.</p></section>
 </aside></main>
 <footer><div class="wrap">© 2026 Bharat Unfolded · Plan smart. Explore India. · <a href="/privacy-policy.html">Privacy</a> · <a href="/contact.html">Contact</a></div></footer>
-<div id="plannerGate"><section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="plannerGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · TRIP PLANNER</div><h2 id="plannerGateTitle">Unlock 50 trip plans</h2><p>One payment gives you 50 itinerary generations. Your remaining uses are saved to your account on this device.</p><div class="gate-price">₹10</div><div class="gate-sub">ONE-TIME PAYMENT · 50 USES</div><button type="button" id="plannerPayButton">Pay ₹10 securely with Razorpay ↗</button><div class="gate-status" id="plannerGateStatus" aria-live="polite">Connecting securely…</div><div class="gate-foot">Each itinerary generation uses 1 credit. Buy another pack after all 50 are used.</div></section></div>
+<div id="plannerGate"><section class="gate-card" role="dialog" aria-modal="true" aria-labelledby="plannerGateTitle"><div class="gate-kicker">✦ BHARAT UNFOLDED · TRIP PLANNER</div><h2 id="plannerGateTitle">Unlock 50 trip plans</h2><p>One payment gives you 50 itinerary generations. Your remaining uses are saved to your account on this device.</p><div class="gate-price">₹10</div><div class="gate-sub">ONE-TIME PAYMENT · 50 USES</div><button type="button" id="plannerPayButton">Pay ₹10 securely with Razorpay ↗</button><div class="gate-status" id="plannerGateStatus" aria-live="polite">Connecting securely…</div><div class="gate-divider">OR ENTER ACCESS CODE</div><div class="gate-code-row"><input id="plannerAccessCode" type="password" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="Enter access code" aria-label="Access code"><button type="button" id="plannerCodeButton">Unlock</button></div><div class="gate-foot">Each itinerary generation uses 1 credit. Buy another pack after all 50 are used.</div></section></div>
 <script>
 (function(){
  const API='https://bharat-unfolded-payments.bharatunfolded.workers.dev';
@@ -54,6 +54,8 @@ body:not(.planner-ready) .grid{visibility:hidden}#plannerGate{position:fixed;ins
  const gate=document.getElementById('plannerGate');
  const status=document.getElementById('plannerGateStatus');
  const pay=document.getElementById('plannerPayButton');
+ const code=document.getElementById('plannerAccessCode');
+ const codeBtn=document.getElementById('plannerCodeButton');
  const badge=document.getElementById('plannerCreditsBadge');
  let token=localStorage.getItem(KEY)||'';
  const headers=()=>({'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})});
@@ -73,6 +75,8 @@ body:not(.planner-ready) .grid{visibility:hidden}#plannerGate{position:fixed;ins
  async function refresh(){const d=await api('/api/planner-status');showCredits(Number(d.credits)||0);return Number(d.credits)||0;}
  async function init(){try{await session();const n=await refresh();if(new URLSearchParams(location.search).has('payment')){if(n>0){showReceipt();status.textContent='Payment confirmed. Your 50 uses are ready!';}}}catch(e){status.textContent=(e.message||'Connection failed')+' Please refresh.';}}
  pay.addEventListener('click',async()=>{pay.disabled=true;pay.textContent='Opening secure checkout…';status.textContent='Creating your ₹10 payment link…';try{const d=await api('/api/planner-create-payment-link',{method:'POST',body:'{}'});if(d.credits>0){showCredits(d.credits);return;}if(!d.payment_url)throw new Error('Payment link was not returned.');location.assign(d.payment_url);}catch(e){status.textContent=e.message||'Payment could not start.';pay.disabled=false;pay.textContent='Try again · ₹10';}});
+ codeBtn.addEventListener('click',async()=>{codeBtn.disabled=true;status.textContent='Checking access code securely…';try{await session();const d=await api('/api/redeem-code',{method:'POST',body:JSON.stringify({product:'planner',code:code.value.trim()})});showCredits(Number(d.credits)||50);if(badge)badge.textContent='Access code accepted · '+(Number(d.credits)||50)+' of 50 uses remaining';}catch(e){status.textContent=e.message||'Code could not be verified.';code.value='';code.focus();}finally{codeBtn.disabled=false;}});
+ code.addEventListener('keydown',e=>{if(e.key==='Enter')codeBtn.click();});
  init();
 })();
 </script>
