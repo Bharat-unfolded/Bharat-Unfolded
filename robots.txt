@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vezorex.shop/sitemap.xml
+Sitemap: https://bharat-unfolded.github.io/Bharat-Unfolded/sitemap.xml
