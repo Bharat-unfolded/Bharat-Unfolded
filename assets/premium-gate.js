@@ -41,7 +41,8 @@
     document.body.appendChild(box);box.querySelector('#buReceiptClose').addEventListener('click',()=>box.remove());
     history.replaceState({},'',location.pathname);
   }
-\n  const statusEl=gate.querySelector('#premiumGateStatus');
+
+  const statusEl=gate.querySelector('#premiumGateStatus');
   const payBtn=gate.querySelector('#premiumPayButton');
   const codeInput=gate.querySelector('#premiumAccessCode');
   const codeBtn=gate.querySelector('#premiumCodeButton');
@@ -131,7 +132,7 @@
 
   codeBtn.addEventListener('click',async()=>{
     codeBtn.disabled=true;statusEl.textContent='Checking access code securely…';
-    try{if(!connected)await connect();await request('/api/redeem-code',{method:'POST',body:JSON.stringify({product:'budget'})});statusEl.textContent='Access code accepted. Enjoy planning your trip!';unlock();}
+    try{if(!connected)await connect();await request('/api/redeem-code',{method:'POST',body:JSON.stringify({product:'budget',code:codeInput.value.trim()})});statusEl.textContent='Access code accepted. Enjoy planning your trip!';unlock();}
     catch(error){statusEl.textContent=error.message||'Code could not be verified.';codeInput.value='';codeInput.focus();}
     finally{codeBtn.disabled=false;}
   });
