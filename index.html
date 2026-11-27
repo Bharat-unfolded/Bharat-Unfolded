@@ -48,7 +48,20 @@
 <style>
 :root{--night:#100f0c;--night2:#19160f;--gold:#e5c477;--gold2:#b98a3c;--cream:#f7edcf;--glass:rgba(255,246,220,.085);--line:rgba(238,205,133,.23);--muted:#c5b99e;--white:#fffaf0;--shadow:0 24px 80px rgba(0,0,0,.28)}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--night);color:var(--white);font-family:"DM Sans",sans-serif;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 12% 8%,rgba(191,143,55,.18),transparent 36%),radial-gradient(ellipse at 90% 38%,rgba(222,184,105,.12),transparent 34%),linear-gradient(145deg,#100f0c,#1a1710 52%,#0d0d0b)}body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E")}
-a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1200px,90%);margin:auto}.gold{color:var(--gold)}.glass{background:linear-gradient(135deg,rgba(255,248,226,.13),rgba(255,244,211,.035));border:1px solid var(--line);box-shadow:inset 0 1px rgba(255,255,255,.13),0 20px 65px rgba(0,0,0,.2);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:24px}.topline{text-align:center;padding:8px 15px;color:#d9c79f;font-size:10px;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid rgba(229,196,119,.13);background:rgba(0,0,0,.18)}
+a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}.wrap{width:min(1200px,90%);margin:auto}.gold{color:var(--gold)}.glass{background:linear-gradient(135deg,rgba(255,248,226,.13),rgba(255,244,211,.035));border:1px solid var(--line);box-shadow:inset 0 1px rgba(255,255,255,.13),0 20px 65px rgba(0,0,0,.2);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:24px}
+/* Rotating India inspiration line + compact 60-second countdown */
+.topline{display:flex;align-items:center;justify-content:center;gap:10px;min-height:38px;padding:6px 12px;letter-spacing:.13em}
+.motivation-text{transition:opacity .35s ease,transform .35s ease;max-width:calc(100% - 86px)}
+.motivation-text.is-changing{opacity:0;transform:translateY(4px)}
+.motivation-timer{position:relative;width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;color:#e5c477;font-size:9px;font-weight:700;letter-spacing:0;text-transform:none}
+.motivation-timer svg{position:absolute;inset:0;width:30px;height:30px;transform:rotate(-90deg)}
+.motivation-timer circle{fill:none;stroke-width:2.4}
+.motivation-timer .timer-track{stroke:rgba(229,196,119,.2)}
+.motivation-timer .timer-progress{stroke:#e5c477;stroke-linecap:round;stroke-dasharray:97.4;stroke-dashoffset:0;transition:stroke-dashoffset .25s linear}
+.motivation-sound{border:0;background:transparent;color:#e5c477;padding:3px;font-size:12px;line-height:1;cursor:pointer;opacity:.85}
+.motivation-sound:hover{opacity:1;transform:scale(1.08)}
+@media(max-width:600px){.topline{font-size:8px;gap:7px;letter-spacing:.09em}.motivation-timer,.motivation-timer svg{width:27px;height:27px}.motivation-timer{flex-basis:27px;font-size:8px}}
+\n.topline{text-align:center;padding:8px 15px;color:#d9c79f;font-size:10px;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid rgba(229,196,119,.13);background:rgba(0,0,0,.18)}
 header{position:sticky;top:0;z-index:50;background:rgba(16,15,12,.72);border-bottom:1px solid rgba(229,196,119,.16);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}.brandmark{width:43px;height:43px;border-radius:15px;display:grid;place-items:center;color:#21190d;background:linear-gradient(145deg,#f8e7ae,#b98939);font:700 25px Georgia;box-shadow:0 0 28px rgba(229,196,119,.18)}.brandname{font-weight:700;letter-spacing:.13em;font-size:12px}.brandname small{display:block;color:#b9a77f;font-size:8px;letter-spacing:.25em;margin-top:4px}.navlinks{display:flex;align-items:center;gap:25px}.navlinks a{font-size:12px;color:#ded4bd;transition:.2s}.navlinks a:hover{color:var(--gold)}.nav-actions{display:flex;align-items:center;gap:10px}.pill-btn{border:1px solid rgba(229,196,119,.48);background:linear-gradient(120deg,rgba(229,196,119,.2),rgba(229,196,119,.06));color:var(--cream);padding:11px 17px;border-radius:99px;font-size:11px;font-weight:700;letter-spacing:.06em}.hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:var(--glass);color:var(--gold);font-size:20px}.mobile-menu{display:none;padding:0 0 18px}.mobile-menu.open{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.mobile-menu a{padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:var(--glass);font-size:12px;color:var(--cream)}
 .hero{position:relative;min-height:680px;display:flex;align-items:center;overflow:hidden;padding:78px 0 92px}.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,11,8,.92),rgba(12,11,8,.67) 48%,rgba(12,11,8,.24)),linear-gradient(0deg,#100f0c 0%,transparent 40%),url("https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2200&q=88") center 42%/cover;transform:scale(1.02)}.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(232,194,111,.16),transparent 38%);pointer-events:none}.hero-content{position:relative;z-index:1;max-width:760px}.eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase}.eyebrow:before{content:"";width:34px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}.hero h1{font:600 clamp(48px,8vw,94px)/.99 "Playfair Display",serif;letter-spacing:-.04em;margin:23px 0 22px;max-width:780px}.hero h1 em{font-weight:500;color:var(--gold);font-style:normal}.hero-copy{font-size:15px;line-height:1.9;color:#e0d7c3;max-width:570px}.hero-search{margin-top:32px;padding:7px;display:flex;gap:8px;max-width:590px;border-radius:99px;background:rgba(255,250,235,.12);border:1px solid rgba(242,211,147,.42);box-shadow:0 15px 55px rgba(0,0,0,.25);backdrop-filter:blur(25px)}.hero-search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:white;padding:0 18px;font-size:13px}.hero-search input::placeholder{color:#d1c5a9}.hero-search button{border:0;border-radius:99px;padding:14px 22px;background:linear-gradient(135deg,#f5dfa0,#bd8c3e);color:#20180b;font-size:11px;font-weight:800}.hero-meta{display:flex;gap:26px;margin-top:34px;color:#d8c9a7;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.hero-meta strong{display:block;color:var(--gold);font:600 24px "Playfair Display",serif;letter-spacing:0;margin-bottom:3px}
 .section{padding:92px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:32px}.kicker{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold2);font-weight:700}.section h2{font:600 clamp(31px,4vw,48px)/1.1 "Playfair Display",serif;margin:10px 0 0;letter-spacing:-.02em}.section-intro{color:var(--muted);font-size:13px;line-height:1.8;max-width:540px;margin:12px 0 0}.text-link{font-size:11px;color:var(--gold);white-space:nowrap;border-bottom:1px solid var(--line);padding-bottom:5px}
@@ -250,7 +263,11 @@ footer{background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.32))}
 </style>
 </head>
 <body>
-<div class="topline">A living guide to the places, people & stories of India</div>
+<div class="topline" id="dailyMotivation" aria-live="polite">
+ <span class="motivation-text" id="motivationText">A living guide to the places, people &amp; stories of India</span>
+ <span class="motivation-timer" id="motivationTimer" role="timer" aria-label="Next quote in 60 seconds"><svg viewBox="0 0 36 36" aria-hidden="true"><circle class="timer-track" cx="18" cy="18" r="15.5"></circle><circle class="timer-progress" id="motivationProgress" cx="18" cy="18" r="15.5"></circle></svg><span id="motivationSeconds">60</span></span>
+ <button class="motivation-sound" id="motivationSound" type="button" aria-label="Turn parrot sound off" title="Parrot sound on">🔊</button>
+</div>
 <header>
  <div class="wrap nav">
   <a class="brand" href="index.html" aria-label="Bharat Unfolded home"><span class="brandmark">भ</span><span class="brandname">BHARAT UNFOLDED<small>DISCOVER THE INCREDIBLE</small></span></a>
@@ -394,5 +411,50 @@ const menuBtn=document.getElementById("menuBtn"),mobileMenu=document.getElementB
   modal.classList.add('show');
   modal.querySelector('.surprise-modal-close').focus();
  });
-})();</script></body>
+})();</script>
+<script>
+(function(){
+ const textEl=document.getElementById('motivationText');
+ const secondsEl=document.getElementById('motivationSeconds');
+ const progressEl=document.getElementById('motivationProgress');
+ const soundBtn=document.getElementById('motivationSound');
+ if(!textEl||!secondsEl||!progressEl||!soundBtn)return;
+ const quotes=[
+  'A journey of a thousand miles begins with one step.',
+  'India is not just a place to visit; it is a story to feel.',
+  'Collect moments, discover India, and keep your spirit curious.',
+  ' हर रास्ता एक नई कहानी तक ले जाता है।',
+  'Travel far enough to meet a new version of yourself.',
+  'जहाँ जिज्ञासा है, वहीं से नई खोज शुरू होती है।',
+  'Let the colours of India brighten your everyday.',
+  'Small steps today can lead to beautiful journeys tomorrow.',
+  'हर मंज़िल से पहले एक कदम उठाना पड़ता है।',
+  'The world is wide, and your next story is waiting.',
+  'Dream boldly. Explore kindly. Leave only good memories.',
+  'भारत की खूबसूरती उसके हर कोने में छिपी है।'
+ ];
+ let quoteIndex=-1,remaining=60,audioCtx=null,soundOn=true,hasInteracted=false;
+ const circumference=2*Math.PI*15.5;
+ progressEl.style.strokeDasharray=String(circumference);
+ function unlockAudio(){hasInteracted=true;if(!audioCtx){const AC=window.AudioContext||window.webkitAudioContext;if(AC)audioCtx=new AC()}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();}
+ ['pointerdown','keydown','touchstart'].forEach(evt=>document.addEventListener(evt,unlockAudio,{once:true,passive:true}));
+ function chirp(start,frequency,duration){
+  if(!audioCtx||!soundOn||!hasInteracted)return;
+  const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+  osc.type='sine';osc.frequency.setValueAtTime(frequency,audioCtx.currentTime+start);
+  osc.frequency.exponentialRampToValueAtTime(frequency*1.55,audioCtx.currentTime+start+duration*.45);
+  osc.frequency.exponentialRampToValueAtTime(frequency*.82,audioCtx.currentTime+start+duration);
+  gain.gain.setValueAtTime(.0001,audioCtx.currentTime+start);
+  gain.gain.exponentialRampToValueAtTime(.075,audioCtx.currentTime+start+.025);
+  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+start+duration);
+  osc.connect(gain);gain.connect(audioCtx.destination);osc.start(audioCtx.currentTime+start);osc.stop(audioCtx.currentTime+start+duration+.02);
+ }
+ function parrotSound(){chirp(0,.0+1250,.13);chirp(.17,1650,.12);chirp(.34,1350,.18);chirp(.58,1900,.12)}
+ function showNextQuote(){let next;do{next=Math.floor(Math.random()*quotes.length)}while(next===quoteIndex&&quotes.length>1);quoteIndex=next;textEl.classList.add('is-changing');window.setTimeout(()=>{textEl.textContent=quotes[quoteIndex];textEl.classList.remove('is-changing');},300);parrotSound();}
+ function tick(){remaining--;if(remaining<=0){showNextQuote();remaining=60;}secondsEl.textContent=String(remaining);progressEl.style.strokeDashoffset=String(circumference*(1-remaining/60));}
+ soundBtn.addEventListener('click',()=>{unlockAudio();soundOn=!soundOn;soundBtn.textContent=soundOn?'🔊':'🔇';soundBtn.title=soundOn?'Parrot sound on':'Parrot sound off';soundBtn.setAttribute('aria-label',soundOn?'Turn parrot sound off':'Turn parrot sound on');if(soundOn)parrotSound();});
+ secondsEl.textContent='60';progressEl.style.strokeDashoffset='0';window.setInterval(tick,1000);
+})();
+</script>
+</body>
 </html>
